@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<title>維護銷售資料</title>
+	</head>
+	<body>
+		<h3>維護銷售資料</h3>
+		<? echo form_open('manage/pos_action/update'); ?>
+			<input type="hidden" name="pod_num" value="<?=$pod_num ?>" />
+			<div>銷售時間:<?=$pod_date ?></div>
+			<div>銷售類型:<?=$tag_name ?></div>
+			<div>銷售說明:<input type="text" name="pod_desc" maxlength="256" size="64" value="<?=set_value('pod_desc', $pod_desc); ?>" /></div>
+			<div>銷售金額:<input type="text" name="pod_svalue" maxlength="12" size="10" value="<?=set_value('pod_svalue', $pod_svalue); ?>" /></div>
+			<div>銷售狀態:
+				<? if($pod_status==0): ?>
+					<input type="radio" name="pod_status"  value="0" <?=set_radio("pod_status","0",($pod_status==0)?TRUE:FALSE) ?> />暫存
+				<? endif ?>
+				<input type="radio" name="pod_status"  value="1" <?=set_radio("pod_status","1",($pod_status==1)?TRUE:FALSE) ?> />成立
+			</div>
+			<?=validation_errors('<div class="error">','</div>') ?>
+			<div><input type="submit" value="維護銷售資料" /><input type="reset" value="重填" /></div>
+		</form>
+	</body>
+</html>
+
