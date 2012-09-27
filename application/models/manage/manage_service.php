@@ -25,8 +25,11 @@
 						$this->__assemble_update_game_id_record($input['grd_num'],$usr_num,$input['grd_memo']));
 					break;
 				case 1:
+					
+					//只加入使用紀錄不改變遊戲狀態
 					$grd_num = $this->dia_game_id_record_dao->insert(
 						$this->__assemble_save_game_id_record($input,$usr_num));
+					$input['gid_status']=0;
 					break;
 				case 2:
 					$grd_num = $this->dia_game_id_record_dao->insert(
@@ -222,6 +225,12 @@
 			$result->grd_type=$input['gid_status'];
 			$result->grd_susr_num=$usr_num;
 			$result->grd_start_time=date('Y-m-d H:i:s');
+			
+			if($input['gid_status']==1){
+				$result->grd_end_time=date('Y-m-d H:i:s');
+				$result->grd_eusr_num=$usr_num;	
+			}
+			
 			
 			if(isset($input['grd_memo'])){
 				$result->grd_memo=$input['grd_memo'];

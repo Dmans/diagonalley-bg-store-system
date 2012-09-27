@@ -44,10 +44,11 @@
 							if(data.isSuccess==true){
 								alert("成功新增一次紀錄");
 								// console.log(data);
-								$('#gidButtons_'+gidNum).children('input').show();
+								// $('#gidButtons_'+gidNum).children('input').show();
 								// $('#rentButton_'+gidNum).hide();
 								// $('#usedButton_'+gidNum).hide();
 								// $('#gidStatusDesc_'+gidNum).html("店內(使用中)");
+								
 								
 								// $('#grdNum_'+gidNum).val(data.grd_num);
 								// $('#gameTr_'+gidNum).attr('class','gid_status_style_1');
