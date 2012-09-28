@@ -179,7 +179,8 @@
 		private function __calculate_time_interval($str_start_time,$str_end_time){
 			$start_time=strtotime($str_start_time);
 			$end_time=strtotime($str_end_time);
-			return round((($end_time-$start_time)/3600)*2,0)/2;
+			$real_interval=round((($end_time-$start_time)/3600),1);
+			return (floor($real_interval*2))/2;
 		}
 		
     }
