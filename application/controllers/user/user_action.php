@@ -211,12 +211,8 @@
         	
         	$user = $this->session->userdata('user');
 			
-			// if($this->__user_role_check($user->usr_role)){return;}
-			
 			log_message("info","User_action.member_save_form - start usr_num=".$user->usr_num);
-			// log_message("info","user_role:".$user->usr_role);
 			
-			// $data['usr_role'] =$user->usr_role ;
         	$this->load->view("user/user_mem_iform");
 			
 			log_message("info","User_action.member_save_form - end usr_num=".$user->usr_num);
@@ -226,8 +222,6 @@
 			
 			$user = $this->session->userdata('user');
 			
-			// if($this->__user_role_check($user->usr_role)){return;}
-			
 			$input=$this->input->post();
 			
 			log_message("info","User_action.member_save(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
@@ -235,7 +229,6 @@
 			//step1. 驗證輸入資料格式	
 			$this->__save_member_format_validate();
 			if($this->form_validation->run() != TRUE){
-				//$this->load->view("login_form");
 				$this->member_save_form();
 				return;
 			}
@@ -243,10 +236,9 @@
 			
 			$new_usr_num = $this->user_service->save_member_user($input);
 			
-			$data['message']="新增客戶成功成功 , 新客戶流水號:".$new_usr_num;
+			$data['message']="新增客戶成功,新客戶流水號:".$new_usr_num;
 			
 			$this->load->view("message",$data);
-			// print_r($this->input->post());
 			
 			log_message("info","User_action.member_save() - end usr_num=".$user->usr_num);
 			
