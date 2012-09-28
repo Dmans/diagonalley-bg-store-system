@@ -11,6 +11,7 @@
 		<? if($usr_role==0 OR $usr_role==1): ?>
 		<div><a target="content" href="https://docs.google.com/spreadsheet/ccc?key=0AoJXiZQFD49ndHhBc05mNFlnaXdDQ2djMFgyLWlPU0E#gid=0">系統提案表</a></div>	
 		<? endif ?>
+		<div><a href="javascript:parent.location.reload();">回首頁</a></div>
 	</body>
 </html>
 
