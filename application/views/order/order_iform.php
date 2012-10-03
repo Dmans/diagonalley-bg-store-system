@@ -132,7 +132,7 @@
 				遊戲售價:
 				<input type="radio" name="ord_type" value="0" checked="checked" />原價
 				<span id="gameSvalue"></span>元
-				<input type="text" id="gamSvalue" name="gam_svalue" maxlength="5" />
+				<input type="hidden" id="gamSvalue" name="gam_svalue" maxlength="5" />
 				<input type="radio" name="ord_type" value="1" />特價
 				<input type="text" name="gam_svalue_rebate" id="gamSvalueRebate" maxlength="5" size="5" />
 			</div>
