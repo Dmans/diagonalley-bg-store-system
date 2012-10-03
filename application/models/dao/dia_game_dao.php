@@ -71,6 +71,10 @@
 				}
 			}
 			
+			if(isset($condition["order_gam_ename"]) && $condition["order_gam_ename"]==TRUE){
+				$this->db->order_by("gam_ename",$condition["order_gam_ename"]);
+			}
+			
 			$query = $this->db->get($this->table_name);
 			return generate_result_set($query);
 		}

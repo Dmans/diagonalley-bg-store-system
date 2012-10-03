@@ -9,6 +9,8 @@
 	        parent::__construct();
 			$this->load->model('dao/dia_game_dao');
 			$this->load->model('dao/dia_game_id_dao');
+			$this->load->model('dao/dia_game_tag_dao');
+			$this->load->model('service/tag_data_service');
 			$this->load->model("constants/form_constants");
 	    }
 		
@@ -36,7 +38,18 @@
 		}
 		
 		public function find_game($gam_num){
-			return $this->__assemble_game_query_result($this->dia_game_dao->query_by_gam_num($gam_num));
+			
+			$game=$this->dia_game_dao->query_by_gam_num($gam_num);
+			$game_tags=$this->dia_game_tag_dao->query_by_gam_num($gam_num);
+			
+			if(count($game_tags)==1){
+				$temp=$game_tags;
+				$game_tags=NULL;
+				$game_tags[0]=$temp;
+			}
+			
+			
+			return $this->__assemble_game_query_result($game,$game_tags);
 		}
 		
 		public function find_game_id($gid_num){
@@ -136,23 +149,26 @@
 			return $output;
 		}
 		
-		private function __assemble_game_query_result($row){
+		private function __assemble_game_query_result($game,$game_tags){
 				
 			$result=NULL;
-			$result->gam_num=$row->gam_num;
-			$result->gam_cname=$row->gam_cname;
-			$result->gam_ename=$row->gam_ename;
-			$result->gam_storage=$row->gam_storage;
-			$result->gam_locate=$row->gam_locate;
-			$result->gam_cardsize=$row->gam_cardsize;
-			$result->gam_cardcount=$row->gam_cardcount;
-			$result->gam_type=$row->gam_type;
-			$result->gam_sale=$row->gam_sale;
-			$result->gam_memo=$row->gam_memo;
-			$result->gam_cvalue=$row->gam_cvalue;
-			$result->gam_svalue=$row->gam_svalue;
-			$result->gam_status=$row->gam_status;
-			$result->gam_sale_desc=$this->form_constants->transfer_gam_sale($row->gam_sale);
+			$result->gam_num=$game->gam_num;
+			$result->gam_cname=$game->gam_cname;
+			$result->gam_ename=$game->gam_ename;
+			$result->gam_storage=$game->gam_storage;
+			$result->gam_locate=$game->gam_locate;
+			$result->gam_cardsize=$game->gam_cardsize;
+			$result->gam_cardcount=$game->gam_cardcount;
+			$result->gam_type=$game->gam_type;
+			$result->gam_sale=$game->gam_sale;
+			$result->gam_memo=$game->gam_memo;
+			$result->gam_cvalue=$game->gam_cvalue;
+			$result->gam_svalue=$game->gam_svalue;
+			$result->gam_status=$game->gam_status;
+			$result->gam_sale_desc=$this->form_constants->transfer_gam_sale($game->gam_sale);
+			
+			$result->game_tags=$this->__decrate_gmae_tags_list($game_tags);
+			
 			
 			return $result;
 		}
@@ -187,7 +203,15 @@
 			return $result;
 		}
 		
-		
+		private function __decrate_gmae_tags_list($game_tags){
+			$result=array();
+			foreach ($game_tags as $key => $game_tag) {
+				$tag=$this->tag_data_service->find_tag($game_tag->tag_num);
+				$result[$game_tag->tag_num]=$tag;
+			}
+			
+			return $result;
+		}
     }
     
 ?>

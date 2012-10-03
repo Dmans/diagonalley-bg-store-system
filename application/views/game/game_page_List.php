@@ -25,8 +25,9 @@
 			<tr>
 				<? if($usr_role==0 OR $usr_role==1): ?>	
 					<th>查詢/維護</th>
+					<th>維護分類</th>
 				<? endif ?>
-				<th>遊戲流水號</th>
+<!-- 				<th>遊戲流水號</th> -->
 				<th>遊戲中文名稱</th>
 				<th>遊戲英文名稱</th>
 				<th>遊戲庫存</th>
@@ -47,8 +48,13 @@
 							<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>">查詢</a>
 							/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>">維護</a>
 						</td>
+						<td>
+							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>">維護分類</a>
+						</td>
+						
+						
 					<? endif ?>
-					<td><?=$row->gam_num ?></td>
+<!-- 					<td><?=$row->gam_num ?></td> -->
 					<td class="gamNameTarget"><?=$row->gam_cname ?></td>
 					<td class="gamNameTarget"><?=$row->gam_ename ?></td>
 					<td><?=$row->gam_storage ?></td>

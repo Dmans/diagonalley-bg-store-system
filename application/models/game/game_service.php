@@ -8,6 +8,7 @@
 	    {
 	        parent::__construct();
 			$this->load->model('service/game_data_service');
+			$this->load->model('dao/dia_game_tag_dao');
 			$this->load->model("constants/form_constants");
 	    }
 		
@@ -28,19 +29,34 @@
 			$this->game_data_service->update_game_id($input);
 		}
 		
-		public function find_games_for_list(){
-			// $result_set = $this->dia_game_dao->query_all();
-			$input=array();
+		public function update_game_tag($gam_num,$game_tags){
+			
+			// step1. 移除舊的分類
+			$this->dia_game_tag_dao->delete_by_gam_num($gam_num);
+			
+			// step2. 塞新的分類
+			foreach ($game_tags as $key => $game_tag) {
+				$dgt=NULL;
+				$dgt->gam_num=$gam_num;
+				$dgt->tag_num=$game_tag;	
+					
+				$this->dia_game_tag_dao->insert($dgt);
+				
+			}
+		}
+		
+		public function find_games_for_list($input=array()){
+
+			$input['order_gam_ename']=TRUE;
 			$result_set = $this->game_data_service->find_games_list($input);
 			
 			foreach ($result_set as $key => $game) {
+					
 				if($game->gam_status==1){
 					unset($result_set[$key]);
+					continue;
 				}
 			}
-			
-			//將上架遊戲用英文名稱排列
-			$result_set = object_sorter($result_set, "gam_ename");
 			
 			return $result_set;
 		}

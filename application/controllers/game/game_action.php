@@ -10,6 +10,7 @@ class Game_action extends MY_Controller {
         parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model("game/game_service");
+		$this->load->model("game/game_tag_service");
     }
 	
     public function game_save_form(){
@@ -166,21 +167,46 @@ class Game_action extends MY_Controller {
 		
 	}
     
-	public function game_list_form(){
+	public function game_list_form($query_result=NULL){
 
 		$user = $this->session->userdata('user');
 
 		log_message("info","Game_action.game_list_form - start usr_num=".$user->usr_num);
+		$data=array();
 		
+		if($query_result!=NULL){
+			$data['query_result']=$query_result;
+		}
 		
-		
-		$data['games']=$this->game_service->find_games_for_list();
+		// $data['games']=$this->game_service->find_games_for_list();
 		$data['usr_role']=$user->usr_role ;
+		$data['tags']=$this->game_tag_service->find_tag_for_list();
 		
-		
-    	$this->load->view("game/game_page_list",$data);
+    	$this->load->view("game/game_qform",$data);
 		
 		log_message("info","Game_action.game_list_form - end usr_num=".$user->usr_num);
+	}
+	
+	public function game_list(){
+
+		$user = $this->session->userdata('user');
+		
+		$input=$this->input->post();
+		
+		log_message("info","Game_action.game_list(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+		
+		$data=array();
+		
+		$query_result=$this->game_service->find_games_for_list($input);
+
+		$this->game_list_form($query_result);
+
+		// $data['usr_role']=$user->usr_role ;
+		
+		
+    	// $this->load->view("game/game_page_list",$data);
+		
+		log_message("info","Game_action.game_list(input=".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
 	}
 	
 	public function game_page_detail($gam_num){
@@ -281,7 +307,6 @@ class Game_action extends MY_Controller {
 		//step1. 驗證輸入資料格式	
 		$this->__update_gid_format_validate();
 		if($this->form_validation->run() != TRUE){
-			//$this->load->view("login_form");
 			$this->gid_update_form($input['gid_num']);
 			return;
 		}
@@ -329,6 +354,57 @@ class Game_action extends MY_Controller {
     	$this->load->view("game/gid_page_detail",$data);
 		
 		log_message("info","Game_action.gid_page_detail(gid_num=$gid_num) - end usr_num=".$user->usr_num);
+	}
+	
+	public function game_tag_update_form($gam_num){
+        	
+    	$user = $this->session->userdata('user');
+		
+		if($this->__user_role_check($user->usr_role)){return;}
+		
+		log_message("info","Game_action.game_tag_update_form(gam_num=$gam_num) - start usr_num=".$user->usr_num);
+		
+		$data=NULL;
+		$condition=NULL;
+		$condition['order_tag_name']=TRUE;
+		$data['tags']=$this->game_tag_service->find_tag_for_list($condition);
+		$data['game']=$this->game_service->find_game_for_update($gam_num);
+print_r($data['game']);
+    	$this->load->view("game/game_tag_uform",$data);
+		
+		log_message("info","Game_action.game_tag_update_form(gam_num=$gam_num) - end usr_num=".$user->usr_num);
+    }
+	
+	public function game_tag_update(){
+		
+		$user = $this->session->userdata('user');
+		
+		if($this->__user_role_check($user->usr_role)){return;}
+		
+		$input=$this->input->post();
+		
+		log_message("info","Game_action.game_tag_update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+		// print_r($input);
+		//step1. 驗證輸入資料格式	
+		// $this->__update_tag_format_validate();
+		// if($this->form_validation->run() != TRUE){
+			// $this->tag_update_form($input['tag_num']);
+			// return;
+		// }
+		// $this->game_tag_service->update_tag($input);
+		$this->game_service->update_game_tag($input['gam_num'],$input['game_tags']);
+		
+		$data['message']="維護遊戲分類成功";
+		
+		$extend_url=array();
+		$extend_url[]=$this->__generate_url_data("繼續維護遊戲分類", "game/game_action/game_tag_update_form/",$input['gam_num']);
+		$extend_url[]=$this->__generate_url_data("遊戲資料列表", "game/game_action/game_list_form/");
+		$data['extend_url']=$extend_url;
+		
+		$this->load->view("message",$data);
+		
+		log_message("info","Game_action.game_tag_update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
+		
 	}
 	
 	private function __save_game_format_validate(){

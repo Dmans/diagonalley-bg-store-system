@@ -43,33 +43,33 @@ class Game_tag_action extends MY_Controller {
 		}
 			
 			
-		$this->game_tag_service->save_tag($input);
+		$tag_num=$this->game_tag_service->save_tag($input);
 		
-		$data['message']="新增標籤成功";
+		$data['message']="新增遊戲類型成功";
+		$extend_url=array();
+		$extend_url[]=$this->__generate_url_data("繼續新增遊戲類型", "game/game_tag_action/tag_save_form/");
+		$extend_url[]=$this->__generate_url_data("繼續維護遊戲類型", "game/game_tag_action/tag_update_form/",$tag_num);
+		$extend_url[]=$this->__generate_url_data("遊戲類型列表", "game/game_tag_action/game_tag_list/");
+		$data['extend_url']=$extend_url;
 		
 		$this->load->view("message",$data);
-			// print_r($this->input->post());
 			
 		log_message("info","Game_tag_action.tag_save() - end usr_num=".$user->usr_num);
 	}
 	
-	public function tag_update_form($gam_num){
+	public function tag_update_form($tag_num){
         	
     	$user = $this->session->userdata('user');
 		
 		if($this->__user_role_check($user->usr_role)){return;}
 		
-		log_message("info","Game_tag_action.tag_update_form(gam_num=$gam_num) - start usr_num=".$user->usr_num);
-		
-		// $data['usr_role'] =$user->usr_role ;
+		log_message("info","Game_tag_action.tag_update_form(tag_num=$tag_num) - start usr_num=".$user->usr_num);
 		
 		$update_tag=$this->game_tag_service->find_tag_for_update($tag_num);
-		//$data['update_game'] =$update_game;
-
     	
-    	$this->load->view("game/tag_uform",$update_game);
+    	$this->load->view("game/tag_uform",$update_tag);
 		
-		log_message("info","Game_tag_action.tag_update_form(gam_num=$gam_num) - end usr_num=".$user->usr_num);
+		log_message("info","Game_tag_action.tag_update_form(tag_num=$tag_num) - end usr_num=".$user->usr_num);
     }
 	
 	public function tag_update(){
@@ -80,24 +80,63 @@ class Game_tag_action extends MY_Controller {
 		
 		$input=$this->input->post();
 		
-		log_message("info","Game_tag_action.game_update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+		log_message("info","Game_tag_action.tag_update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
 			
 		//step1. 驗證輸入資料格式	
-		$this->__update_game_format_validate();
+		$this->__update_tag_format_validate();
 		if($this->form_validation->run() != TRUE){
-			//$this->load->view("login_form");
-			$this->game_update_form($input['gam_num']);
+			$this->tag_update_form($input['tag_num']);
 			return;
 		}
 		
-		$this->game_service->update_game($input);
+		$this->game_tag_service->update_tag($input);
 		
-		$data['message']="維護標籤成功";
+		$data['message']="維護遊戲類型成功";
+		
+		$extend_url=array();
+		$extend_url[]=$this->__generate_url_data("繼續維護遊戲類型", "game/game_tag_action/tag_update_form/",$input['tag_num']);
+		$extend_url[]=$this->__generate_url_data("遊戲類型列表", "game/game_tag_action/game_tag_list/");
+		$data['extend_url']=$extend_url;
 		
 		$this->load->view("message",$data);
 		
-		log_message("info","Game_tag_action.game_update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
+		log_message("info","Game_tag_action.tag_update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
 		
+	}
+
+	public function game_tag_list(){
+		
+		$user = $this->session->userdata('user');
+		
+		if($this->__user_role_check($user->usr_role)){return;}
+		
+		log_message("info","Game_tag_action.game_tag_list() - start usr_num=".$user->usr_num);
+			
+		$data['tags']=$this->game_tag_service->find_tag_for_list();
+		
+		$this->load->view("game/tag_page_list",$data);
+		
+		log_message("info","Game_tag_action.game_tag_list() - end usr_num=".$user->usr_num);
+		
+	}
+	
+	public function remove($tag_num){
+		$user = $this->session->userdata('user');
+		
+		if($this->__user_role_check($user->usr_role)){return;}
+		
+		log_message("info","Game_tag_action.remove(tag_num=$tag_num) - start usr_num=".$user->usr_num);
+			
+		$this->game_tag_service->remove_tag($tag_num);
+		
+		$data['message']="刪除遊戲類型成功";
+		$extend_url=array();
+		$extend_url[]=$this->__generate_url_data("遊戲類型列表", "game/game_tag_action/game_tag_list/");
+		$data['extend_url']=$extend_url;
+		
+		$this->load->view("message",$data);
+		
+		log_message("info","Game_tag_action.remove(tag_num=$tag_num) - end usr_num=".$user->usr_num);
 	}
 	
 	private function __save_tag_format_validate(){

@@ -17,12 +17,12 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return $query;
         }
 		
 		public function query_by_dgt_num($dgt_num){
 			$condition['dgt_num']=$dgt_num;
-			return $this->query_by_condition($condition);
+			return generate_result_set($this->query_by_condition($condition));
 		}
 		
 		public function query_by_tag_num($tag_num){
@@ -87,7 +87,6 @@
 			}
 			
 			$query = $this->db->get($this->table_name);
-			log_message("info", print_r($query,TRUE));
 			return generate_result_set($query);
 		}
 		

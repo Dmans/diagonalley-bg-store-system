@@ -66,6 +66,10 @@
 				}
 			}
 			
+			if(isset($condition["order_tag_name"]) && $condition["order_tag_name"]==TRUE){
+				$this->db->order_by("tag_name",$condition["order_tag_name"]);
+			}
+			
 			$query = $this->db->get($this->table_name);
 			return generate_result_set($query);
 		}
