@@ -11,6 +11,16 @@
 		<? echo form_open('game/game_action/game_list'); ?>
 			<div>遊戲中文名稱:<input type="text" name="gam_cname" maxlength="32" value="<?=set_value("gam_cname","") ?>" /></div>
 			<div>遊戲英文名稱:<input type="text" name="gam_ename" maxlength="32" value="<?=set_value("gam_ename","") ?>" /></div>
+			<div>遊戲分類:
+				<select name="tag_num">
+					<option value="-1">請選擇</option>
+					<? if(count($tags)>0): ?>
+						<? foreach ($tags as $key => $tag): ?>
+							<option value="<?=$tag->tag_num ?>"><?=$tag->tag_name ?></option>
+						<? endforeach ?>
+					<? endif ?>
+				</select>
+			</div>
 			<div>遊戲是否可出售:
 				<select name="gam_sale">
 					<option value="-1">請選擇</option>

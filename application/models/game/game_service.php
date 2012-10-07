@@ -51,11 +51,20 @@
 			$result_set = $this->game_data_service->find_games_list($input);
 			
 			foreach ($result_set as $key => $game) {
-					
+				
+				//排除已刪除遊戲	
 				if($game->gam_status==1){
 					unset($result_set[$key]);
 					continue;
 				}
+				
+				//排除非查詢分類遊戲
+				if($input['tag_num']!=-1 && !array_key_exists($input['tag_num'], $game->game_tags)){
+					unset($result_set[$key]);
+					continue;
+				}
+				
+				
 			}
 			
 			return $result_set;

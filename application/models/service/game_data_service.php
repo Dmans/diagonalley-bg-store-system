@@ -136,12 +136,23 @@
 			if(!empty($query_result)){
 				
 				if(count($query_result)==1){
-					$output[]=$this->__assemble_game_query_result($query_result);
+					// $output[]=$this->__assemble_game_query_result($query_result);					$temp=$query_result;
+					$query_result=NULL;
+					$query_result[0]=$temp;
 				}
 				
 				if(count($query_result)>1){
 					foreach ($query_result as $row) {
-						$output[]=$this->__assemble_game_query_result($row);
+						
+						$game_tags=$this->dia_game_tag_dao->query_by_gam_num($row->gam_num);
+			
+						if(count($game_tags)==1){
+							$temp=$game_tags;
+							$game_tags=NULL;
+							$game_tags[0]=$temp;
+						}
+						
+						$output[]=$this->__assemble_game_query_result($row,$game_tags);
 					}
 				}
 			}
