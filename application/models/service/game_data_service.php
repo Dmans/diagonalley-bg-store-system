@@ -58,7 +58,6 @@
 		
 		public function find_games_list($input){
 			$result_set = $this->dia_game_dao->query_by_condition($input);
-			
 			return $this->__assemble_game_query_result_list($result_set);
 		}
 		
@@ -134,26 +133,23 @@
 		private function __assemble_game_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				
 				if(count($query_result)==1){
 					// $output[]=$this->__assemble_game_query_result($query_result);					$temp=$query_result;
 					$query_result=NULL;
 					$query_result[0]=$temp;
 				}
 				
-				if(count($query_result)>1){
-					foreach ($query_result as $row) {
-						
-						$game_tags=$this->dia_game_tag_dao->query_by_gam_num($row->gam_num);
-			
-						if(count($game_tags)==1){
-							$temp=$game_tags;
-							$game_tags=NULL;
-							$game_tags[0]=$temp;
-						}
-						
-						$output[]=$this->__assemble_game_query_result($row,$game_tags);
+				foreach ($query_result as $row) {
+					
+					$game_tags=$this->dia_game_tag_dao->query_by_gam_num($row->gam_num);
+		
+					if(count($game_tags)==1){
+						$temp=$game_tags;
+						$game_tags=NULL;
+						$game_tags[0]=$temp;
 					}
+					
+					$output[]=$this->__assemble_game_query_result($row,$game_tags);
 				}
 			}
 			
