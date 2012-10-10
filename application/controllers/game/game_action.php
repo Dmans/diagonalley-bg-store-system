@@ -360,7 +360,7 @@ class Game_action extends MY_Controller {
         	
     	$user = $this->session->userdata('user');
 		
-		if($this->__user_role_check($user->usr_role)){return;}
+		// if($this->__user_role_check($user->usr_role)){return;}
 		
 		log_message("info","Game_action.game_tag_update_form(gam_num=$gam_num) - start usr_num=".$user->usr_num);
 		
@@ -369,7 +369,7 @@ class Game_action extends MY_Controller {
 		$condition['order_tag_name']=TRUE;
 		$data['tags']=$this->game_tag_service->find_tag_for_list($condition);
 		$data['game']=$this->game_service->find_game_for_update($gam_num);
-print_r($data['game']);
+// print_r($data['game']);
     	$this->load->view("game/game_tag_uform",$data);
 		
 		log_message("info","Game_action.game_tag_update_form(gam_num=$gam_num) - end usr_num=".$user->usr_num);
@@ -379,7 +379,7 @@ print_r($data['game']);
 		
 		$user = $this->session->userdata('user');
 		
-		if($this->__user_role_check($user->usr_role)){return;}
+		// if($this->__user_role_check($user->usr_role)){return;}
 		
 		$input=$this->input->post();
 		
