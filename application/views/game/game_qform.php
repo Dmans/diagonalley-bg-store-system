@@ -21,6 +21,13 @@
 					<? endif ?>
 				</select>
 			</div>
+			<div>遊戲庫存量:
+					<select name="gam_storage">
+					<option value="-1">請選擇</option>
+					<option value="999">有</option>
+					<option value="0">無</option>
+				</select>
+			</div>
 			<div>遊戲是否可出售:
 				<select name="gam_sale">
 					<option value="-1">請選擇</option>
@@ -81,7 +88,6 @@
 				<? endforeach  ?>
 			</table>
 		<? endif ?>
-		
 	</body>
 	
 </html>

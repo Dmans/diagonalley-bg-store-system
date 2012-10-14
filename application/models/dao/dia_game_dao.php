@@ -75,6 +75,15 @@
 				$this->db->order_by("gam_ename",$condition["order_gam_ename"]);
 			}
 			
+			if(isset($condition["gam_storage"]) && $condition["gam_storage"]!=-1){
+				if($condition["gam_storage"]==999){
+					$this->db->where("gam_storage > ","0");
+				}else{
+					$this->db->where("gam_storage",$condition["gam_storage"]);
+				}
+					
+			}
+			
 			$query = $this->db->get($this->table_name);
 			return generate_result_set($query);
 		}
