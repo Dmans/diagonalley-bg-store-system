@@ -267,7 +267,6 @@ class Game_action extends MY_Controller {
 		$data['message']="新增上架遊戲成功";
 		
 		$extend_url=array();
-		$extend_url[]=$this->__generate_url_data("新增上架遊戲資料", "game/game_action/gid_save_form/");
 		$extend_url[]=$this->__generate_url_data("維護上架遊戲資料", "game/game_action/gid_update_form/",$gid_num);
 		$extend_url[]=$this->__generate_url_data("上架遊戲列表", "game/game_action/gid_list_form/");
 		$data['extend_url']=$extend_url;
