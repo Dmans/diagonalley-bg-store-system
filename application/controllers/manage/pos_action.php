@@ -54,6 +54,34 @@ class Pos_action extends MY_Controller {
 			
 		log_message("info","Pos_action.save() - end usr_num=".$user->usr_num);
 	}
+
+	public function multiple_save(){
+		$user = $this->session->userdata('user');
+		
+		$input=$this->input->post();
+		
+		log_message("info","Pos_action.multiple_save(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+			
+		//step1. 驗證輸入資料格式	
+		// $this->__save_format_validate();
+		// if($this->form_validation->run() != TRUE){
+			// $this->save_form();
+			// return;
+		// }
+		print_r($input);
+			
+		$pod_nums = $this->pos_service->save_multiple_pos($input, $user->usr_num);
+		$data=array();
+		$data['message']="新增銷售資料成功 銷售單號:".join($pod_nums,",");
+		
+		$extend_url=array();
+		$extend_url[]=$this->__generate_url_data("繼續新增銷售資料", "manage/pos_action/save_form/");
+		$extend_url[]=$this->__generate_url_data("查詢銷售資料", "manage/pos_action/pos_list_form/");
+		$data['extend_url']=$extend_url;
+		$this->load->view("message",$data);
+			
+		log_message("info","Pos_action.multiple_save(input=".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
+	}
 	
 	public function update_form($pod_num){
 
@@ -157,7 +185,6 @@ class Pos_action extends MY_Controller {
 	}
 	
 	private function __save_format_validate(){
-		
 		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]|xss_clean');
 		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]|xss_clean');
 	}

@@ -15,6 +15,25 @@
 			return $this->dia_pos_order_dao->insert($this->__assemble_save_pod($input,$usr_num));
 		}
 		
+		public function save_multiple_pos($input,$usr_num){
+			$pod_nums=array();
+			
+			//取得要新增的項目
+			$pos_enableds=$input['pos_enabled'];
+			
+			foreach ($pos_enableds as $key => $pos_enabled) {
+				$sub_input=array();
+				$sub_input['pod_date']=$input['pod_date'][$pos_enabled];
+				$sub_input['pod_svalue']=$input['pod_svalue'][$pos_enabled];
+				$sub_input['tag_num']=$input['tag_num'][$pos_enabled];
+				$sub_input['pod_desc']=$input['pod_desc'][$pos_enabled];
+				$sub_input['pod_status']=$input['pod_status'][$pos_enabled];
+				$pod_nums[]=$this->save_pos($sub_input,$usr_num);
+			}
+			
+			return $pod_nums;
+		}
+		
 		public function update_pos($input,$usr_num){
 			$this->dia_pos_order_dao->update($this->__assemble_update_pod($input,$usr_num));
 		}
@@ -91,16 +110,11 @@
 			
 			$pod->pod_num=$input['pod_num'];	
 			
-			if(isset($input['pod_svalue'])){
-				$pod->pod_svalue=$input['pod_svalue'];
-			}
-			
-			if(isset($input['pod_desc'])){
-				$pod->pod_desc=$input['pod_desc'];
-			}
-			
-			if(isset($input['pod_status'])){
-				$pod->pod_status=$input['pod_status'];
+			$value_conditions=array("pod_date","pod_svalue","pod_desc","pod_status");
+			foreach ($value_conditions as $field_name) {
+				if(isset($input[$field_name])){
+					$pod->$field_name = $input[$field_name];
+				}
 			}
 			
 			$pod->pod_usr_num=$usr_num;

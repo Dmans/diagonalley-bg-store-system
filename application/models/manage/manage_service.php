@@ -107,7 +107,7 @@
 			
 			if($usr_num==NULL){
 				$today= date('Y-m-d H:i:s');
-				$three_month_ago = date('Y-m-d H:i:s',strtotime("now -3 month"));
+				$three_month_ago = date('Y-m-d H:i:s',strtotime("now -1 month"));
 				$condition['start_modify_date']=$three_month_ago;
 				$condition['end_modify_date']=$today;
 				$condition['ddr_status']=1; //只撈顯示的	
