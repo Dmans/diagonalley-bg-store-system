@@ -68,8 +68,6 @@ class Pos_action extends MY_Controller {
 			// $this->save_form();
 			// return;
 		// }
-		print_r($input);
-			
 		$pod_nums = $this->pos_service->save_multiple_pos($input, $user->usr_num);
 		$data=array();
 		$data['message']="新增銷售資料成功 銷售單號:".join($pod_nums,",");
