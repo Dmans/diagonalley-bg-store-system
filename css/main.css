@@ -457,6 +457,7 @@ form {
 
 div.error{
 	color:red;
+	font-weight: bold;
 }
 
 .gid_status_style_0{

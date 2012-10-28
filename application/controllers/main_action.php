@@ -19,7 +19,6 @@ class Main_action extends MY_Controller{
 		
 		$user = $this->session->userdata('user');
 		$usr_role = $user->usr_role;
-		log_message("info","menu load");
 		
 		$data['usr_name']=$user->usr_name;
 		$data['usr_role']=$user->usr_role;
@@ -39,6 +38,10 @@ class Main_action extends MY_Controller{
 			
 		}
 		
+	}
+	
+	public function page(){
+		$this->load->view("main_page");		
 	}
 }
 

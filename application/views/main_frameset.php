@@ -8,7 +8,7 @@
 	</head>
 		<frameset cols="15%,*">
 			<frame src="<?=site_url("main_action/menu") ?>" />
-			<frame id="content" name="content" src="<?=site_url("manage/manage_action/daily_message_list") ?>" />
+			<frame id="content" name="content" src="<?=site_url("main_action/page") ?>" />
 		</frameset>
 </html>
 
