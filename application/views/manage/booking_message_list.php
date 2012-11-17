@@ -14,20 +14,22 @@
 	<body>
 		<h1>客戶定位資料</h1>
 		<div class="error">僅顯示查詢日後兩週的定位資料! 時間越接近的越上面</div>
-		<table class="list_table">
-			<tr>
-				<th width="100px">定位日期</th>
-				<th width="70%">定位資訊</th>
-			</tr>
-			<? foreach ($bookings as $key=>$row) : ?> 
+		<? if(isset($bookings) && count($bookings)>0): ?>
+			<table class="list_table">
 				<tr>
-					<td valign="top"><?=$row->dbk_date ?></td>
-					<td >
-						<div style="text-align: left"><?=nl2br($row->dbk_content) ?></div>
-					</td>
+					<th width="100px">定位日期</th>
+					<th width="70%">定位資訊</th>
 				</tr>
-			<? endforeach  ?>
-		</table>
+				<? foreach ($bookings as $key=>$row) : ?> 
+					<tr>
+						<td valign="top"><?=$row->dbk_date ?></td>
+						<td >
+							<div style="text-align: left"><?=nl2br($row->dbk_content) ?></div>
+						</td>
+					</tr>
+				<? endforeach  ?>
+			</table>
+		<? endif ?>
 	</body>
 </html>
 
