@@ -5,8 +5,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/flick/jquery-ui-1.8.22.custom.css" />
+		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/jquery-ui-timepicker.css" />
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-1.8.22.custom.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.ui.datepicker-zh-TW.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-timepicker.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-timepicker-zh-TW.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('#buyUsrId').autocomplete({
@@ -79,6 +83,20 @@
 					}
 					
 				});
+				
+				$( "input[id^='ordDate']" ).each(function(){
+					$(this).datetimepicker({
+						dateFormat:'yy-mm-dd',
+						timeFormat: "hh:mm:ss",
+						//showSecond: true,
+						hourGrid: 4,
+						secondMax:0,
+						secondMin:0
+					});
+				});
+				
+				
+				
 			});
 			
 			function formSubmit(){
@@ -137,6 +155,9 @@
 			<div>訂單狀態:
 				<input type="radio" name="ord_status"  value="0" <?=set_radio("ord_status", "0", TRUE) ?> />一般訂單
 				<input type="radio" name="ord_status"  value="1" <?=set_radio("ord_status", "1") ?> />預購訂單
+			</div>
+			<div>訂購時間:
+				<input type="text" id="ordDate" name="ord_date" value="<?=set_value('ord_date', $ord_date); ?>" />
 			</div>
 			<?=validation_errors('<div class="error">','</div>') ?>
 			<div><input type="button" id="submitButton" value="送出訂單" onclick="formSubmit();" /><input type="reset" value="重填" /></div>

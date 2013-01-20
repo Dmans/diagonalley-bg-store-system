@@ -49,14 +49,6 @@
 			log_message("info","update_order start");
 			$this->dia_order_dao->update($this->__assemble_update_order($input));
 			log_message("info","update_order end");
-			// //step1. 新增訂單資料
-			// $ord_num = $this->dia_order_dao->insert($this->__assemble_save_order($input));
-// 			
-			// //step2. 扣庫存
-			// // $game['gam_num']=$input['gam_num'];
-			// $this->game_data_service->modify_game_storage($input['gam_num'],-1);
-// 			
-			// return $ord_num;
 		}
 		
 		public function find_orders_for_list($input){
@@ -123,7 +115,7 @@
 				$order['ord_svalue']=$input['gam_svalue_rebate'];
 			}
 			
-			$order['ord_date'] = date('Y-m-d H:i:s');
+			$order['ord_date'] = $input['ord_date'];
 			$order['ord_status']=$input['ord_status'];
 			$order['ord_usr_num']=$input['ord_usr_num'];
 			
