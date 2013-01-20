@@ -212,9 +212,11 @@
 		
 		private function __decrate_gmae_tags_list($game_tags){
 			$result=array();
-			foreach ($game_tags as $key => $game_tag) {
-				$tag=$this->tag_data_service->find_tag($game_tag->tag_num);
-				$result[$game_tag->tag_num]=$tag;
+			if(count($game_tags)>0){
+				foreach ($game_tags as $key => $game_tag) {
+					$tag=$this->tag_data_service->find_tag($game_tag->tag_num);
+					$result[$game_tag->tag_num]=$tag;
+				}
 			}
 			
 			return $result;

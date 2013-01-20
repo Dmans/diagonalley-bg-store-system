@@ -29,19 +29,48 @@
 		}
 		
 		public function find_games_for_autocomplete($input){
+			
+			$temp_query_result=array();
+			
+			//step1. 抓英文名字
+			$condition=NULL;
 			$condition['gam_ename']=$input['gam_name'];
 			$condition['gam_sale']="1";
-			// $condition['gam_cname']=$input['gam_name']; 
 				
-			$games = $this->game_data_service->find_games_list($condition);
+			$eng_games = $this->game_data_service->find_games_list($condition);
 			
-			$query_result=array();
-			if(count($games)!=0){
+			if(count($eng_games)!=0){
 				
-				foreach($games as $game){
-					if($game->gam_status==0){
-						$query_result[]=$this->__assemble_games_for_autocomplete($game);
+				foreach($eng_games as $eng_game){
+					if($eng_game->gam_status==0 && !array_key_exists($eng_game->gam_num, $temp_query_result)){
+						$temp_query_result[$eng_game->gam_num]=$this->__assemble_games_for_autocomplete($eng_game);
 					}
+				}
+			}
+			
+			
+			//step2. 抓中文名字
+			$condition=NULL;
+			$condition['gam_cname']=$input['gam_name'];
+			$condition['gam_sale']="1";
+				
+			$ch_games = $this->game_data_service->find_games_list($condition);
+			
+			if(count($ch_games)!=0){
+				
+				foreach($ch_games as $ch_game){
+					if($ch_game->gam_status==0 && !array_key_exists($ch_game->gam_num, $temp_query_result)){
+						$temp_query_result[$ch_game->gam_num]=$this->__assemble_games_for_autocomplete($ch_game);
+					}
+				}
+			}
+			
+			
+			$query_result = array();
+			if(count($temp_query_result)!=0){
+				
+				foreach($temp_query_result as $result){
+					$query_result[]=$result;
 				}
 			}
 			

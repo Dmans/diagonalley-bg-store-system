@@ -49,13 +49,11 @@
 								'gam_name': request.term
 							},
 							success: function( data ) {
-								
 								if(data.redirect!=null && data.redirect==true){
 									alert("登入逾時 請重新登入");
 									parent.location.reload();
 									return;
 								}
-								
 								response(data.games);
 							}
 						});

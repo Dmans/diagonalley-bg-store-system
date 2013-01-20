@@ -10,17 +10,36 @@
 			$this->load->library('encrypt');
 			$this->load->model("service/game_data_service");
 			$this->load->model("service/user_data_service");
+			$this->load->model("service/pos_data_service");
 			$this->load->model("dao/dia_order_dao");
+			$this->load->model("dao/dia_local_value_dao");
 			$this->load->model("constants/form_constants");
 	    }
 		
 		public function save_order($input){
 			
-			//step1. 新增訂單資料
-			$ord_num = $this->dia_order_dao->insert($this->__assemble_save_order($input));
+			$order = $this->__assemble_save_order($input);
 			
-			//step2. 扣庫存
-			// $game['gam_num']=$input['gam_num'];
+			//step1. 新增銷售資料並取得銷售資料流水號
+			$pos_data=NULL;
+			$pos_data['pod_date'] = $order['ord_date'];
+			$pos_data['pod_svalue'] = $order['ord_svalue'];
+			$pos_data['pod_status']=1; //表示成立狀態
+			$pos_data['tag_num']=$this->__get_order_tag_num();
+			
+			
+			$game = $this->game_data_service->find_game($order['gam_num']);
+			
+			$pos_data['pod_desc'] ="遊戲銷售:".$game->gam_ename."-".$game->gam_cname;
+			
+			$pod_num = $this->pos_data_service->save_pos($pos_data, $order['ord_usr_num']);
+			
+			
+			//step2. 新增訂單資料
+			$order['pod_num']=$pod_num;
+			$ord_num = $this->dia_order_dao->insert($order);
+			
+			//step3. 扣庫存
 			$this->game_data_service->modify_game_storage($input['gam_num'],-1);
 			
 			return $ord_num;
@@ -108,6 +127,10 @@
 			$order['ord_status']=$input['ord_status'];
 			$order['ord_usr_num']=$input['ord_usr_num'];
 			
+			if(isset($input['pod_num'])){
+				$order['pod_num']=$input['pod_num'];
+			}
+			
 			return $order;
 		}
 		
@@ -157,6 +180,13 @@
 			$order->ord_status_desc=$this->form_constants->transfer_ord_status($order->ord_status);
 			
 			return $order;
+		}
+		
+		private function __get_order_tag_num(){
+			$dlv_data = $this->dia_local_value_dao->query_by_dlv_id("order_tag_num");
+			
+			return $dlv_data->dlv_value;
+			
 		}
     }
     
