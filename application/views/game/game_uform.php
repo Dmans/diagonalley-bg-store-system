@@ -17,7 +17,7 @@
 			<div>遊戲牌套尺寸:<input type="text" name="gam_cardsize" maxlength="32" value="<?=set_value("gam_cardsize",$gam_cardsize) ?>" /></div>
 			<div>遊戲牌數量:<input type="text" name="gam_cardcount" maxlength="12" size="12" value="<?=set_value("gam_cardcount",$gam_cardcount) ?>" /></div>
 			<div>遊戲售價:<input type="text" name="gam_svalue" maxlength="5" value="<?=set_value("gam_svalue",$gam_svalue) ?>"/></div>
-			<div>遊戲成本價:<input type="text" name="gam_cvalue" maxlength="5" value="<?=set_value("gam_cvalue",$gam_cvalue) ?>"/></div>
+			<div>遊戲成本價:<?=$gam_cvalue ?></div>
 			<div>遊戲是否可出售:
 				<input type="radio" name="gam_sale"  value="0" <?=set_radio("gam_sale","0",($gam_sale==0)?TRUE:FALSE) ?> />否
 				<input type="radio" name="gam_sale"  value="1" <?=set_radio("gam_sale","1",($gam_sale==1)?TRUE:FALSE) ?> />是
@@ -40,6 +40,9 @@
 					<!-- <input type="radio" name="modify_option"  value="N"  />減少 -->
 					<? endif ?>
 					<input type="text" name="modify_gam_storage" maxlength="5" />套</div>
+				</div>
+				<div>遊戲成本:
+					<input type="text" name="gam_cvalue" maxlength="5" />
 				</div>
 				<div><input type="submit" value="異動庫存" /><input type="reset" value="重填" /></div>
 			</form>

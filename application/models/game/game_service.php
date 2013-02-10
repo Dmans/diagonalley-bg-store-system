@@ -100,8 +100,8 @@
 			return $this->__assemble_view_gid($gid, $game);
 		}
 		
-		public function modify_game_storage($gam_num, $modify_value){ 
-			$this->game_data_service->modify_game_storage($gam_num, $modify_value);
+		public function modify_game_storage($gam_num, $modify_value, $gam_cvalue){ 
+			$this->game_data_service->modify_game_storage($gam_num, $modify_value, $gam_cvalue);
 		}
 		
 		private function __assemble_view_gid($gid,$game){

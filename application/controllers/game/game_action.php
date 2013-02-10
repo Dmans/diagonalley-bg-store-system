@@ -127,7 +127,7 @@ class Game_action extends MY_Controller {
 			return;
 		}
 		
-		$this->game_service->modify_game_storage($input['gam_num'],$input['modify_gam_storage']);
+		$this->game_service->modify_game_storage($input['gam_num'],$input['modify_gam_storage'],$input['gam_cvalue']);
 		
 		$data['message']="維護遊戲庫存成功";
 		
@@ -426,13 +426,14 @@ class Game_action extends MY_Controller {
 		$this->form_validation->set_rules('gam_cardsize', '遊戲牌套尺寸', 'trim|max_length[64]|xss_clean');
 		$this->form_validation->set_rules('gam_cardcount', '遊戲牌數量', 'trim|integer|max_length[12]|xss_clean');
 		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_cvalue', '遊戲成本價', 'trim|required|greater_than[-1]|xss_clean');
+		//$this->form_validation->set_rules('gam_cvalue', '遊戲成本價', 'trim|required|greater_than[-1]|xss_clean');
 		$this->form_validation->set_rules('gam_sale', '遊戲是否可販售', 'trim|required|greater_than[-1]|xss_clean');
 		$this->form_validation->set_rules('gam_memo', '遊戲備註', 'trim|max_length[256]|xss_clean');
 	}
 
 	private function __update_game_storage_format_validate(){
-		$this->form_validation->set_rules('modify_gam_storage', '異動庫存量', 'trim|required|integer|xss_clean');
+		$this->form_validation->set_rules('modify_gam_storage', '異動庫存量', 'trim|required|integer|greater_than[-1]|xss_clean');
+		$this->form_validation->set_rules('gam_cvalue', '遊戲成本', 'trim|required|integer|greater_than[-1]|xss_clean');
 	} 
 	
 	private function __save_gid_format_validate(){
