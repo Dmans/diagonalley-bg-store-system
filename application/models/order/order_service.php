@@ -37,6 +37,7 @@
 			
 			//step2. 新增訂單資料
 			$order['pod_num']=$pod_num;
+			$order['gam_cvalue']=$game->gam_cvalue;
 			$ord_num = $this->dia_order_dao->insert($order);
 			
 			//step3. 扣庫存
