@@ -131,7 +131,8 @@
 		<? echo form_open('order/order_action/save', array("id"=>"saveForm")); ?>
 			<div>
 				訂購會員帳號:<input type="text" id="buyUsrId" name="usr_id" value="<?=set_value("usr_id","") ?>" maxlength="64" size="50" />
-				<input type="hidden" name="usr_num" id="usrNum" value="<?=set_value("usr_num","") ?>" />
+				<input type="hidden" name="usr_num" id="usrNum" value="<?=set_value("usr_num",$default_usr_num) ?>" />
+				未輸入將使用預設散客帳號
 			</div>
 			<div>
 				<div>
