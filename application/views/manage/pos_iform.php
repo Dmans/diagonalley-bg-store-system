@@ -61,7 +61,7 @@
 					<th>銷售金額</th>
 					<th>銷售狀態</th>
 				</tr>
-			<? for ($i=0; $i < 10; $i++) : ?>
+			<? for ($i=0; $i < 20; $i++) : ?>
 				<tr>
 					<td><?=$i+1 ?>
 						<input type="checkbox" name="pos_enabled[]" value="<?=$i ?>" />
