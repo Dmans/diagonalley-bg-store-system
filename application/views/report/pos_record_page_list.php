@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>銷售資料月報表</title>
+		<title>銷售資料月報表(日曆)</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/fullcalendar.css" />
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
@@ -27,7 +27,7 @@
 		</script>
 	</head>
 	<body>
-		<h3>銷售資料月報表</h3>
+		<h3>銷售資料月報表(日曆)</h3>
 		<div id="calendar"></div>
 		<div>test</div>
 	</body>

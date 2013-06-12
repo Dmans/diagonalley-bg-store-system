@@ -60,8 +60,8 @@ class Report_json_action extends MY_Controller {
 		
 		$start=date( "Y-m-d H:i:s",$input['start']);
 		$end=date( "Y-m-d H:i:s",$input['end']);
-		
-		echo json_encode($this->report_service->find_pos_for_report($start,$end));
+		$is_for_calander=TRUE;
+		echo json_encode($this->report_service->find_pos_for_report($start, $end, $is_for_calander));
 			
 		log_message("info","Report_json_action.pos_record_list(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
 	}

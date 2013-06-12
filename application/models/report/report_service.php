@@ -49,37 +49,13 @@
 			return $result_set;
 		}
 
-		public function find_pos_for_report($start,$end){
+		public function find_pos_for_report($start, $end, $is_for_calender){
 			$condition=NULL;
 			$condition['start_pod_date']=$start;
 			$condition['end_pod_date']=$end;
 			$condition['pod_status']=1;
 			$pos_list = $this->pos_data_service->find_pos_for_list($condition);
 			
-			// $result->view=$this->find_pos_record_for_calendar($pos_list);
-			// $result->summary=$this->find_pos_for_summary($pos_list);
-			return $this->find_pos_record_for_calendar($pos_list);
-		}
-
-		public function find_pos_record_for_calendar($pos_list){
-				
-				
-			//step1. 找出條件之pos資料
-			// $condition=NULL;
-			// $condition['start_pod_date']=$start;
-			// $condition['end_pod_date']=$end;
-			// $condition['pod_status']=1;
-			// $pos_list = $this->pos_data_service->find_pos_for_list($condition);
-			// log_message("info", gettype( $pos_list[0]->pod_date));
-			// log_message("info", $pos_list[0]->pod_date);
-			// log_message("info", date('Y-m-d',strtotime($pos_list[0]->pod_date)));
-			// log_message("info",print_r($pos_list,TRUE));
-			// $grouped_pos=$this->__group_pos_by_tag($pos_list);
-			// log_message("info",print_r($grouped_pos,TRUE));
-// 			
-			// foreach ($grouped_pos as $key => $gpos) {
-				// $grouped_pos[$key]->total_svalue=$this->__calculate_total_value($grouped_pos[$key]->pos_list);
-			// }
 			
 			//step2. 利用pos的日期作分類
 			$pos_date_list = array();
@@ -107,8 +83,32 @@
 				// }
 				$pos_date_list[$date_key][$pos->tag->tag_num]->total_svalue+=$pos->pod_svalue;
 			}
-			 // log_message("info",print_r($pos_date_list,TRUE));			
 			
+			
+			log_message("info",print_r($pos_date_list,TRUE));
+			
+			
+			if($is_for_calender){
+				return $this->__find_pos_record_for_calendar($pos_date_list);
+			}
+			
+			return $pos_date_list;
+			
+			
+		}
+		
+		public function __find_pos_record_for_table($pos_date_list){
+			$view_pos=array();
+			foreach ($pos_date_list as $key => $pos_datas) {
+				foreach ($pos_datas as $key2 => $pos_data) {
+					$view_pos[]=$this->__assemble_view_pos_for_calendar($pos_data);
+				}
+			}
+			
+		}
+
+		public function __find_pos_record_for_calendar($pos_date_list){
+				
 			$view_pos=array();
 			foreach ($pos_date_list as $key => $pos_datas) {
 				foreach ($pos_datas as $key2 => $pos_data) {
@@ -187,7 +187,9 @@
 			$result->start=$pos_data->pod_date;
 			// $result->end=$pos_data->pod_date;
 			$result->allDay=TRUE;
-			
+			// $result->name=$pos_data->tag->tag_name;
+			// $result->total_svalue=$pos_data->total_svalue;
+			// $result->tag_num=$pos_data->tag->tag_num;
 			return $result;
 		}
 		
