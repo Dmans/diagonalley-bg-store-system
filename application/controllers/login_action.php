@@ -14,7 +14,8 @@
         public function index(){
         	$this->load->library('form_validation');
 			$this->load->helper(array('form','url'));
-        	$this->load->view("login_form");
+			$data['system_name']="斜角巷";
+        	$this->load->view("login_form", $data);
 			
         }
 		
@@ -31,21 +32,7 @@
 				return;
 			}
 			
-			// $usr_passwd = $this->input->post("usr_passwd");
-			
-			
 			$user = $this->login_service->find_user_by_usr_id($usr_id);
-			
-			//檢查登入資訊
-			
-			// if($this->login_service->validate_user($user, $usr_id, $usr_passwd)!=TRUE){
-				// echo "帳號或密碼錯誤或帳號已鎖定";
-				// $this->load->view("login_form");
-				// return;
-			// }
-			
-			
-			
 			
 			//儲存使用者資訊
 			$this->session->set_userdata('logged_in','1');
@@ -57,7 +44,6 @@
 		public function logout(){
 			$this->session->sess_destroy();
 			$this->load->view("logout_page");
-			// redirect("login_action");
 		}
 		
 		public function validate_user($usr_id, $usr_passwd){

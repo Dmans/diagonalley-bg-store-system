@@ -39,7 +39,6 @@
 			<div><input type="submit" value="查詢" /></div>
 		</form>
 		</div>
-		
 		<table class="list_table">
 			<tr>
 				<th>日期</th>
@@ -47,18 +46,16 @@
 					<th><?=$tag->tag_name ?></th>
 				<? endforeach ?>
 			</tr>
-			<? for ($i=1; $i<=$end_day; $i++) : ?>
-				<tr>
-					<td><? echo sprintf("%4d-%02d-%02d", $year, $month, $i) ?></td>
-					<? foreach ($tags as $tag) : ?>
-					
-					<? $display_value=(isset($pos_list[$year.'-'.$month.'-'.$i][$tag->tag_num]))?
-						($pos_list[$year.'-'.$month.'-'.$i][$tag->tag_num]->total_svalue):0; ?>
-					<td><?=$display_value ?></td>
-				<? endforeach ?>
-				</tr>
-			<? endfor ?>
+			<? foreach ($pos_list as $pos_data) : ?>
 			
+				<tr>
+					<td><?=$pos_data['pos_date'] ?>
+					</td>
+					<? foreach ($tags as $tag) : ?>
+						<td><?=$pos_data[$tag->tag_num]->total_svalue ?></td>
+					<? endforeach ?>
+				</tr>
+			<? endforeach  ?>
 		</table>
 	</body>
 </html>

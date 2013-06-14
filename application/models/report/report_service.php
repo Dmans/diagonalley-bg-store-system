@@ -13,6 +13,7 @@
 			$this->load->model('dao/dia_daily_record_dao');
 			$this->load->model('service/pos_data_service');
 			$this->load->model("constants/form_constants");
+			$this->load->helper('date');
 	    }
 		
 		public function find_gid_record_for_calendar($start,$end){
@@ -97,17 +98,42 @@
 			
 		}
 		
-		public function __find_pos_record_for_table($pos_date_list){
+		public function find_pos_record_for_table($query_year, $query_month){
+			$end_day =days_in_month($query_month, $query_year);
+			$start= $query_year.'-'.$query_month.'-01';
+			$end=$query_year.'-'.$query_month.'-'.$end_day;
+			
+			$pos_list=$this->find_pos_for_report($start, $end, FALSE);
+			$tags = $this->pos_data_service->find_pod_type_tags();
+				
 			$view_pos=array();
-			foreach ($pos_date_list as $key => $pos_datas) {
-				foreach ($pos_datas as $key2 => $pos_data) {
-					$view_pos[]=$this->__assemble_view_pos_for_calendar($pos_data);
+			for ($day=1; $day <= $end_day ; $day++) {
+				$data=NULL;	 
+				$target_date= sprintf("%4d-%02d-%02d", $query_year, $query_month, $day);
+				$data['pos_date']=$target_date;
+				foreach ($tags as $tag) {
+					$tag_data=NULL;
+					if(isset($pos_list[$target_date][$tag->tag_num])){
+						$tag_data->total_svalue=$pos_list[$target_date][$tag->tag_num]->total_svalue;
+					}else{
+						$tag_data->total_svalue=0;
+					}
+					$data[$tag->tag_num]=$tag_data;
 				}
+				
+				$view_pos[$target_date]=$data;
 			}
 			
+			return $view_pos;
 		}
 
-		public function __find_pos_record_for_calendar($pos_date_list){
+		
+
+		public function find_pos_for_summary($pos_list){
+			
+		}
+		
+		private function __find_pos_record_for_calendar($pos_date_list){
 				
 			$view_pos=array();
 			foreach ($pos_date_list as $key => $pos_datas) {
@@ -118,11 +144,6 @@
 			
 			return $view_pos;
 		}
-
-		public function find_pos_for_summary($pos_list){
-			
-		}
-		
 		
 		private function __assemble_view_grd_for_calendar($gid,$game,$grd){
 			$result=NULL;

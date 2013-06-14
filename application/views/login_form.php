@@ -1,25 +1,56 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
+		<link  rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
+		<style type="text/css">
+	      body {
+	        padding-top: 40px;
+	        padding-bottom: 40px;
+	        background-color: #f5f5f5;
+	      }
+	
+	      .form-signin {
+	        max-width: 300px;
+	        padding: 19px 29px 29px;
+	        margin: 0 auto 20px;
+	        background-color: #fff;
+	        border: 1px solid #e5e5e5;
+	        -webkit-border-radius: 5px;
+	           -moz-border-radius: 5px;
+	                border-radius: 5px;
+	        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	      }
+	      .form-signin .form-signin-heading{
+	        margin-bottom: 10px;
+	      }
+	      .form-signin input[type="text"],
+	      .form-signin input[type="password"] {
+	        font-size: 16px;
+	        height: auto;
+	        margin-bottom: 15px;
+	        padding: 7px 9px;
+	      }
+
+    </style>
 		<title>登入介面</title>
 	</head>
 	<body>
-		<h1>登入管理介面</h1>
-		<div>
-			<? echo form_open('login_action/login'); ?>
-				<div>
-					Account: <input type="text" name="usr_id" maxlength="64" />
-				</div>
-				<div>
-					Password: <input type="password" name="usr_passwd" maxlength="32" />
-				</div>
+		<div class="container">
+			<? echo form_open('login_action/login', array('class'=>'form-signin')); ?>
+			<h2 class="form-signin-heading">登入<?=$system_name ?>管理介面</h2>
+					<input type="text" name="usr_id" maxlength="64"  class="input-block-level" placeholder="Account"/>
+					<input type="password" name="usr_passwd" maxlength="32"  class="input-block-level" placeholder="Password"/>
 				<?=validation_errors('<div class="error">','</div>') ?>
-				<input type="submit" value="Login" />
+				<input type="submit" value="Login" class="btn btn-large btn-primary" />
 			</form>
 		</div>
+		
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>
 
