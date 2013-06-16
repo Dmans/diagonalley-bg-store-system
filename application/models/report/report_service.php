@@ -50,18 +50,16 @@
 			return $result_set;
 		}
 
-		public function find_pos_for_report($start, $end, $is_for_calender){
-			$condition=NULL;
-			$condition['start_pod_date']=$start;
-			$condition['end_pod_date']=$end;
-			$condition['pod_status']=1;
-			$pos_list = $this->pos_data_service->find_pos_for_list($condition);
+		public function find_pos_for_report($start, $end){
+			
+			//step1. 取得pos原始資料
+			$pos_base_list=$this->__find_origin_pos_record_list($start, $end);
 			
 			
-			//step2. 利用pos的日期作分類
+			//step2. 利用pos的日期作分類 並加總各類別銷售數字
 			$pos_date_list = array();
 			$tags = $this->pos_data_service->find_pod_type_tags();
-			foreach ($pos_list as $key => $pos) {
+			foreach ($pos_base_list as $key => $pos) {
 				$date_key=date('Y-m-d',strtotime($pos->pod_date));
 				if(!array_key_exists($date_key, $pos_date_list)){
 					$day_pos=array();
@@ -75,35 +73,35 @@
 					$pos_date_list[$date_key]=$day_pos;
 				}
 				
-				// if(!array_key_exists($pos->tag->tag_num, $pos_date_list[$date_key])){
-					// $pos_data = NULL;
-					// $pos_data->tag=$pos->tag;
-					// $pos_data->total_svalue=0;
-					// $pos_data->pod_date=$date_key;
-					// $pos_date_list[$date_key][$pos->tag->tag_num]=$pos_data;
-				// }
 				$pos_date_list[$date_key][$pos->tag->tag_num]->total_svalue+=$pos->pod_svalue;
 			}
 			
+			return $pos_date_list;
+		}
+		
+		public function find_pos_record_for_calendar($start_date, $end_date){
 			
-			log_message("info",print_r($pos_date_list,TRUE));
-			
-			
-			if($is_for_calender){
-				return $this->__find_pos_record_for_calendar($pos_date_list);
+			$pos_date_list=$this->find_pos_for_report($start_date, $end_date);
+				
+			$view_pos=array();
+			foreach ($pos_date_list as $key => $pos_datas) {
+				foreach ($pos_datas as $key2 => $pos_data) {
+					$view_pos[]=$this->__assemble_view_pos_for_calendar($pos_data);
+				}
 			}
 			
-			return $pos_date_list;
-			
-			
+			return $view_pos;
 		}
 		
 		public function find_pos_record_for_table($query_year, $query_month){
-			$end_day =days_in_month($query_month, $query_year);
-			$start= $query_year.'-'.$query_month.'-01';
-			$end=$query_year.'-'.$query_month.'-'.$end_day;
+				
+			$month_data=$this->__get_month_start_and_end_date($query_year, $query_month);
 			
-			$pos_list=$this->find_pos_for_report($start, $end, FALSE);
+			$end_day =$month_data->end_day;
+			$start=$month_data->start_date;
+			$end=$month_data->end_date;		
+				
+			$pos_list=$this->find_pos_for_report($start, $end);
 			$tags = $this->pos_data_service->find_pod_type_tags();
 				
 			$view_pos=array();
@@ -126,6 +124,48 @@
 			
 			return $view_pos;
 		}
+		
+		public function find_pos_record_fot_graph($query_year, $query_month){
+			
+			$month_data=$this->__get_month_start_and_end_date($query_year, $query_month);
+			
+			$end_day =$month_data->end_day;
+			$start=$month_data->start_date;
+			$end=$month_data->end_date;
+			
+			$pos_list=$this->find_pos_for_report($start, $end);
+			$tags=$this->pos_data_service->find_pod_type_tags();	
+			
+			$series=array();
+			foreach ($tags as $tag) {
+				$cate_series=NULL;
+				for ($day=1; $day <= $end_day ; $day++) {
+						
+					$target_date= sprintf("%4d-%02d-%02d", $query_year, $query_month, $day);
+										
+					$cate_series->name=$tag->tag_name;
+
+					if(isset($pos_list[$target_date][$tag->tag_num])){
+						$cate_series->data[]=$pos_list[$target_date][$tag->tag_num]->total_svalue;
+					}else{
+						$cate_series->data[]=0;
+					}
+				}
+				$series[]=$cate_series;
+			}
+			
+			$categories=array();
+			for ($day=1; $day <= $end_day ; $day++) {
+						
+				// $target_date= sprintf("%4d-%02d-%02d", $query_year, $query_month, $day);
+				$categories[]=$day;
+			}
+			
+			$data->categories=$categories;
+			$data->series=$series;
+			
+			return $data;
+		}
 
 		
 
@@ -143,6 +183,16 @@
 			}
 			
 			return $view_pos;
+		}
+		
+		private function __find_origin_pos_record_list($star_date, $end_date){
+			$condition=NULL;
+			$condition['start_pod_date']=$star_date;
+			$condition['end_pod_date']=$end_date;
+			$condition['pod_status']=1;
+			$pos_list = $this->pos_data_service->find_pos_for_list($condition);
+			
+			return $pos_list;
 		}
 		
 		private function __assemble_view_grd_for_calendar($gid,$game,$grd){
@@ -212,6 +262,20 @@
 			// $result->total_svalue=$pos_data->total_svalue;
 			// $result->tag_num=$pos_data->tag->tag_num;
 			return $result;
+		}
+		
+		private function __get_month_start_and_end_date($query_year, $query_month){
+			
+			$end_day =days_in_month($query_month, $query_year);
+			
+			$month_data=NULL;
+			$month_data->year=$query_year;
+			$month_data->month=$query_month;
+			$month_data->start_date=$query_year.'-'.$query_month.'-01';
+			$month_data->end_date=$query_year.'-'.$query_month.'-'.$end_day;
+			$month_data->end_day=$end_day;
+			
+			return $month_data;
 		}
 		
     }

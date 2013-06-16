@@ -7,11 +7,64 @@
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/fullcalendar.css" />
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>highcharts/highcharts.js"></script>
 		<!-- <script type="text/javascript" src="<?=base_url(); ?>scripts/knockout-2.2.1.js"></script> -->
 		<script type="text/javascript">
 			$(document).ready(function(){
+				$.get('<?=site_url("report/report_json_action/pos_record_graph") ?>',
+					{current_select_date : $('#current_select_date').val()},
+					function(data){
+						console.log("success");
+						console.log(data);
+						load_graph(data, $('#current_select_date').val());
+					},
+					'json');
+				
 				
 			});
+			
+			function load_graph(jsonData, selectDate){
+				$('#tableGraph').highcharts({
+					chart: {
+	                type: 'line',
+	                marginRight: 130,
+	                marginBottom: 25
+		            },
+		            title: {
+		                text: '銷售資料' + selectDate + '月報表線圖',
+		                x: -20 //center
+		            },
+		            /*subtitle: {
+		                text: 'Source: WorldClimate.com',
+		                x: -20
+		            },*/
+		            xAxis: {
+		                categories : jsonData.categories
+		            },
+		            yAxis: {
+		                title: {
+		                    text: '金額'
+		                },
+		                plotLines: [{
+		                    value: 0,
+		                    width: 1,
+		                    color: '#808080'
+		                }]
+		            },
+		            tooltip: {
+		                valueSuffix: '元'
+		            },
+		            legend: {
+		                layout: 'vertical',
+		                align: 'right',
+		                verticalAlign: 'top',
+		                x: -10,
+		                y: 100,
+		                borderWidth: 0
+		            },
+		            series: jsonData.series
+	        	});
+			}
 			
 		</script>
 	</head>
@@ -23,7 +76,7 @@
 			
 			<? echo form_open('report/report_action/pos_record_page_table_list'); ?>
 			<div>查詢月份：
-				<select name="current_select_date">
+				<select id="current_select_date" name="current_select_date">
 					<? $prev_year_count=2 ?>
 					<? for ($i=0; $i<=$prev_year_count ; $i++) : ?> 
 						<? for ($j=1; $j <=12 ; $j++) : ?>
@@ -57,6 +110,7 @@
 				</tr>
 			<? endforeach  ?>
 		</table>
+		<div id="tableGraph"></div>
 	</body>
 </html>
 
