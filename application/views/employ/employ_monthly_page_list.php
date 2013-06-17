@@ -1,15 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>員工打卡紀錄查詢</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/flick/jquery-ui-1.8.22.custom.css" />
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-1.8.22.custom.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.ui.datepicker-zh-TW.js"></script>
-		
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -49,7 +49,7 @@
 			<? if(isset($query_result)):  ?>
 				<? foreach($query_result as $chk_user): ?>
 					<div>
-						<table class="list_table">
+						<table class="table table-striped table-hover table-bordered table-condensed">
 							<tr>
 								<td colspan="4" style="text-align: left">員工:<?=$chk_user->usr_name ?></td>
 							</tr>

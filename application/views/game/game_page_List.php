@@ -1,11 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>New Web Project</title>
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('input#searchGamName').change(function(){
@@ -21,7 +22,7 @@
 	<body>
 		<h3>遊戲資料列表</h3>
 		<div>遊戲名稱:<input type="text" id="searchGamName" /></div>
-		<table id="gameListTable" class="list_table">
+		<table id="gameListTable" class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
 				<? if($usr_role==0 OR $usr_role==1): ?>	
 					<th>查詢/維護</th>
@@ -45,8 +46,8 @@
 				<tr id="gameTr_<?=$row->gam_num ?>">
 					<? if($usr_role==0 OR $usr_role==1): ?>	
 						<td>
-							<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>">查詢</a>
-							/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>">維護</a>
+							<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>" class="btn btn-info btn-small">查詢</a>
+							/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-small">維護</a>
 						</td>
 						<td>
 							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>">維護分類</a>

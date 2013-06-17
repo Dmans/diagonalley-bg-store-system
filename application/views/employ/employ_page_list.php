@@ -1,11 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>個人打卡鐘</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				
@@ -66,11 +67,11 @@
 			<div>打卡使用者:<span style="font-weight: bold;"><?=$usr_name ?></span></div>
 		</div>
 		<div>
-			<input type="button" id="checkinButton" value="上班打卡" />
+			<input type="button" id="checkinButton" value="上班打卡" class="btn btn-primary"/>
 		</div>
 		<div>
 			
-				<table class="list_table">
+				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>序號</th>
 						<th>上班打卡時間</th>
@@ -90,7 +91,7 @@
 									<? endif ?>
 									
 									<? if(!isset($row->chk_out_time)): ?>
-										<input type="button" id="checkoutButton" value="下班打卡" />
+										<input type="button" id="checkoutButton" value="下班打卡" class="btn btn-success"/>
 										<input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
 									<? endif ?>
 								</td>

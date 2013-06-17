@@ -1,12 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>維護遊戲</title>
 	</head>
 	<body>
+		<div class="well">
 		<h1>維護遊戲</h1>
 		<? echo form_open('game/game_action/game_update'); ?>
 			<div>遊戲流水號:<?=$gam_num ?><input type="hidden" name="gam_num" value="<?=set_value("gam_num",$gam_num) ?>" /></div>
@@ -28,7 +31,7 @@
 			
 			<div><input type="submit" value="維護遊戲" /><input type="reset" value="重填" /></div>
 		</form>
-		<hr />
+		</div>
 		<div>
 			<h1>異動遊戲庫存</h1>
 			<? echo form_open('game/game_action/game_storage_update'); ?>

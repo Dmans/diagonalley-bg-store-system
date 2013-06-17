@@ -1,9 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>查詢遊戲資料</title>
 	</head>
 	<body>
@@ -36,16 +38,19 @@
 				</select>
 			</div>
 			<?=validation_errors('<div class="error">','</div>') ?>
-			<div><input type="submit" value="查詢遊戲" /><input type="reset" value="重填" /></div>
+			<div>
+				<input type="submit" value="查詢遊戲"  class="btn btn-primary" />
+				<input type="reset" value="重填" class="btn btn-inverse" />
+			</div>
 		</form>
 		<? if(isset($query_result)):  ?>
-			<table id="gameListTable" class="list_table">
+			<table id="gameListTable" class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
 					<? if($usr_role==0 OR $usr_role==1): ?>	
-						<th>查詢/維護</th>
+						<th style="width: 100px">查詢/維護</th>
 						
 					<? endif ?>
-					<th>維護分類</th>
+					<th style="width: 80px">維護分類</th>
 	<!-- 				<th>遊戲流水號</th> -->
 					<th>遊戲中文名稱</th>
 					<th>遊戲英文名稱</th>
@@ -57,19 +62,19 @@
 					<th>遊戲備註</th>
 					<? if($usr_role==0 OR $usr_role==1): ?>
 						<th>刪除</th>	
-						<th>上架遊戲</th>
+						<!-- <th>上架遊戲</th> -->
 					<? endif ?>
 				</tr>
 				<? foreach ($query_result as $row) : ?> 
 					<tr id="gameTr_<?=$row->gam_num ?>">
 						<? if($usr_role==0 OR $usr_role==1): ?>	
 							<td>
-								<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>">查詢</a>
-								/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>">維護</a>
+								<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>" class="btn btn-info btn-mini">查詢</a>
+								/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-mini">維護</a>
 							</td>
 						<? endif ?>
 						<td>
-							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>">維護分類</a>
+							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>"class="btn btn-mini">維護分類</a>
 						</td>
 	<!-- 					<td><?=$row->gam_num ?></td> -->
 						<td><?=$row->gam_cname ?></td>
@@ -82,7 +87,7 @@
 						<td><?=(isset($row->gam_memo))?nl2br($row->gam_memo):"" ?></td>
 						<? if($usr_role==0 OR $usr_role==1): ?>	
 							<td><a href="<?=site_url("game/game_action/game_remove/".$row->gam_num) ?>">刪除</a></td>
-							<td><a href="<?=site_url("game/game_action/gid_save_form/".$row->gam_num) ?>">新增上架遊戲</a></td>
+							<!-- <td><a href="<?=site_url("game/game_action/gid_save_form/".$row->gam_num) ?>">新增上架遊戲</a></td> -->
 						<? endif ?>
 					</tr>
 				<? endforeach  ?>

@@ -1,5 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -7,11 +6,13 @@
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/flick/jquery-ui-1.8.22.custom.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/jquery-ui-timepicker.css" />
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-1.8.22.custom.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.ui.datepicker-zh-TW.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-timepicker.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-timepicker-zh-TW.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -51,7 +52,7 @@
 	<body>
 		<h3>未確認打卡資料</h3>
 		<div>
-			<table class="list_table">
+			<table class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
 					<th>序號</th>
 					<th>打卡員工</th>
@@ -68,7 +69,7 @@
 						<td><?=$row->chk_out_time ?></td>
 						<td id="confirmButtonArea_<?=$row->chk_num ?>">
 							<input type="text" id="comfirmHours_<?=$row->chk_num ?>" value="<?=$row->interval ?>" maxlength="5" size="5" />hr(s)
-							<input type="button" id="confirmButton_<?=$row->chk_num ?>" value="審核" />
+							<input type="button" id="confirmButton_<?=$row->chk_num ?>" value="審核" class="btn <?=($row->interval>11)?'btn-danger':'btn-primary' ?>"/>
 							<input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
 							
 						</td>
