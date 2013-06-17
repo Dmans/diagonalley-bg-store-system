@@ -1,13 +1,13 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>銷售資料月報表(表單)</title>
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/fullcalendar.css" />
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>highcharts/highcharts.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<!-- <script type="text/javascript" src="<?=base_url(); ?>scripts/knockout-2.2.1.js"></script> -->
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -89,10 +89,10 @@
 				</select>
 			</div>
 			<?=validation_errors('<div class="error">','</div>') ?>
-			<div><input type="submit" value="查詢" /></div>
+			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 		</div>
-		<table class="list_table">
+		<table class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
 				<th>日期</th>
 				<? foreach ($tags as $tag) : ?>
