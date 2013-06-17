@@ -51,34 +51,35 @@
 	</head>
 	<body>
 		<h3>未確認打卡資料</h3>
-		<div>
-			<table class="table table-striped table-hover table-bordered table-condensed">
-				<tr>
-					<th>序號</th>
-					<th>打卡員工</th>
-					<th>上班打卡時間</th>
-					<th>下班打卡時間</th>
-					<th>管理員審核</th>
-					<th>管理員審核時間</th>
-				</tr>
-				<? foreach ($chks as $key=>$row) : ?> 
-					<tr id="chkeckTr_<?=$row->chk_num ?>">
-						<td><?=$key+1 ?></td>
-						<td><?=$row->usr_name ?></td>
-						<td><?=$row->chk_in_time ?></td>
-						<td><?=$row->chk_out_time ?></td>
-						<td id="confirmButtonArea_<?=$row->chk_num ?>">
-							<input type="text" id="comfirmHours_<?=$row->chk_num ?>" value="<?=$row->interval ?>" maxlength="5" size="5" />hr(s)
-							<input type="button" id="confirmButton_<?=$row->chk_num ?>" value="審核" class="btn <?=($row->interval>11)?'btn-danger':'btn-primary' ?>"/>
-							<input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
-							
-						</td>
-						<td id="confirmDateArea_<?=$row->chk_num ?>"></td>
+		<div class="row">
+			<div class="span10">
+				<table class="table table-striped table-hover table-bordered table-condensed">
+					<tr>
+						<th>序號</th>
+						<th>打卡員工</th>
+						<th>上班打卡時間</th>
+						<th>下班打卡時間</th>
+						<th>管理員審核</th>
+						<th>管理員審核時間</th>
 					</tr>
-				<? endforeach  ?>
-			</table>
+					<? foreach ($chks as $key=>$row) : ?> 
+						<tr id="chkeckTr_<?=$row->chk_num ?>">
+							<td><?=$key+1 ?></td>
+							<td><?=$row->usr_name ?></td>
+							<td><?=$row->chk_in_time ?></td>
+							<td><?=$row->chk_out_time ?></td>
+							<td id="confirmButtonArea_<?=$row->chk_num ?>">
+								<input type="text" id="comfirmHours_<?=$row->chk_num ?>" value="<?=$row->interval ?>" maxlength="5" size="5" />hr(s)
+								<input type="button" id="confirmButton_<?=$row->chk_num ?>" value="審核" class="btn <?=($row->interval>11)?'btn-danger':'btn-primary' ?>"/>
+								<input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
+								
+							</td>
+							<td id="confirmDateArea_<?=$row->chk_num ?>"></td>
+						</tr>
+					<? endforeach  ?>
+				</table>
+			</div>
 		</div>
-		
 		
 	</body>
 </html>

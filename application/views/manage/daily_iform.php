@@ -20,7 +20,7 @@
 				<input type="radio" name="ddr_status"  value="0" <?=set_radio("ddr_status","0") ?> />隱藏
 				<input type="radio" name="ddr_status" value="1" <?=set_radio("ddr_status","1",TRUE) ?> />公開
 			</div>
-			<?=validation_errors('<div class="error">','</div>') ?>
+			<?=validation_errors('<div class="text-error">','</div>') ?>
 			<div><input type="submit" value="新增公告" /><input type="reset" value="重填" /></div>
 		</form>
 	</body>

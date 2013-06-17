@@ -39,7 +39,7 @@
 				<input type="radio" name="act_status"  value="1" <?=set_radio("act_status", "1", ($act_status=='1')) ?> />啟用
 				<input type="radio" name="act_status"  value="2" <?=set_radio("act_status", "2", ($act_status=='2')) ?> />停用
 			</div>
-			<?=validation_errors('<div class="error">','</div>') ?>
+			<?=validation_errors('<div class="text-error">','</div>') ?>
 			<div><input type="submit" value="維護活動" /></div>
 		</form>
 	</body>

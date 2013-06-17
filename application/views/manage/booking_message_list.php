@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<h1>客戶定位資料</h1>
-		<div class="error">僅顯示查詢日後兩週的定位資料! 時間越接近的越上面</div>
+		<div class="text-error">僅顯示查詢日後兩週的定位資料! 時間越接近的越上面</div>
 		<? if(isset($bookings) && count($bookings)>0): ?>
 			<table class="list_table">
 				<tr>

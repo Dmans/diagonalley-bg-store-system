@@ -40,7 +40,7 @@
 				<input type="radio" name="dbk_status"  value="0" <?=set_radio("dbk_status","0",($dbk_status==0)?TRUE:FALSE) ?> />隱藏
 				<input type="radio" name="dbk_status" value="1" <?=set_radio("dbk_status","1",($dbk_status==1)?TRUE:FALSE) ?> />公開
 			</div>
-			<?=validation_errors('<div class="error">','</div>') ?>
+			<?=validation_errors('<div class="text-error">','</div>') ?>
 			<div><input type="submit" value="維護定位資料" /><input type="reset" value="重填" /></div>
 		</form>
 	</body>

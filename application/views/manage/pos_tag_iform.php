@@ -24,8 +24,8 @@
 				(顯示於銷售類型下拉選單滑鼠移到選項時出現說明)
 			</div>
 			</div>
-			<?=validation_errors('<div class="error">','</div>') ?>
-			<div><input type="submit" value="新增銷售類型" /></div>
+			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<div><input type="submit" value="新增銷售類型" class="btn btn-primary" /></div>
 		</form>
 	</body>
 	

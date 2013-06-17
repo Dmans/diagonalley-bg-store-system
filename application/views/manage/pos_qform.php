@@ -3,7 +3,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>銷售紀錄查詢</title>
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/flick/jquery-ui-1.8.22.custom.css" />
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
@@ -36,11 +35,11 @@
 			<? echo form_open('manage/pos_action/pos_list'); ?>
 				<div>查詢日期:<input type="text" id="podDate" name="pod_date" value="<?=date("Y-m-d") ?>"/>
 				</div>
-				<?=validation_errors('<div class="error">','</div>') ?>
+				<?=validation_errors('<div class="text-error">','</div>') ?>
 				<div><input id="queryButton" type="button" value="查詢" /></div>
 			</form>
 		</div>
-		<div id="posResultArea"></div>
+		<div id="posResultArea" class="row"></div>
 	</body>
 </html>
 

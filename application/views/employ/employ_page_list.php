@@ -69,8 +69,8 @@
 		<div>
 			<input type="button" id="checkinButton" value="上班打卡" class="btn btn-primary"/>
 		</div>
-		<div>
-			
+		<div class="row">
+			<div class="span9">
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>序號</th>
@@ -102,6 +102,7 @@
 						<? endforeach  ?>
 					<? endif ?>
 				</table>
+			</div>
 		</div>
 		
 		

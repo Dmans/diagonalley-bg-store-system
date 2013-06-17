@@ -1,9 +1,10 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>查詢使用者</title>
 	</head>
 	<body>
@@ -21,14 +22,14 @@
 				<input type="radio" name="usr_status"  value="1" <?=set_radio("usr_status","1",TRUE)?>/>啟用
 				<input type="radio" name="usr_status"  value="-1" <?=set_radio("usr_status","-1")?> />全部
 			</div>
-			<?=validation_errors('<div class="error">','</div>') ?>
-			<div><input type="submit" value="查詢" /></div>
+			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 		
 		<div>
 			<? if(isset($query_result)):  ?>
 				<h3>查詢結果</h3>
-				<table class="list_table">
+				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>查詢/維護</th>
 						<th>使用者流水號</th>
@@ -46,9 +47,9 @@
 					<? foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
-								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>">查詢</a>
+								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-mini">查詢</a>
 							<? if($usr_role==0 OR $usr_role==1): ?>
-								/<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>">維護</a>
+								<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>" class="btn btn-warning btn-mini">維護</a>
 							<? endif ?>
 							</td>
 							<td><?=$row->usr_num ?></td>

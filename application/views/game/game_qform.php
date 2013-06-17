@@ -37,10 +37,10 @@
 					<option value="0">否</option>
 				</select>
 			</div>
-			<?=validation_errors('<div class="error">','</div>') ?>
+			<?=validation_errors('<div class="text-error">','</div>') ?>
 			<div>
 				<input type="submit" value="查詢遊戲"  class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn btn-inverse" />
+				<input type="reset" value="重填" class="btn" />
 			</div>
 		</form>
 		<? if(isset($query_result)):  ?>
@@ -70,11 +70,11 @@
 						<? if($usr_role==0 OR $usr_role==1): ?>	
 							<td>
 								<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>" class="btn btn-info btn-mini">查詢</a>
-								/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-mini">維護</a>
+								<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-mini">維護</a>
 							</td>
 						<? endif ?>
 						<td>
-							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>"class="btn btn-mini">維護分類</a>
+							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>"class="btn btn-success btn-mini">維護分類</a>
 						</td>
 	<!-- 					<td><?=$row->gam_num ?></td> -->
 						<td><?=$row->gam_cname ?></td>
@@ -86,7 +86,7 @@
 						<td><?=$row->gam_svalue ?></td>
 						<td><?=(isset($row->gam_memo))?nl2br($row->gam_memo):"" ?></td>
 						<? if($usr_role==0 OR $usr_role==1): ?>	
-							<td><a href="<?=site_url("game/game_action/game_remove/".$row->gam_num) ?>">刪除</a></td>
+							<td><a href="<?=site_url("game/game_action/game_remove/".$row->gam_num) ?>" class="btn btn-danger btn-mini">刪除</a></td>
 							<!-- <td><a href="<?=site_url("game/game_action/gid_save_form/".$row->gam_num) ?>">新增上架遊戲</a></td> -->
 						<? endif ?>
 					</tr>

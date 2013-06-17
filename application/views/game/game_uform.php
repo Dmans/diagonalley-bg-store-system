@@ -50,7 +50,7 @@
 				<div><input type="submit" value="異動庫存" /><input type="reset" value="重填" /></div>
 			</form>
 		</div>
-		<?=validation_errors('<div class="error">','</div>') ?>
+		<?=validation_errors('<div class="text-error">','</div>') ?>
 	</body>
 	
 </html>

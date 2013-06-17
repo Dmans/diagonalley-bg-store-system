@@ -42,13 +42,13 @@
 					從<input type="text" id="dateFrom" name="chk_start_date"/>
 					到<input type="text" id="dateTo" name="chk_end_date"/>
 				</div>
-				<div><input type="submit" value="查詢" /></div>
+				<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 			</form>
 		</div>
-		<div>
+		<div class="row">
 			<? if(isset($query_result)):  ?>
 				<? foreach($query_result as $chk_user): ?>
-					<div>
+					<div class="span10">
 						<table class="table table-striped table-hover table-bordered table-condensed">
 							<tr>
 								<td colspan="4" style="text-align: left">員工:<?=$chk_user->usr_name ?></td>

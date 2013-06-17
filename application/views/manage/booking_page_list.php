@@ -14,7 +14,7 @@
 	<body>
 		<h3>客戶定位資料列表</h3>
 		<div><a href="<?=site_url("manage/booking_action/save_form") ?>">新增定位資料</a></div>
-		<div class="error">僅顯示查詢日以後的定位資料! 時間越接近的越上面</div>
+		<div class="text-error">僅顯示查詢日以後的定位資料! 時間越接近的越上面</div>
 		<table class="list_table">
 			<tr>
 				<th width="100">定位日期</th>
