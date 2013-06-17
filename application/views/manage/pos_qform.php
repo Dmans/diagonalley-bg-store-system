@@ -18,10 +18,14 @@
 				});
 				
 				$('#queryButton').click(function(){
+					$('#loading').show();
+					$('#queryButton').addClass('disabled');
 					$.post("<?=site_url("manage/pos_ajax_action/pos_list") ?>",
 						{ "pod_date": $('#podDate').val() },
 						function(data) {
 							$('div#posResultArea').html(data);
+							$('#loading').hide();
+							$('#queryButton').removeClass('disabled');
 						}
 					);
 				});
@@ -36,9 +40,13 @@
 				<div>查詢日期:<input type="text" id="podDate" name="pod_date" value="<?=date("Y-m-d") ?>"/>
 				</div>
 				<?=validation_errors('<div class="text-error">','</div>') ?>
-				<div><input id="queryButton" type="button" value="查詢" /></div>
+				<div>
+					<input id="queryButton" type="button" value="查詢" class="btn btn-primary" />
+					<span id="loading" style="display: none;"><img src="<?=base_url(); ?>images/loading.gif" /></span>
+				</div>
 			</form>
 		</div>
+		
 		<div id="posResultArea" class="row"></div>
 	</body>
 </html>

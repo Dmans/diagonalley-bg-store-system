@@ -61,7 +61,7 @@
 					<th>遊戲售價</th>
 					<th>遊戲備註</th>
 					<? if($usr_role==0 OR $usr_role==1): ?>
-						<th>刪除</th>	
+						<th style="width: 80px">刪除</th>	
 						<!-- <th>上架遊戲</th> -->
 					<? endif ?>
 				</tr>
