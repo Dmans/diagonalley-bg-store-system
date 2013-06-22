@@ -21,22 +21,32 @@
 			$order = $this->__assemble_save_order($input);
 			
 			//step1. 新增銷售資料並取得銷售資料流水號
+			$game = $this->game_data_service->find_game($order['gam_num']);
+			$pos_list = array();
+			
+			//step1.1 組遊戲銷售資料
 			$pos_data=NULL;
 			$pos_data['pod_date'] = $order['ord_date'];
 			$pos_data['pod_svalue'] = $order['ord_svalue'];
 			$pos_data['pod_status']=1; //表示成立狀態
-			$pos_data['tag_num']=$this->__get_order_tag_num();
-			
-			
-			$game = $this->game_data_service->find_game($order['gam_num']);
-			
+			$pos_data['tag_num']=$this->__get_local_value("order_tag_num");
 			$pos_data['pod_desc'] ="遊戲銷售:".$game->gam_ename."-".$game->gam_cname;
+			$pos_list[]=$pos_data;
 			
-			$pod_num = $this->pos_data_service->save_pos($pos_data, $order['ord_usr_num']);
+			//step1.2 組遊戲成本支出資料
+			$pos_data=NULL;
+			$pos_data['pod_date'] = $order['ord_date'];
+			$pos_data['pod_svalue'] = '-'.$game->gam_cvalue;
+			$pos_data['pod_status']=1; //表示成立狀態
+			$pos_data['tag_num']=$this->__get_local_value("order_cvalue_tag_num");
+			$pos_data['pod_desc'] ="遊戲銷售成本:".$game->gam_ename."-".$game->gam_cname;
+			$pos_list[]=$pos_data;
+			
+			$pod_nums = $this->pos_data_service->save_multiple_pos($pos_list, $order['ord_usr_num']);
 			
 			
 			//step2. 新增訂單資料
-			$order['pod_num']=$pod_num;
+			$order['pod_num']=$pod_nums[0];
 			$order['gam_cvalue']=$game->gam_cvalue;
 			$ord_num = $this->dia_order_dao->insert($order);
 			
@@ -79,7 +89,7 @@
 				}
 			}
 			
-			// step2. 針對訂單撈出需要的使用者資訊
+			// step3. 針對訂單撈出需要的遊戲資訊
 			$games=array();
 			foreach ($orders as $key => $order) {
 				if(!array_key_exists($order->gam_num, $users)){
@@ -99,6 +109,10 @@
 			$game=$this->game_data_service->find_game($order->gam_num);
 			
 			return $this->__assemble_view_order($order, $user, $game, $ord_user); 
+		}
+		
+		public function find_default_usr_num(){
+			return $this->__get_local_value("order_usr_num");
 		}
 		
 		private function __assemble_save_order($input){
@@ -175,8 +189,8 @@
 			return $order;
 		}
 		
-		private function __get_order_tag_num(){
-			$dlv_data = $this->dia_local_value_dao->query_by_dlv_id("order_tag_num");
+		private function __get_local_value($dlv_id){
+			$dlv_data = $this->dia_local_value_dao->query_by_dlv_id($dlv_id);
 			
 			return $dlv_data->dlv_value;
 			
