@@ -30,17 +30,20 @@
 			$this->dia_game_id_dao->update($this->__assemble_update_game_id($input));
 		}
 		
-		public function modify_game_storage($gam_num, $modify_value, $new_gam_cvalue){
+		public function modify_game_storage($gam_num, $modify_value, $new_gam_cvalue=NULL){
 			$game = $this->dia_game_dao->query_by_gam_num($gam_num);
 			$input['gam_num']=$gam_num;
 			$input['gam_storage']=($game->gam_storage+$modify_value);
 			
-			// 計算新的遊戲成本
-			$old_gam_cvalue = $game->gam_cvalue;
-			$old_gam_storage = $game->gam_storage;
 			
-			$input['gam_cvalue']= 
-				(($old_gam_cvalue*$old_gam_storage)+($new_gam_cvalue*$modify_value))/($game->gam_storage+$modify_value);
+			if($new_gam_cvalue!=NULL){
+				// 計算新的遊戲成本
+				$old_gam_cvalue = $game->gam_cvalue;
+				$old_gam_storage = $game->gam_storage;
+				
+				$input['gam_cvalue']= 
+					(($old_gam_cvalue*$old_gam_storage)+($new_gam_cvalue*$modify_value))/($game->gam_storage+$modify_value);
+			}
 			
 			$this->update_game($input);
 		}
