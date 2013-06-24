@@ -8,7 +8,7 @@
 </head>
 <? if(isset($query_result)):  ?>
 	<div class="span10">
-		<table class="table table-striped table-hover table-borderedtable-condensed">
+		<table class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
 				<th>維護銷售紀錄</th>
 				<th>銷售時間</th>

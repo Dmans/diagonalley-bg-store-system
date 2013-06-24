@@ -12,12 +12,14 @@
 			<li><a target="content" href="<?=site_url("manage/pos_action/pos_list_form") ?>">查詢銷售資料</a></li>
 			<li><a target="content" href="<?=site_url("order/order_action/save_form") ?>">成立遊戲訂購單</a></li>
 			<li><a target="content" href="<?=site_url("order/order_action/list_form") ?>">查詢遊戲訂購單</a></li>
-	
-			<!-- <li><a target="content" href="<?=site_url("manage/pos_action/pos_fast_panel") ?>">新增銷售快速介面</a></li> -->
 			<? if($usr_role==0 OR $usr_role==1): ?>
 				<li><a target="content" href="<?=site_url("manage/pos_tag_action/save_form") ?>">新增銷售類型</a></li>
 				<li><a target="content" href="<?=site_url("manage/pos_tag_action/pos_list") ?>">銷售類型列表</a></li>
-				<!-- <li><a target="content" href="<?=site_url("manage/pos_action/pos_fast_save_form") ?>">新增快速銷售按鈕</a></li> -->
+			<? endif ?>
+			<li><span class="label label-success">beta</span><a target="content" href="<?=site_url("manage/pos_action/pos_fast_panel") ?>">新增銷售快速介面</a></li>
+			<? if($usr_role==0 OR $usr_role==1): ?>
+			    <li><span class="label label-success">beta</span><a target="content" href="<?=site_url("manage/pos_action/pos_fast_button_save_form") ?>">新增快速銷售按鈕</a></li>
+			    <li><span class="label label-success">beta</span><a target="content" href="<?=site_url("manage/pos_action/pos_fast_button_list") ?>">快速銷售按鈕列表</a></li>
 			<? endif ?>
 		</ul>
 	</div>

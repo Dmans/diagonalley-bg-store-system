@@ -8,6 +8,7 @@
 	    {
 	        parent::__construct();
 			$this->load->model('service/pos_data_service');
+			$this->load->model('dao/dia_fast_pos_dao');
 	    }
 		
 		public function save_pos($input,$usr_num){
@@ -49,7 +50,6 @@
 			return $this->pos_data_service->find_pod_type_tags();
 		}		
 		public function find_view_pos_for_list($input){
-				
 			
 			// step1. 找出所選日期銷售紀錄,取日期區間內pos紀錄
 			$condition=NULL;
@@ -57,11 +57,9 @@
 			$condition['end_pod_date']=$input['pod_date'];
 			$condition['pod_status']=1;
 			$pos_list = $this->pos_data_service->find_pos_for_list($condition);
-
 			
 			// step2. 計算報表相關資料
 			$cal_result=$this->__calculate_view_pos_list_data($pos_list);
-			
 			
 			// step3. 組合
 			$view_pos=NULL;
@@ -69,6 +67,87 @@
 			$view_pos->cal_result=$cal_result;
 			
 			return $view_pos;
+		}
+		
+		public function find_fast_pos_list(){
+			$condition=array();
+			$condition['pfs_visible']=1;
+			$condition['order_pfs_order']="ASC";
+			$fast_pos_list = $this->dia_fast_pos_dao->query_by_condition($condition);
+			
+			if(count($fast_pos_list)==1){
+				$fast=$fast_pos_list;
+				$fast_pos_list=NULL;
+				$fast_pos_list[]=$fast;
+			}
+			
+			return $this->__assemble_view_fast_pos_list($fast_pos_list, $this->find_pod_type_tags());
+		}
+		
+		public function save_pos_fast_button($input){
+			$fast_pos=NULL;
+			$fast_pos->pod_svalue=$input['pod_svalue'];
+			$fast_pos->pod_desc=$input['pod_desc'];
+			$fast_pos->tag_num=$input['tag_num'];
+			$fast_pos->pod_status=$input['pod_status'];
+			$fast_pos->pfs_order=$input['pfs_order'];
+			$fast_pos->pfs_visible=1; //預設顯示按鈕
+			return $this->dia_fast_pos_dao->insert($fast_pos);
+		}
+		
+		public function find_pos_fast($pfs_num){
+			$fast_pos = $this->dia_fast_pos_dao->query_by_pfs_num($pfs_num);
+			
+			return  $this->__assemble_view_fast_pos($fast_pos, $this->find_pod_type_tags());
+		}
+		
+		public function save_pos_fast($input, $usr_num){
+			//step1. 找出對應pos預設資料
+			$pfs_nums=$input['pfsNums'];
+			
+			$target_pfs_nums=array_unique($pfs_nums);
+			
+			$pos_fast_source=array();
+			foreach ($target_pfs_nums as $pfs_num) {
+				$pos_fast_source[$pfs_num]=$this->find_pos_fast($pfs_num);
+			}
+			
+			//step2. 轉成save_multiple_pos可吃資料
+			$pos_list=array();
+			foreach ($pfs_nums as $pfs_num) {
+				
+				$pfs_data=$pos_fast_source[$pfs_num];
+				$pos=NULL;
+				$pos['pod_date']=date('Y-m-d H:i:s');
+				$pos['pod_svalue']=$pfs_data->pod_svalue;
+				$pos['tag_num']=$pfs_data->tag->tag_num;
+				$pos['pod_desc']=$pfs_data->pod_desc;
+				$pos['pod_status']=$pfs_data->pod_status;
+				
+				$pos_list[]=$pos;
+			}
+			
+			//step3. 呼叫save_multiple_pos塞入資料
+			$this->pos_data_service->save_multiple_pos($pos_list,$usr_num);
+		}
+		
+		public function update_pos_fast_button($input){
+			$pfs=NULL;	
+			$pfs->pfs_num=$input['pfs_num'];	
+			
+			$value_conditions=array("pod_svalue","pod_desc","pod_status","pfs_order","pfs_visible");
+			foreach ($value_conditions as $field_name) {
+				if(isset($input[$field_name])){
+					$pfs->$field_name = $input[$field_name];
+				}
+			}
+			return $this->dia_fast_pos_dao->update($pfs);
+		}
+		
+		public function remove_pos_fast_button($pfs_num){
+			$pfs['pfs_num']=$pfs_num;
+			$pfs['pfs_visible']=0;
+			$this->update_pos_fast_button($pfs);
 		}
 		
 		private function __calculate_view_pos_list_data($pos_list){
@@ -95,6 +174,29 @@
 			$cal_result->total_svalue=$total_svalue;
 			
 			return $cal_result;
+		}
+		
+		private function __assemble_view_fast_pos_list($fast_pos_list, $tags){
+			$result = array();
+			
+			foreach ($fast_pos_list as $fast_pos) {
+				$result[]=$this->__assemble_view_fast_pos($fast_pos, $tags);
+			}
+			
+			return $result;
+		}
+		
+		private function __assemble_view_fast_pos($fast_pos, $tags){
+			$fast = NULL;	
+			$fast->pfs_num = $fast_pos->pfs_num;
+			$fast->pod_svalue = $fast_pos->pod_svalue;
+			$fast->pod_desc = $fast_pos->pod_desc;
+			$fast->pod_status=$fast_pos->pod_status;
+			$fast->pfs_order=$fast_pos->pfs_order;
+			$fast->pfs_visible=$fast_pos->pfs_visible;
+			$fast->tag=$tags[$fast_pos->tag_num];
+			
+			return $fast;
 		}
 		
     }

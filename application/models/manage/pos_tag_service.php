@@ -8,6 +8,7 @@
 	    {
 	        parent::__construct();
 			$this->load->model('service/tag_data_service');
+			$this->load->model('dao/dia_fast_pos_dao');
 	    }
 		
 		public function save_tag($input){
@@ -35,6 +36,28 @@
 			$condition['tag_num']=$tag_num;
 			$condition['tag_status']=0;
 			$this->tag_data_service->update_tag($condition);
+			
+			//連動移除快速介面該類別按鈕
+			$fast_pos_list = $this->dia_fast_pos_dao->query_by_tag_num($tag_num);
+			
+			if($fast_pos_list!=NULL){
+				if(count($fast_pos_list)==1){
+					$fast=$fast_pos_list;
+					$fast_pos_list=NULL;
+					$fast_pos_list[]=$fast;
+				}
+				
+				foreach ($fast_pos_list as $fast_pos) {
+					$fast_pos->pfs_visible=2; //停用
+					$this->dia_fast_pos_dao->update($fast_pos);
+				}
+			}
+			
+			
+			
+			
+			
+			
 		}
 		
     }
