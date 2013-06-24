@@ -232,7 +232,7 @@ class Pos_action extends MY_Controller {
 		$data['message']="新增快速銷售按鈕成功";
 		
 		$extend_url=array();
-		$extend_url[]=$this->__generate_url_data("繼續新增快速銷售按鈕", "manage/pos_action/pos_fast_save_form/");
+		$extend_url[]=$this->__generate_url_data("繼續新增快速銷售按鈕", "manage/pos_action/pos_fast_button_save_form/");
 		$extend_url[]=$this->__generate_url_data("維護快速銷售按鈕", "manage/pos_action/pos_fast_button_update_form/",$pfs_num);
 		
 		$data['extend_url']=$extend_url;
