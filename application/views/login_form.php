@@ -38,7 +38,7 @@
 	      }
 
     </style>
-		<title>登入介面</title>
+		<title>登入<?=$system_name ?>管理介面</title>
 	</head>
 	<body>
 		<div class="container">

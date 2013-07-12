@@ -12,7 +12,9 @@
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-timepicker-zh-TW.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
+			var counter=0;
 			$(document).ready(function(){
+				
 				$('.fastButton').each(function(index,element){
 					
 					$(element).click(function(){
@@ -24,6 +26,8 @@
 						var tagName = $(element).attr("tagname");
 						
 						populateNewPosLine(pfsNum,podSvalue,podDesc,tagName);
+						counter++;
+						populateTotalSelectedCount(counter);
 					});
 					
 					
@@ -61,6 +65,10 @@
 				
 			}
 			
+			function populateTotalSelectedCount(count){
+				$('#totalSelectedCount').html(count);
+			}
+			
 			function increaseTotalSvalue(newSvalue){
 				var nowTotalValue = parseInt($("#totalSvalueArea").text(),10);
 				nowTotalValue = nowTotalValue + parseInt(newSvalue,10);
@@ -72,6 +80,8 @@
 				$('#insertPfsNums').text("");
 				$('#displayArea').text("");
 				$('#totalSvalueArea').text("0");
+				counter=0;
+				populateTotalSelectedCount(counter);
 			}
 			
 			function submitCurrentPos(){
@@ -108,7 +118,8 @@
 			<form id="currentPosForm">
 				<div id="insertPfsNums"></div>
 				<div id="displayArea" class="well"></div>
-				<div>目前總金額:<span id="totalSvalueArea">0</span></div>
+				<div>目前總金額:<span id="totalSvalueArea">0</span>元</div>
+				<div>目前共選擇:<span id="totalSelectedCount">0</span>項</div>
 				<button id="submitPosButton" type="button" class="btn btn-primary btn-large">送出</button>
 				<button id="cleanUpButton" type="button" class="btn btn-large">清空</button>
 			</form>
