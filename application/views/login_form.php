@@ -42,7 +42,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<? echo form_open('login_action/login', array('class'=>'form-signin')); ?>
+			<?=form_open('login_action/login', array('class'=>'form-signin')); ?>
 			<h2 class="form-signin-heading">登入<?=$system_name ?>管理介面</h2>
 					<input type="text" name="usr_id" maxlength="64"  class="input-block-level" placeholder="Account"/>
 					<input type="password" name="usr_passwd" maxlength="32"  class="input-block-level" placeholder="Password"/>
