@@ -54,7 +54,7 @@
 						
 						
 					<? endif ?>
-<!-- 					<td><?=$row->gam_num ?></td> -->
+					<td><?=$row->gam_num ?></td>
 					<td class="gamNameTarget"><?=$row->gam_cname ?></td>
 					<td class="gamNameTarget"><?=$row->gam_ename ?></td>
 					<td><?=$row->gam_storage ?></td>

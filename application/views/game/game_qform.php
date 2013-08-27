@@ -51,7 +51,7 @@
 						
 					<? endif ?>
 					<th style="width: 80px">維護分類</th>
-	<!-- 				<th>遊戲流水號</th> -->
+					<th>遊戲流水號</th>
 					<th>遊戲中文名稱</th>
 					<th>遊戲英文名稱</th>
 					<th>遊戲庫存</th>
@@ -76,7 +76,7 @@
 						<td>
 							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>"class="btn btn-success btn-mini">維護分類</a>
 						</td>
-	<!-- 					<td><?=$row->gam_num ?></td> -->
+						<td><?=$row->gam_num ?></td>
 						<td><?=$row->gam_cname ?></td>
 						<td><?=$row->gam_ename ?></td>
 						<td><?=$row->gam_storage ?></td>
