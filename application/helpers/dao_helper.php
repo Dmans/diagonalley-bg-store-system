@@ -1,4 +1,4 @@
-<?
+<?php
 
 function generate_result_set($query_result){
 	$result_set = array();
