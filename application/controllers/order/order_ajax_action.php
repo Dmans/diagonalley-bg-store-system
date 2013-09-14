@@ -2,7 +2,7 @@
     /**
      * 
      */
-    class Order_ajax_action extends CI_Controller {
+    class Order_ajax_action extends MY_AjaxController {
     	function __construct()
 	    {
 	        parent::__construct();

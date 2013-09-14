@@ -3,7 +3,7 @@
 /**
  * 
  */
-class Pos_ajax_action extends MY_Controller {
+class Pos_ajax_action extends MY_AjaxController {
 	
 	function __construct()
     {

@@ -3,7 +3,7 @@
 /**
  * 
  */
-class Report_json_action extends MY_Controller {
+class Report_json_action extends MY_AjaxController {
 	
 	function __construct()
     {
