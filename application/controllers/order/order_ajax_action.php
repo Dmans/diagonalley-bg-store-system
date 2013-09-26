@@ -120,19 +120,6 @@
 			
 		}
 		
-		private function __user_login_validate(){
-			$login=$this->session->userdata('logged_in');
-			if(empty($login)){
-				return FALSE;
-			}
-			
-			
-			if($this->session->userdata('logged_in') != TRUE){
-				return FALSE;
-			}
-			return TRUE;
-		}
-		
 		private function __update_employ_format_validate(){
 			$this->form_validation->set_rules('chk_num', '打卡流水號', 'trim|required|integer|xss_clean');
 		}

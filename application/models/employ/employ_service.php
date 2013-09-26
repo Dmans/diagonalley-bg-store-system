@@ -70,13 +70,6 @@
 			$condition['uncheck']=TRUE;
 			$chks = $this->dia_checkin_dao->query_by_condition($condition);
 			
-			if(count($chks)==1){
-				$chk=$chks;
-				$chks=NULL;
-				$chks[]=$chk;
-			}
-			
-			
 			$result_set=array();
 			if(count($chks)>0){
 				foreach ($chks as $key => $chk) {
@@ -93,13 +86,35 @@
 			return $this->dia_checkin_dao->query_by_usr_num($usr_num);
 		}
 		
+		public function find_user_check_interval($chk_start_time, $chk_end_time, $usr_num=NULL){
+			
+			$condition=array();
+			if($usr_num != NULL){
+				$condition['usr_num']=$usr_num;
+			}
+			$condition['chk_start_time']=$chk_start_time;
+			$condition['chk_end_time']=$chk_end_time;
+			
+			return $this->dia_checkin_dao->query_by_condition($condition);
+		}
+		
+		public function find_user_check_list_by_month($usr_num, $month){
+			
+			$condition=array();
+			if($usr_num != NULL){
+				$condition['usr_num']=$usr_num;
+			}
+			$condition['chk_start_time']=$chk_start_time;
+			$condition['chk_end_time']=$chk_end_time;
+			
+			return $this->dia_checkin_dao->query_by_condition($condition);
+		}
+		
 		public function find_employ_monthly_record($chk_start_time, $chk_end_time){
 			
 			// step1. 取得所選區間打卡紀錄
-			$condition['chk_start_time']=$chk_start_time;
-			$condition['chk_end_time']=$chk_end_time;
-			$chks = $this->dia_checkin_dao->query_by_condition($condition);
-			
+			$chks = $this->find_user_check_interval($chk_start_time, $chk_end_time);
+			print_r($chks, TRUE);
 			// step2. 計算打卡時數
 			if(!empty($chks)){
 				foreach ($chks as $chk) {

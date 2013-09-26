@@ -54,13 +54,11 @@
 		}*/
 		
 		protected function __user_login_validate(){
-			log_message("info","ffffff");
 			$login=$this->session->userdata('logged_in');
 			if(empty($login)){
 				return FALSE;
 			}
 			
-			log_message("info","gggg");
 			if($this->session->userdata('logged_in') != TRUE){
 				return FALSE;
 			}

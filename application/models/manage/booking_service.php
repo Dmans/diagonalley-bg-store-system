@@ -31,15 +31,8 @@
 				$condition["end_dbk_date"]=$end_dbk_date;
 			}
 			
-			$bookings =  $this->dia_booking_dao->query_by_condition($condition);
+			return $this->dia_booking_dao->query_by_condition($condition);
 			
-			if(count($bookings)==1){
-				$booking=$bookings;
-				$bookings=NULL;
-				$bookings[]=$booking;
-			}
-			
-			return $bookings;
 		}
 		
 		public function update_booking($input){
@@ -83,12 +76,6 @@
 			}
 			
 			$dailys = $this->dia_daily_record_dao->query_by_condition($condition);
-			
-			if(count($dailys)==1){
-				$daily=$dailys;
-				$dailys=NULL;
-				$dailys[]=$daily;
-			}
 			
 			// step2. 組dailys所需資訊
 			$users=array();

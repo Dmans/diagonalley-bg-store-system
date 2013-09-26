@@ -17,12 +17,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_dbk_num($dbk_num){
-			$condition['dbk_num']=$dbk_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('dbk_num',$dbk_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_usr_num($usr_num){
@@ -100,7 +101,7 @@
 			}
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

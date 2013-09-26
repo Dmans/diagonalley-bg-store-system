@@ -21,8 +21,8 @@
         }
 		
 		public function query_by_dgt_num($dgt_num){
-			$condition['dgt_num']=$dgt_num;
-			return generate_result_set($this->query_by_condition($condition));
+			$this->db->where('dgt_num',$dgt_num);
+			return generate_single_result($this->db->get($this->table_name));
 		}
 		
 		public function query_by_tag_num($tag_num){
@@ -61,7 +61,7 @@
 		}
 		
 		public function query_by_condition($condition){
-			// log_message("info","condition:"+print_r($condition,TRUE));
+
 			//step1.加入where條件
 			$value_conditions=array("dgt_num");
 			foreach ($value_conditions as $field_name) {
@@ -87,7 +87,7 @@
 			}
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

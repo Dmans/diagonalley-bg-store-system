@@ -9,6 +9,7 @@
 	        parent::__construct();
 			$this->load->model('service/game_data_service');
 			$this->load->model('dao/dia_game_tag_dao');
+			$this->load->model('dao/dia_barcode_dao');
 			$this->load->model("constants/form_constants");
 	    }
 		
@@ -48,7 +49,17 @@
 		public function find_games_for_list($input=array()){
 
 			$input['order_gam_ename']=TRUE;
-			$result_set = $this->game_data_service->find_games_list($input);
+			
+			if(!isset($input['bar_code'])){
+				$condition = $input;	
+			}else{
+				$barcode = $this->dia_barcode_dao->query_by_bar_code($input['bar_code']);
+				if($barcode == NULL){
+					return array();
+				}
+				$condition['gam_num']=$barcode->bar_value;
+			}
+			$result_set = $this->game_data_service->find_games_list($condition);
 			
 			foreach ($result_set as $key => $game) {
 				
@@ -59,7 +70,10 @@
 				}
 				
 				//排除非查詢分類遊戲
-				if($input['tag_num']!=-1 && !array_key_exists($input['tag_num'], $game->game_tags)){
+				if(isset($input['tag_num']) && 
+					$input['tag_num']!=-1 && 
+					!array_key_exists($input['tag_num'], $game->game_tags)){
+						
 					unset($result_set[$key]);
 					continue;
 				}
@@ -102,6 +116,42 @@
 		
 		public function modify_game_storage($gam_num, $modify_value, $gam_cvalue){ 
 			$this->game_data_service->modify_game_storage($gam_num, $modify_value, $gam_cvalue);
+		}
+		
+		public function update_game_barcode($gam_num, $barcode){
+			$condition['bar_type']=0;
+			$condition['bar_code']=$barcode;
+			$old_barcode = $this->dia_barcode_dao->query_by_condition($condition);
+			
+			if($old_barcode == NULL){
+				//新增
+				$submit_barcode=NULL;
+				$submit_barcode->bar_code=$barcode;
+				$submit_barcode->bar_type=0;
+				$submit_barcode->bar_value=$gam_num;
+				$this->dia_barcode_dao->insert($submit_barcode);
+			}else{
+				//修改
+				$modify_barcode = $old_barcode[0];
+				$modify_barcode->bar_code=$barcode;
+				$this->dia_barcode_dao->update($modify_barcode);
+			}
+		}
+		
+		public function check_bar_code_duplicate($bar_code, $gam_num){
+			
+			$result=NULL;
+			
+			//檢查barcode已存在且並非此遊戲流水號
+			$condition['bar_type']=0;
+			$condition['bar_code']=$bar_code;
+			$barcode = $this->dia_barcode_dao->query_by_condition($condition);
+			$result->isDuplicate = ($barcode[0] != NULL && $barcode[0]->bar_value != $gam_num);
+			if($barcode != NULL){
+				$result->barcode = $barcode[0];	
+			}
+			
+			return $result;
 		}
 		
 		private function __assemble_view_gid($gid,$game){

@@ -17,12 +17,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_grd_num($grd_num){
-			$condition['grd_num']=$grd_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('grd_num',$grd_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function insert($grd){
@@ -74,7 +75,7 @@
 			}
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

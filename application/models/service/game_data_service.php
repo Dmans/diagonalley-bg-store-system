@@ -10,6 +10,7 @@
 			$this->load->model('dao/dia_game_dao');
 			$this->load->model('dao/dia_game_id_dao');
 			$this->load->model('dao/dia_game_tag_dao');
+			$this->load->model('dao/dia_barcode_dao');
 			$this->load->model('service/tag_data_service');
 			$this->load->model("constants/form_constants");
 	    }
@@ -53,14 +54,12 @@
 			$game=$this->dia_game_dao->query_by_gam_num($gam_num);
 			$game_tags=$this->dia_game_tag_dao->query_by_gam_num($gam_num);
 			
-			if(count($game_tags)==1){
-				$temp=$game_tags;
-				$game_tags=NULL;
-				$game_tags[0]=$temp;
-			}
+			$condition['bar_type']=0;
+			$condition['bar_value']=$gam_num;
 			
+			$barcode = $this->dia_barcode_dao->query_by_condition($condition);
 			
-			return $this->__assemble_game_query_result($game,$game_tags);
+			return $this->__assemble_game_query_result($game, $game_tags, $barcode);
 		}
 		
 		public function find_game_id($gid_num){
@@ -144,22 +143,11 @@
 		private function __assemble_game_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				if(count($query_result)==1){
-					// $output[]=$this->__assemble_game_query_result($query_result);					$temp=$query_result;
-					$query_result=NULL;
-					$query_result[0]=$temp;
-				}
 				
 				foreach ($query_result as $row) {
 					
 					$game_tags=$this->dia_game_tag_dao->query_by_gam_num($row->gam_num);
 		
-					if(count($game_tags)==1){
-						$temp=$game_tags;
-						$game_tags=NULL;
-						$game_tags[0]=$temp;
-					}
-					
 					$output[]=$this->__assemble_game_query_result($row,$game_tags);
 				}
 			}
@@ -167,7 +155,7 @@
 			return $output;
 		}
 		
-		private function __assemble_game_query_result($game,$game_tags){
+		private function __assemble_game_query_result($game, $game_tags, $barcode=NULL){
 				
 			$result=NULL;
 			$result->gam_num=$game->gam_num;
@@ -187,6 +175,9 @@
 			
 			$result->game_tags=$this->__decrate_gmae_tags_list($game_tags);
 			
+			if($barcode != NULL){
+				$result->barcode=$barcode[0];	
+			}
 			
 			return $result;
 		}
@@ -194,15 +185,8 @@
 		private function __assemble_gid_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				
-				if(count($query_result)==1){
-					$output[]=$this->__assemble_gid_query_result($query_result);
-				}
-				
-				if(count($query_result)>1){
-					foreach ($query_result as $row) {
-						$output[]=$this->__assemble_gid_query_result($row);
-					}
+				foreach ($query_result as $row) {
+					$output[]=$this->__assemble_gid_query_result($row);
 				}
 			}
 			

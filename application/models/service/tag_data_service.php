@@ -78,16 +78,8 @@
 		private function __assemble_tag_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				
-				if(count($query_result)==1){
-					$output[$query_result->tag_num]=$this->__assemble_tag_query_result($query_result);
-					
-				}
-				
-				if(count($query_result)>1){
-					foreach ($query_result as $row) {
-						$output[$row->tag_num]=$this->__assemble_tag_query_result($row);
-					}
+				foreach ($query_result as $row) {
+					$output[$row->tag_num]=$this->__assemble_tag_query_result($row);
 				}
 			}
 			

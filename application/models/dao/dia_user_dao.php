@@ -15,18 +15,19 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_usr_id($usr_id){
 			$this->db->where("usr_id",$usr_id);
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_usr_num($usr_num){
-			$condition['usr_num']=$usr_num;
-			return $this->query_by_condition($condition);
+			$this->db->where("usr_num",$usr_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function insert($user){
@@ -67,7 +68,7 @@
 			
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

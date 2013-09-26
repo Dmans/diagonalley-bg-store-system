@@ -10,39 +10,55 @@
 	</head>
 	<body>
 		<h1>查詢遊戲資料</h1>
-		<? echo form_open('game/game_action/game_list'); ?>
-			<div>遊戲中文名稱:<input type="text" name="gam_cname" maxlength="32" value="<?=set_value("gam_cname","") ?>" /></div>
-			<div>遊戲英文名稱:<input type="text" name="gam_ename" maxlength="32" value="<?=set_value("gam_ename","") ?>" /></div>
-			<div>遊戲分類:
-				<select name="tag_num">
-					<option value="-1">請選擇</option>
-					<? if(count($tags)>0): ?>
-						<? foreach ($tags as $key => $tag): ?>
-							<option value="<?=$tag->tag_num ?>"><?=$tag->tag_name ?></option>
-						<? endforeach ?>
-					<? endif ?>
-				</select>
-			</div>
-			<div>遊戲庫存量:
-					<select name="gam_storage">
-					<option value="-1">請選擇</option>
-					<option value="999">有</option>
-					<option value="0">無</option>
-				</select>
-			</div>
-			<div>遊戲是否可出售:
-				<select name="gam_sale">
-					<option value="-1">請選擇</option>
-					<option value="1">是</option>
-					<option value="0">否</option>
-				</select>
-			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
-			<div>
-				<input type="submit" value="查詢遊戲"  class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn" />
-			</div>
-		</form>
+		<table>
+			<tr>
+				<td>
+					<? echo form_open('game/game_action/game_list'); ?>
+						<div>遊戲中文名稱:<input type="text" name="gam_cname" maxlength="32" value="<?=set_value("gam_cname","") ?>" /></div>
+						<div>遊戲英文名稱:<input type="text" name="gam_ename" maxlength="32" value="<?=set_value("gam_ename","") ?>" /></div>
+						<div>遊戲分類:
+							<select name="tag_num">
+								<option value="-1">請選擇</option>
+								<? if(count($tags)>0): ?>
+									<? foreach ($tags as $key => $tag): ?>
+										<option value="<?=$tag->tag_num ?>"><?=$tag->tag_name ?></option>
+									<? endforeach ?>
+								<? endif ?>
+							</select>
+						</div>
+						<div>遊戲庫存量:
+								<select name="gam_storage">
+								<option value="-1">請選擇</option>
+								<option value="999">有</option>
+								<option value="0">無</option>
+							</select>
+						</div>
+						<div>遊戲是否可出售:
+							<select name="gam_sale">
+								<option value="-1">請選擇</option>
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</div>
+						<?=validation_errors('<div class="text-error">','</div>') ?>
+						<div>
+							<input type="submit" value="查詢遊戲"  class="btn btn-primary" />
+							<input type="reset" value="重填" class="btn" />
+						</div>
+					</form>
+				</td>
+				<td>或</td>
+				<td>
+					<? echo form_open('game/game_action/game_list'); ?>
+						<div>遊戲條碼:<input type="text" name="bar_code" value="<?=set_value("bar_code","") ?>" /></div>
+						<div>
+							<input type="submit" value="查詢遊戲"  class="btn btn-primary" />
+							<input type="reset" value="重填" class="btn" />
+						</div>
+					</form>
+				</td>
+			</tr>
+		</table>
 		<? if(isset($query_result)):  ?>
 			<table id="gameListTable" class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
@@ -50,7 +66,7 @@
 						<th style="width: 100px">查詢/維護</th>
 						
 					<? endif ?>
-					<th style="width: 80px">維護分類</th>
+					<th style="width: 80px">特殊維護</th>
 					<th>遊戲流水號</th>
 					<th>遊戲中文名稱</th>
 					<th>遊戲英文名稱</th>
@@ -75,6 +91,7 @@
 						<? endif ?>
 						<td>
 							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>"class="btn btn-success btn-mini">維護分類</a>
+							<a href="<?=site_url("game/game_action/game_barcode_update_form/".$row->gam_num) ?>"class="btn btn-primary btn-mini">維護條碼</a>
 						</td>
 						<td><?=$row->gam_num ?></td>
 						<td><?=$row->gam_cname ?></td>

@@ -21,11 +21,6 @@
 			$condition['grd_end_time']=$end;
 			$grds = $this->dia_game_id_record_dao->query_by_condition($condition);
 
-			if(count($grds)==1){
-				$grd=$grds;
-				$grds=NULL;
-				$grds[]=$grd;
-			}
 			//step2.組view資料
 			$result_set=array();
 			$already_gids=array();

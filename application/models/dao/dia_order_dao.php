@@ -15,12 +15,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_ord_num($ord_num){
-			$condition['ord_num']=$ord_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('ord_num',$ord_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_gam_num($gam_num){
@@ -74,7 +75,7 @@
 			
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

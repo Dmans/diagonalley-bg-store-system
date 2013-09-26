@@ -2,14 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>維護遊戲</title>
 	</head>
 	<body>
-		<div class="well">
 		<h1>維護遊戲</h1>
 		<? echo form_open('game/game_action/game_update'); ?>
 			<div>遊戲流水號:<?=$gam_num ?><input type="hidden" name="gam_num" value="<?=set_value("gam_num",$gam_num) ?>" /></div>
@@ -21,6 +20,13 @@
 			<div>遊戲牌數量:<input type="text" name="gam_cardcount" maxlength="12" size="12" value="<?=set_value("gam_cardcount",$gam_cardcount) ?>" /></div>
 			<div>遊戲售價:<input type="text" name="gam_svalue" maxlength="5" value="<?=set_value("gam_svalue",$gam_svalue) ?>"/></div>
 			<div>遊戲成本價:<?=$gam_cvalue ?></div>
+			<div>遊戲條碼:
+				<? if($barcode != NULL) : ?>
+					<a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>" ><?=$barcode->bar_code ?></a>
+				<? else : ?>
+					尚未連結對應條碼 <a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>"class="btn btn-primary btn-mini">新增條碼</a>
+				<? endif ?>
+			</div>
 			<div>遊戲是否可出售:
 				<input type="radio" name="gam_sale"  value="0" <?=set_radio("gam_sale","0",($gam_sale==0)?TRUE:FALSE) ?> />否
 				<input type="radio" name="gam_sale"  value="1" <?=set_radio("gam_sale","1",($gam_sale==1)?TRUE:FALSE) ?> />是
@@ -31,17 +37,12 @@
 			
 			<div><input type="submit" value="維護遊戲" /><input type="reset" value="重填" /></div>
 		</form>
-		</div>
-		<div>
+		<!-- <div>
 			<h1>異動遊戲庫存</h1>
 			<? echo form_open('game/game_action/game_storage_update'); ?>
-<!-- 				<div>遊戲流水號:<?=$gam_num ?><input type="hidden" name="gam_num" value="<?=set_value("gam_num",$gam_num) ?>" /></div> -->
 				<input type="hidden" name="gam_num" value="<?=set_value("gam_num",$gam_num) ?>" />
 				<div>異動庫存:
 					<input type="radio" name="modify_option"  value="Y" checked="checked" />增加
-					<? if($gam_storage>0): ?>
-					<!-- <input type="radio" name="modify_option"  value="N"  />減少 -->
-					<? endif ?>
 					<input type="text" name="modify_gam_storage" maxlength="5" />套</div>
 				</div>
 				<div>遊戲成本:
@@ -49,7 +50,7 @@
 				</div>
 				<div><input type="submit" value="異動庫存" /><input type="reset" value="重填" /></div>
 			</form>
-		</div>
+		</div> -->
 		<?=validation_errors('<div class="text-error">','</div>') ?>
 	</body>
 	

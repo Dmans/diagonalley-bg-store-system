@@ -106,15 +106,8 @@
 		private function __assemble_view_pos_list($query_result, $tags){
 			$output = array();
 			if(!empty($query_result)){
-				
-				if(count($query_result)==1){
-					$output[]=$this->__assemble_view_pos($query_result,$tags);
-				}
-				
-				if(count($query_result)>1){
-					foreach ($query_result as $row) {
-						$output[]=$this->__assemble_view_pos($row,$tags);
-					}
+				foreach ($query_result as $row) {
+					$output[]=$this->__assemble_view_pos($row,$tags);
 				}
 			}
 			

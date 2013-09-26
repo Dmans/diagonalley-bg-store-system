@@ -17,12 +17,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_tag_num($tag_num){
-			$condition['tag_num']=$tag_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('tag_num',$tag_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_tag_type($tag_type){
@@ -71,7 +72,7 @@
 			}
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

@@ -17,12 +17,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return $query;
+			return generate_result_list($query);
         }
 		
 		public function query_by_dlv_num($dlv_num){
-			$condition['dlv_num']=$dlv_num;
-			return generate_result_set($this->query_by_condition($condition));
+			$this->db->where('dlv_num',$dlv_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_dlv_id($dlv_id){
@@ -80,7 +81,7 @@
 			
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

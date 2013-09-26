@@ -27,10 +27,6 @@
 			return $this->__assemble_query_result($this->dia_user_dao->query_by_usr_num($usr_num));
 		}
 		
-		// public function find_user_by_id($usr_id){
-			// return $this->__assemble_query_result($this->dia_user_dao->query_by_usr_id($usr_id));
-		// }
-		
 		private function __assemble_save_user($input){
 				
 			$user->usr_id=$input['usr_id'];
@@ -84,15 +80,8 @@
 		private function __assemble_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				
-				if(count($query_result)==1){
-					$output[]=$this->__assemble_query_result($query_result);
-				}
-				
-				if(count($query_result)>1){
-					foreach ($query_result as $row) {
-						$output[]=$this->__assemble_query_result($row);
-					}
+				foreach ($query_result as $row) {
+					$output[]=$this->__assemble_query_result($row);
 				}
 			}
 			
@@ -117,11 +106,6 @@
 			
 			return $result;
 		}
-		
-		
-		
-		
-		
     }
     
 ?>

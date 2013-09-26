@@ -75,12 +75,6 @@
 			$condition['order_pfs_order']="ASC";
 			$fast_pos_list = $this->dia_fast_pos_dao->query_by_condition($condition);
 			
-			if(count($fast_pos_list)==1){
-				$fast=$fast_pos_list;
-				$fast_pos_list=NULL;
-				$fast_pos_list[]=$fast;
-			}
-			
 			return $this->__assemble_view_fast_pos_list($fast_pos_list, $this->find_pod_type_tags());
 		}
 		

@@ -16,12 +16,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_act_num($act_num){
-			$condition['act_num']=$act_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('act_num',$act_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_act_type($act_type){
@@ -65,7 +66,7 @@
 			}
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

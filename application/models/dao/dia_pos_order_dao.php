@@ -15,12 +15,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_pod_num($pod_num){
-			$condition['pod_num']=$pod_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('pod_num',$pod_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function insert($pod){
@@ -69,7 +70,7 @@
 			
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }

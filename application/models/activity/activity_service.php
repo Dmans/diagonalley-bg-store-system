@@ -32,12 +32,6 @@
 			//step1.找出所有上架遊戲
 			$gids = $this->dia_game_id_dao->query_all();
 			
-			if(count($gids)==1){
-				$gid=$gids;
-				$gids=NULL;
-				$gids[]=$gid;
-			}
-			
 			$result_set=array();
 			foreach ($gids as $gid) {
 				$game = $this->dia_game_dao->query_by_gam_num($gid->gam_num);
@@ -86,12 +80,6 @@
 		private function __assemble_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				
-				if(count($query_result)==1){
-					$act=$query_result;
-					$query_result=NULL;
-					$query_result[]=$act;
-				}
 				
 				foreach ($query_result as $row) {
 					$output[]=$this->__assemble_activity_query_result($row);

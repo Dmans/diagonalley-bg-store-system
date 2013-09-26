@@ -71,12 +71,6 @@
 				return NULL;
 			}
 			
-			if(count($orders)==1){
-				$temp=$orders;
-				$orders=NULL;	
-				$orders[0]=$temp;
-			}
-			
 			// step2. 針對訂單撈出需要的使用者資訊
 			$users=array();
 			foreach ($orders as $key => $order) {

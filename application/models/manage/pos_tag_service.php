@@ -41,12 +41,6 @@
 			$fast_pos_list = $this->dia_fast_pos_dao->query_by_tag_num($tag_num);
 			
 			if($fast_pos_list!=NULL){
-				if(count($fast_pos_list)==1){
-					$fast=$fast_pos_list;
-					$fast_pos_list=NULL;
-					$fast_pos_list[]=$fast;
-				}
-				
 				foreach ($fast_pos_list as $fast_pos) {
 					$fast_pos->pfs_visible=2; //停用
 					$this->dia_fast_pos_dao->update($fast_pos);

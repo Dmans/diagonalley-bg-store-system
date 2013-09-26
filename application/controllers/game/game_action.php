@@ -393,16 +393,72 @@ class Game_action extends MY_Controller {
 		// $this->game_tag_service->update_tag($input);
 		$this->game_service->update_game_tag($input['gam_num'],$input['game_tags']);
 		
-		$data['message']="維護遊戲分類成功";
+		$data['message']="維護遊戲對應條碼成功";
 		
 		$extend_url=array();
-		$extend_url[]=$this->__generate_url_data("繼續維護遊戲分類", "game/game_action/game_tag_update_form/",$input['gam_num']);
-		$extend_url[]=$this->__generate_url_data("遊戲資料列表", "game/game_action/game_list_form/");
+		//$extend_url[]=$this->__generate_url_data("繼續維護遊戲分類", "game/game_action/game_tag_update_form/",$input['gam_num']);
+		$extend_url[] = $this->__generate_url_data("遊戲資料列表", "game/game_action/game_list_form/");
+		
 		$data['extend_url']=$extend_url;
 		
 		$this->load->view("message",$data);
 		
 		log_message("info","Game_action.game_tag_update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
+		
+	}
+
+	public function game_barcode_update_form($gam_num){
+        	
+    	$user = $this->session->userdata('user');
+		
+		if($this->__user_role_check($user->usr_role)){return;}
+		
+		log_message("info","Game_action.game_barcode_update_form(gam_num=$gam_num) - start usr_num=".$user->usr_num);
+		
+		$data=NULL;
+		$game=$this->game_service->find_game_for_update($gam_num);
+		
+		$data['game']=$game;
+		
+		if($game->barcode != NULL){
+			$data['bar_code']=$game->barcode->bar_code;
+			echo $game->barcode->bar_code;
+		}
+    	$this->load->view("game/game_barcode_uform",$data);
+		
+		log_message("info","Game_action.game_barcode_update_form(gam_num=$gam_num) - end usr_num=".$user->usr_num);
+    }
+
+	public function game_barcode_update(){
+		
+		$user = $this->session->userdata('user');
+		
+		if($this->__user_role_check($user->usr_role)){return;}
+		
+		$input=$this->input->post();
+		
+		log_message("info","Game_action.game_barcode_update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+		
+		
+		$this->__update_bar_code_format_validate();
+		if($this->form_validation->run() != TRUE){
+			$this->game_barcode_update_form($input['bar_value']);
+			return;
+		}
+
+
+		$this->game_service->update_game_barcode($input['bar_value'],$input['bar_code']);
+		
+		$data['message']="維護遊戲對應條碼成功";
+		
+		$extend_url=array();
+		$extend_url[]=$this->__generate_url_data("繼續維護遊戲條碼", "game/game_action/game_barcode_update_form/",$input['bar_value']);
+		$extend_url[]=$this->__generate_url_data("遊戲資料列表", "game/game_action/game_list_form/");
+		$data['extend_url']=$extend_url;
+		
+		$this->load->view("message",$data);
+		
+		log_message("info","Game_action.game_barcode_update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
 		
 	}
 	
@@ -445,6 +501,9 @@ class Game_action extends MY_Controller {
 		$this->form_validation->set_rules('gid_rentable', '遊戲是否可出租', 'trim|required|integer|xss_clean');
 	}
     
+	private function __update_bar_code_format_validate(){
+		$this->form_validation->set_rules('bar_code', '條碼不得為空白', 'trim|required|xss_clean');
+	}
 }
 
 

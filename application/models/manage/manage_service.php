@@ -51,11 +51,6 @@
 			$condition['gid_enabled']=1;
 			$gids = $this->game_data_service->find_gids_list($condition);
 
-			if(count($gids)==1){
-				$gid=$gids;
-				$gids=NULL;
-				$gids[]=$gid;
-			}
 			//step2.組view資料
 			$result_set=array();
 			foreach ($gids as $gid) {
@@ -118,12 +113,6 @@
 			}
 			
 			$dailys = $this->dia_daily_record_dao->query_by_condition($condition);
-			
-			if(count($dailys)==1){
-				$daily=$dailys;
-				$dailys=NULL;
-				$dailys[]=$daily;
-			}
 			
 			// step2. 組dailys所需資訊
 			$users=array();

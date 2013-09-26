@@ -15,12 +15,13 @@
 		
         public function query_all(){
         	$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
         }
 		
 		public function query_by_pfs_num($pfs_num){
-			$condition['pfs_num']=$pfs_num;
-			return $this->query_by_condition($condition);
+			$this->db->where('pfs_num',$pfs_num);
+			$query = $this->db->get($this->table_name);
+			return generate_single_result($query);
 		}
 		
 		public function query_by_tag_num($tag_num){
@@ -70,7 +71,7 @@
 			
 			
 			$query = $this->db->get($this->table_name);
-			return generate_result_set($query);
+			return generate_result_list($query);
 		}
 		
     }
