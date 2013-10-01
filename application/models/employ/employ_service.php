@@ -86,14 +86,14 @@
 			return $this->dia_checkin_dao->query_by_usr_num($usr_num);
 		}
 		
-		public function find_user_check_interval($chk_start_time, $chk_end_time, $usr_num=NULL){
+		public function find_user_check_interval($chkin_start_time, $chkin_end_time, $usr_num=NULL){
 			
 			$condition=array();
 			if($usr_num != NULL){
 				$condition['usr_num']=$usr_num;
 			}
-			$condition['chk_start_time']=$chk_start_time;
-			$condition['chk_end_time']=$chk_end_time;
+			$condition['chkin_start_time']=$chkin_start_time;
+			$condition['chkin_end_time']=$chkin_end_time;
 			
 			return $this->dia_checkin_dao->query_by_condition($condition);
 		}
@@ -110,17 +110,22 @@
 			return $this->dia_checkin_dao->query_by_condition($condition);
 		}
 		
-		public function find_employ_monthly_record($chk_start_time, $chk_end_time){
+		public function find_employ_monthly_record($chkin_start_time, $chkin_end_time){
 			
 			// step1. 取得所選區間打卡紀錄
-			$chks = $this->find_user_check_interval($chk_start_time, $chk_end_time);
+			$source_chks = $this->find_user_check_interval($chkin_start_time, $chkin_end_time);
 			print_r($chks, TRUE);
+			$chks = array();
+			
 			// step2. 計算打卡時數
-			if(!empty($chks)){
-				foreach ($chks as $chk) {
-					$start_time=strtotime($chk->chk_in_time);
-					$end_time=strtotime($chk->chk_out_time);
-					$chk->interval=$this->__calculate_time_interval($chk->chk_in_time,$chk->chk_out_time);
+			if(!empty($source_chks)){
+				foreach ($source_chks as $chk) {
+					if($chk->chk_out_time != NULL){
+						$start_time=strtotime($chk->chk_in_time);
+						$end_time=strtotime($chk->chk_out_time);
+						$chk->interval=$this->__calculate_time_interval($chk->chk_in_time,$chk->chk_out_time);
+						$chks[]=$chk;	
+					}
 				}
 			}
 			

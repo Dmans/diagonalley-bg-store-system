@@ -74,12 +74,20 @@
 				$this->db->where("chk_out_time IS NOT NULL",NULL, FALSE);
 			}
 			
-			if(isset($condition["chk_start_time"])){
-				$this->db->where("chk_in_time >= ",$condition["chk_start_time"]);
+			if(isset($condition["chkin_start_time"])){
+				$this->db->where("chk_in_time >= ",$condition["chkin_start_time"]);
 			}
 			
-			if(isset($condition["chk_end_time"])){
-				$this->db->where("chk_out_time <= ",$condition["chk_end_time"]." 23:59:59");
+			if(isset($condition["chkout_start_time"])){
+				$this->db->where("chk_out_time >= ",$condition["chkout_start_time"]);
+			}
+			
+			if(isset($condition["chkin_end_time"])){
+				$this->db->where("chk_in_time <= ",$condition["chkin_end_time"]." 23:59:59");
+			}
+			
+			if(isset($condition["chkout_end_time"])){
+				$this->db->where("chk_out_time <= ",$condition["chkout_end_time"]." 23:59:59");
 			}
 			
 			

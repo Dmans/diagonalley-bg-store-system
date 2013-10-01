@@ -19,18 +19,37 @@
 			
 			$chks = $this->employ_service->find_user_check_list($user->usr_num);
 			
-			if(count($chks)==1){
-				$chk=$chks;
-				$chks=NULL;
-				$chks[]=$chk;
-			}
-			
 			$data['chks']=$chks;
 			$data['usr_name']=$user->usr_name;
         	
         	$this->load->view("employ/employ_page_list",$data);
 			
 			log_message("info","Employ_action.list_form - end usr_num=".$user->usr_num);
+        }
+		
+		
+		public function list_form2(){
+        	
+        	$user = $this->session->userdata('user');
+			
+			log_message("info","Employ_action.list_form2 - start usr_num=".$user->usr_num);
+			
+			$current_month_start = date('Y-m-01');
+			$current_month_end = date('Y-m-t');
+			
+			$previous_month_start = date( "Y-m-01", strtotime( "-1 month" ) );
+			$previous_month_end = date( "Y-m-t", strtotime( "-1 month" ) );
+
+			$current_check = $this->employ_service->find_user_check_interval($current_month_start, $current_month_end, $user->usr_num);
+			$previous_check = $this->employ_service->find_user_check_interval($previous_month_start, $previous_month_end, $user->usr_num);
+			
+			$data['current_check']=$current_check;
+			$data['previous_check']=$previous_check;
+			$data['usr_name']=$user->usr_name;
+        	
+        	$this->load->view("employ/employ_page_list2", $data);
+			
+			log_message("info","Employ_action.list_form2 - end usr_num=".$user->usr_num);
         }
 		
 		public function change_passwd_form(){

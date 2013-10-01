@@ -20,7 +20,7 @@
 							return;
 						}
 						
-						// console.log(data);
+						console.log(data);
 						
 						if(data.isSuccess==true){
 							alert("完成上班打卡\n打卡時間:"+data.chk.chk_in_time);
@@ -70,7 +70,7 @@
 			<input type="button" id="checkinButton" value="上班打卡" class="btn btn-primary"/>
 		</div>
 		<div class="row">
-			<div class="span9">
+			<div class="span9">本月打卡紀錄
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>序號</th>
@@ -80,8 +80,8 @@
 						<th>管理員審核時間</th>
 						<th>審核時數</th>
 					</tr>
-					<? if(isset($chks) and $chks!=NULL): ?>
-						<? foreach ($chks as $key=>$row) : ?> 
+					<? if(isset($current_check) and $current_check!=NULL): ?>
+						<? foreach ($current_check as $key=>$row) : ?> 
 							<tr id="chkeckTr_<?=$row->chk_num ?>">
 								<td><?=$key+1 ?></td>
 								<td><?=$row->chk_in_time ?></td>
@@ -103,9 +103,33 @@
 					<? endif ?>
 				</table>
 			</div>
+			<div class="span9">上月打卡紀錄
+				<table class="table table-striped table-hover table-bordered table-condensed">
+					<tr>
+						<th>序號</th>
+						<th>上班打卡時間</th>
+						<th>下班打卡時間</th>
+						<th>管理員審核</th>
+						<th>管理員審核時間</th>
+						<th>審核時數</th>
+					</tr>
+					<? if(isset($previous_check) and $previous_check!=NULL): ?>
+						<? foreach ($previous_check as $key=>$row) : ?> 
+							<tr>
+								<td><?=$key+1 ?></td>
+								<td><?=$row->chk_in_time ?></td>
+								<td style="font-weight: bold;">
+									<?=$row->chk_out_time ?>
+								</td>
+								<td><?=(isset($row->confirm_usr_num))?"已審核":"未審核" ?></td>
+								<td><?=(isset($row->confirm_date))?$row->confirm_date:"" ?></td>
+								<td><?=(isset($row->confirm_hours))?$row->confirm_hours:"" ?></td>
+							</tr>
+						<? endforeach  ?>
+					<? endif ?>
+				</table>
+			</div>
 		</div>
-		
-		
 	</body>
 </html>
 
