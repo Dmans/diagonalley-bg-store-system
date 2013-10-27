@@ -22,15 +22,9 @@
 		public function check_unfinished_checkin($usr_num){
 			$chks=$this->find_user_check_list($usr_num);
 			
-			if(count($chks)==1){
-				return (!isset($chks->chk_out_time));
-			}
-			
-			if(count($chks)>1){
-				foreach($chks as $row){
-					if(!isset($row->chk_out_time)){
-						return TRUE;
-					}
+			foreach($chks as $row){
+				if(!isset($row->chk_out_time)){
+					return TRUE;
 				}
 			}
 			
