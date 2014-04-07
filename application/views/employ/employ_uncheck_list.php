@@ -59,6 +59,7 @@
 						<th>打卡員工</th>
 						<th>上班打卡時間</th>
 						<th>下班打卡時間</th>
+						<th>所在店舖</th>
 						<th>管理員審核</th>
 						<th>管理員審核時間</th>
 					</tr>
@@ -68,6 +69,7 @@
 							<td><?=$row->usr_name ?></td>
 							<td><?=$row->chk_in_time ?></td>
 							<td><?=$row->chk_out_time ?></td>
+							<td><?=$row->sto_name ?></td>
 							<td id="confirmButtonArea_<?=$row->chk_num ?>">
 								<input type="text" id="comfirmHours_<?=$row->chk_num ?>" value="<?=$row->interval ?>" maxlength="5" size="5" />hr(s)
 								<input type="button" id="confirmButton_<?=$row->chk_num ?>" value="審核" class="btn <?=($row->interval>11)?'btn-danger':'btn-primary' ?>"/>

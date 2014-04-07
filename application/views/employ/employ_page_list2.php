@@ -12,7 +12,8 @@
 				
 				$('input#checkinButton').click(function(){
 					$('input#checkinButton').attr("disabled","disabled");
-					$.post("<?=site_url("employ/employ_json_action/save") ?>",
+					var stoNum = $('input#checkinStoNum').val();
+					$.post("<?=site_url("employ/employ_json_action/save/".$store->sto_num) ?>",
 					function(data){
 						if(data.redirect!=null && data.redirect==true){
 							alert("登入逾時 請重新登入");
@@ -20,8 +21,7 @@
 							return;
 						}
 						
-						console.log(data);
-						
+						// console.log(data);
 						if(data.isSuccess==true){
 							alert("完成上班打卡\n打卡時間:"+data.chk.chk_in_time);
 							location.reload();
@@ -65,6 +65,7 @@
 		<h3>個人打卡鐘</h3>
 		<div>
 			<div>打卡使用者:<span style="font-weight: bold;"><?=$usr_name ?></span></div>
+			<div>打卡店鋪:<span style="font-weight: bold;"><?=$store->sto_name ?></span></div>
 		</div>
 		<div>
 			<input type="button" id="checkinButton" value="上班打卡" class="btn btn-primary"/>

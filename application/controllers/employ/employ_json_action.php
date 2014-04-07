@@ -11,7 +11,7 @@
 			
 	    }
 		
-		public function save(){
+		public function save($sto_num){
 				
 			if(!$this->__user_login_validate()){
 				$data->redirect=TRUE;
@@ -21,24 +21,23 @@
 			
 			$user = $this->session->userdata('user');
 			
-			log_message("info","Employ_json_action.save() - start usr_num=".$user->usr_num);
+			log_message("info","Employ_json_action.save() - start usr_num=".$user->usr_num.", sto_num=".$sto_num);
 			
 			$has_unfinished=$this->employ_service->check_unfinished_checkin($user->usr_num);
 			
 			if($has_unfinished){
 				$data->isSuccess=FALSE;
 			}else{
-				$chk = $this->employ_service->check_in($user->usr_num);
+				$chk = $this->employ_service->check_in($user->usr_num, $sto_num);
 			
 				$data->chk=$chk;
 				$data->isSuccess=TRUE;
 				
-				log_message("chk=".print_r($chk,TRUE));
 			}
 			
 			echo json_encode($data);
 			
-			log_message("info","Employ_json_action.save() - end usr_num=".$user->usr_num);
+			log_message("info","Employ_json_action.save() - end usr_num=".$user->usr_num.", sto_num=".$sto_num);
 			
 		}
 

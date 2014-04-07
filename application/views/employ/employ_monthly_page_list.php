@@ -59,13 +59,25 @@
 								<th>工作時數(打卡時數)</th>
 								<th>工作時數(審核時數)</th>
 							</tr>
-							<? foreach($chk_user->chks as $chk): ?>
+							<? foreach($chk_user->stores as $store): ?>
+							    <tr>
+							       <td colspan="4"><?=$store->store_data->sto_name ?></td> 
+							    </tr>
+						        <? foreach($store->chks as $chk): ?>
+						        
 								<tr>
 									<td><?=$chk->chk_in_time ?></td>
 									<td><?=$chk->chk_out_time ?></td>
 									<td><?=$chk->interval ?></td>
 									<td><?=$chk->confirm_hours ?></td>
 								</tr>
+								<? endforeach ?>
+								<tr>
+								    <td></td>
+                                    <td align="right">小計</td>
+                                    <td><?=$store->summary->total_hours  ?></td>
+                                    <td><?=$store->summary->total_confirm_hours  ?></td>
+                                </tr>
 							<? endforeach ?>
 							<tr>
 								<td></td>

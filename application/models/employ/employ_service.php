@@ -9,12 +9,13 @@
 	        parent::__construct();
 			$this->load->model('dao/dia_checkin_dao');
 			$this->load->model('dao/dia_user_dao');
+            $this->load->model('dao/dia_store_dao');
 			$this->load->model("constants/form_constants");
 	    }
 		
 		
-		public function check_in($usr_num){
-			$chk_num = $this->dia_checkin_dao->insert($this->__assemble_save_checkin($usr_num));
+		public function check_in($usr_num, $sto_num){
+			$chk_num = $this->dia_checkin_dao->insert($this->__assemble_save_checkin($usr_num, $sto_num));
 			
 			return $this->dia_checkin_dao->query_by_chk_num($chk_num);
 		}
@@ -66,9 +67,11 @@
 			
 			$result_set=array();
 			if(count($chks)>0){
+			    $stores = $this->get_stores();
+                
 				foreach ($chks as $key => $chk) {
 					$user = $this->dia_user_dao->query_by_usr_num($chk->usr_num);
-					$result_set[]=$this->__assemble_user_checkin($user, $chk);
+					$result_set[]=$this->__assemble_user_checkin($user, $chk, $stores[$chk->sto_num]);
 				}
 			}
 			
@@ -80,15 +83,18 @@
 			return $this->dia_checkin_dao->query_by_usr_num($usr_num);
 		}
 		
-		public function find_user_check_interval($chkin_start_time, $chkin_end_time, $usr_num=NULL){
+		public function find_user_check_interval($chkin_start_time, $chkin_end_time, $usr_num=NULL, $sto_num=NULL){
 			
 			$condition=array();
 			if($usr_num != NULL){
 				$condition['usr_num']=$usr_num;
 			}
+			if($sto_num != NULL){
+				$condition['sto_num']=$sto_num;
+			}
 			$condition['chkin_start_time']=$chkin_start_time;
 			$condition['chkin_end_time']=$chkin_end_time;
-			
+
 			return $this->dia_checkin_dao->query_by_condition($condition);
 		}
 		
@@ -108,7 +114,7 @@
 			
 			// step1. 取得所選區間打卡紀錄
 			$source_chks = $this->find_user_check_interval($chkin_start_time, $chkin_end_time);
-			print_r($chks, TRUE);
+			// print_r($chks, TRUE);
 			$chks = array();
 			
 			// step2. 計算打卡時數
@@ -124,6 +130,7 @@
 			}
 			
 			// step3. 找出打卡使用者，綁定打卡資料
+			$stores = $this->get_stores();
 			$checked_users=array();
 			if(!empty($chks)){
 				foreach ($chks as $chk) {
@@ -131,29 +138,45 @@
 						$checked_users[$chk->usr_num]=$this->dia_user_dao->query_by_usr_num($chk->usr_num);
 					}
 					
-					$checked_users[$chk->usr_num]->chks[]=$chk;
+					$checked_users[$chk->usr_num]->stores[$chk->sto_num]->chks[]=$chk;
+                    $checked_users[$chk->usr_num]->stores[$chk->sto_num]->store_data=$stores[$chk->sto_num];
 				}
 			}
 			
 			// step4. 計算總時數
 			foreach($checked_users as $chk_user){
-				$total_hours=0;
-				$total_confirm_hours=0;
-				foreach($chk_user->chks as $chk){
-					$total_hours += $chk->interval;
-					$total_confirm_hours+=$chk->confirm_hours;
-				}
+			    $total_hours=0;
+                $total_confirm_hours=0;
+				foreach ($chk_user->stores as $store) {
+				    
+                    //計算各店舖小計
+                    $store->summary = $this->__calculate_summary($store->chks);
+                    
+                    $total_hours += $store->summary->total_hours;
+                    $total_confirm_hours += $store->summary->total_confirm_hours;
+				}    
+                
 				$chk_user->total_hours=$total_hours;
 				$chk_user->total_confirm_hours=$total_confirm_hours;
 			}
 			
 			return $checked_users;
-			
 		}
+
+        public function get_stores() {
+            $stores = $this->dia_store_dao->query_all();
+            $converted_stores = array();
+            foreach ($stores as $store) {
+                $converted_stores[$store->sto_num] = $store;
+            }
+            
+            return $converted_stores;
+        } 
 		
-		private function __assemble_save_checkin($usr_num){
+		private function __assemble_save_checkin($usr_num, $sto_num){
 				
 			$chk->usr_num=$usr_num;
+			$chk->sto_num=$sto_num;
 			$chk->chk_in_time=date('Y-m-d H:i:s');
 			return $chk;
 		}
@@ -175,12 +198,13 @@
 			return $chk;
 		}
 		
-		private function __assemble_user_checkin($user,$chk){
+		private function __assemble_user_checkin($user,$chk, $store){
 				
 			$result->chk_num=$chk->chk_num;
 			$result->usr_num=$chk->usr_num;
 			$result->usr_name=$user->usr_name;
 			$result->chk_in_time=$chk->chk_in_time;
+            $result->sto_name=$store->sto_name;
 			if(isset($chk->chk_out_time)){
 				$result->chk_out_time=$chk->chk_out_time;
 				$result->interval=$this->__calculate_time_interval($chk->chk_in_time, $chk->chk_out_time);
@@ -196,6 +220,20 @@
 			$real_interval=round((($end_time-$start_time)/3600),1);
 			return (floor($real_interval*2))/2;
 		}
+        
+        private function __calculate_summary($chks) {
+                $result=NULL;
+                $total_hours=0;
+                $total_confirm_hours=0;
+                foreach($chks as $chk){
+                    $total_hours += $chk->interval;
+                    $total_confirm_hours+=$chk->confirm_hours;
+                }
+                $result->total_hours=$total_hours;
+                $result->total_confirm_hours=$total_confirm_hours;
+                
+                return $result;
+        }
 		
     }
     
