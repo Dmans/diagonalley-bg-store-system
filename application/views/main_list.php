@@ -12,7 +12,7 @@
 		<h2>管理介面</h2>
 		<div>使用者:<?=$usr_name?></div>
 		<? if($usr_role==0 OR $usr_role==1): ?>
-		<div><a target="content" href="https://docs.google.com/spreadsheet/ccc?key=0AoJXiZQFD49ndHhBc05mNFlnaXdDQ2djMFgyLWlPU0E#gid=0">系統提案表</a></div>
+		<!-- <div><a target="content" href="https://docs.google.com/spreadsheet/ccc?key=0AoJXiZQFD49ndHhBc05mNFlnaXdDQ2djMFgyLWlPU0E#gid=0">系統提案表</a></div> -->
 		<div><a target="content" href="https://www.google.com/calendar/embed?src=nhn4r2e6tgca9gjm3seu0o3fe0%40group.calendar.google.com&ctz=Asia/Taipei">行事曆</a></div>
 		<? endif ?>
 		<div><a href="javascript:parent.location.reload();">回首頁</a></div>
