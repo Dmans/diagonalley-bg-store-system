@@ -120,8 +120,15 @@
 								<td><?=$key+1 ?></td>
 								<td><?=$row->chk_in_time ?></td>
 								<td style="font-weight: bold;">
-									<?=$row->chk_out_time ?>
-								</td>
+                                    <? if(isset($row->chk_out_time)): ?>
+                                        <?=$row->chk_out_time ?>
+                                    <? endif ?>
+                                    
+                                    <? if(!isset($row->chk_out_time)): ?>
+                                        <input type="button" id="checkoutButton" value="下班打卡" class="btn btn-success"/>
+                                        <input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
+                                    <? endif ?>
+                                </td>
 								<td><?=(isset($row->confirm_usr_num))?"已審核":"未審核" ?></td>
 								<td><?=(isset($row->confirm_date))?$row->confirm_date:"" ?></td>
 								<td><?=(isset($row->confirm_hours))?$row->confirm_hours:"" ?></td>
