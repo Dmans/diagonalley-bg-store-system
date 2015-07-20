@@ -20,7 +20,7 @@
 			<div>遊戲牌數量:<input type="text" name="gam_cardcount" maxlength="12" size="12" value="<?=set_value("gam_cardcount","") ?>" /></div>
 			<div>遊戲售價:<input type="text" name="gam_svalue" maxlength="5" value="<?=set_value("gam_svalue","") ?>"/></div>
 			<div>遊戲成本價:<input type="text" name="gam_cvalue" maxlength="5" value="<?=set_value("gam_cvalue","") ?>"/></div>
-			<div>遊戲是否可出售:
+			<div>遊戲是否為庫存商品(可出售):
 				<input type="radio" name="gam_sale"  value="0" <?=set_radio("gam_sale","0") ?> />否
 				<input type="radio" name="gam_sale"  value="1" <?=set_radio("gam_sale","1",TRUE) ?> />是
 			</div>

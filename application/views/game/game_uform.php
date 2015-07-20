@@ -27,7 +27,7 @@
 					尚未連結對應條碼 <a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>"class="btn btn-primary btn-mini">新增條碼</a>
 				<? endif ?>
 			</div>
-			<div>遊戲是否可出售:
+			<div>遊戲是否為庫存商品(可出售):
 				<input type="radio" name="gam_sale"  value="0" <?=set_radio("gam_sale","0",($gam_sale==0)?TRUE:FALSE) ?> />否
 				<input type="radio" name="gam_sale"  value="1" <?=set_radio("gam_sale","1",($gam_sale==1)?TRUE:FALSE) ?> />是
 			</div>
