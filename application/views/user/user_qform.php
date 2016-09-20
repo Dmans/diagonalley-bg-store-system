@@ -13,7 +13,10 @@
 			<div>帳號:<input type="text" name="usr_id" maxlength="32" /></div>
 			<div>名稱:<input type="text" name="usr_name" maxlength="32" /></div>
 			<div>帳號類型:
-				<? if($usr_role==0):  ?><input type="radio" name="usr_role"  value="1" <?=set_radio("usr_role","1")?>/>店長<? endif ?>
+				<? if($usr_role==0):  ?>
+				    <input type="radio" name="usr_role"  value="0" <?=set_radio("usr_role","0")?>/>Root
+				    <input type="radio" name="usr_role"  value="1" <?=set_radio("usr_role","1")?>/>店長
+			    <? endif ?>
 				<? if($usr_role==0 OR $usr_role==1):  ?><input type="radio" name="usr_role" value="2" <?=set_radio("usr_role","2")?>/>員工<? endif ?>
 				<input type="radio" name="usr_role" value="3" <?=set_radio("usr_role","3", TRUE)?> />會員
 			</div>
@@ -25,7 +28,7 @@
 			<?=validation_errors('<div class="text-error">','</div>') ?>
 			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
-		
+
 		<div>
 			<? if(isset($query_result)):  ?>
 				<h3>查詢結果</h3>
@@ -42,9 +45,9 @@
 						<? if($usr_role==0): ?>
 							<th>登入失敗次數</th>
 						<? endif ?>
-						
+
 					</tr>
-					<? foreach ($query_result as $row) : ?> 
+					<? foreach ($query_result as $row) : ?>
 						<tr>
 							<td>
 								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-mini">查詢</a>

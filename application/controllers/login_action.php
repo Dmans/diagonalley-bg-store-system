@@ -14,7 +14,7 @@
         public function index(){
         	$this->load->library('form_validation');
 			$this->load->helper(array('form','url'));
-			$data['system_name']="斜角巷";
+			$data['system_name']="古靈閣";
         	$this->load->view("login_form", $data);
 			
         }

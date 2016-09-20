@@ -12,7 +12,7 @@
 	        padding-bottom: 40px;
 	        background-color: #f5f5f5;
 	      }
-	
+
 	      .form-signin {
 	        max-width: 300px;
 	        padding: 19px 29px 29px;
@@ -50,8 +50,11 @@
 				<input type="submit" value="Login" class="btn btn-large btn-primary" />
 			</form>
 		</div>
-		
-		
+        <div class="container text-center">
+                        <img src="<?=base_url(); ?>images/logo/diagonalley.jpg" class="img-rounded"/>
+                        <img src="<?=base_url(); ?>images/logo/baker.jpg" class="img-rounded"/>
+                        <img src="<?=base_url(); ?>images/logo/sherlock.jpg" class="img-rounded"/>
+        </div>
 	</body>
 </html>
 
