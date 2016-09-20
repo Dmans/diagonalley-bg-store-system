@@ -14,9 +14,9 @@
                     $storePermission.hide();
                 }
 
-                // if(usrRole=='0') {
-                    // $("input[name='usr_role']").attr('disabled',true);
-                // }
+                if(usrRole=='0') {
+                    $("input[name='usr_role']").attr('disabled',true);
+                }
 
                 $("input[name='usr_role']").change(function(e){
                     if($(this).val() == '1' || $(this).val() == '0') {
