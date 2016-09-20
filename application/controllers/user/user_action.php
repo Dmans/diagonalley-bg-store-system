@@ -103,9 +103,9 @@
 				return;
 			}
 
-            // if ($user->usr_role != 0) {
-                // unset($input['sto_nums']);
-            // }
+            if ($user->usr_role != 0) {
+                unset($input['sto_nums']);
+            }
 
 			$this->user_service->update_user($input);
 
