@@ -55,7 +55,7 @@
 			// }
 
 			//step3.加入選用where條件
-			$custom_value_conditions=array("sto_name");
+			$custom_value_conditions=array("sto_name", "sto_type");
 			foreach ($custom_value_conditions as $field_name) {
 				if(isset($condition[$field_name]) && $condition[$field_name]!=-1){
 					$this->db->where($field_name,$condition[$field_name]);

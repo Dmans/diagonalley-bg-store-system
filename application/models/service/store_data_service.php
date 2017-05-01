@@ -13,6 +13,16 @@
 
         public function get_stores() {
             $stores = $this->dia_store_dao->query_all();
+            return $this->convert_store_array($stores);
+        }
+
+        public function get_real_stores() {
+            $condition['sto_type'] = 0;
+            $stores = $this->dia_store_dao->query_by_condition($condition);
+            return $this->convert_store_array($stores);
+        }
+
+        private function convert_store_array($stores) {
             $converted_stores = array();
             foreach ($stores as $store) {
                 $converted_stores[$store->sto_num] = $store;

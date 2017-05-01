@@ -73,7 +73,10 @@
                     $condition['sto_num']=$usp->sto_num;
 
                     $chk = $this->dia_checkin_dao->query_by_condition($condition);
-                    $chks = array_merge($chks, $chk);
+                    if (!empty($chk)) {
+                        $chks = array_merge($chks, $chk);
+                    }
+
                 }
 
 		    }
