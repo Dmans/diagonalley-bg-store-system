@@ -11,21 +11,21 @@
 
 	    }
 
-		public function list_form(){
-
-        	$user = $this->session->userdata('user');
-
-			log_message("info","Employ_action.list_form - start usr_num=".$user->usr_num);
-
-			$chks = $this->employ_service->find_user_check_list($user->usr_num);
-
-			$data['chks']=$chks;
-			$data['usr_name']=$user->usr_name;
-
-        	$this->load->view("employ/employ_page_list",$data);
-
-			log_message("info","Employ_action.list_form - end usr_num=".$user->usr_num);
-        }
+		// public function list_form(){
+//
+        	// $user = $this->session->userdata('user');
+//
+			// log_message("info","Employ_action.list_form - start usr_num=".$user->usr_num);
+//
+			// $chks = $this->employ_service->find_user_check_list($user->usr_num);
+//
+			// $data['chks']=$chks;
+			// $data['usr_name']=$user->usr_name;
+//
+        	// $this->load->view("employ/employ_page_list",$data);
+//
+			// log_message("info","Employ_action.list_form - end usr_num=".$user->usr_num);
+        // }
 
 
 		public function list_form2($sto_num){

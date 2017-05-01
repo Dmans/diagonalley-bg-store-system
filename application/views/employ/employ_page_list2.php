@@ -9,18 +9,18 @@
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				
 				$('input#checkinButton').click(function(){
 					$('input#checkinButton').attr("disabled","disabled");
-					var stoNum = $('input#checkinStoNum').val();
-					$.post("<?=site_url("employ/employ_json_action/save/".$store->sto_num) ?>",
-					function(data){
+					$.post("<?=site_url("employ/employ_json_action/save/") ?>", {
+					    sto_num : <?=$store->sto_num ?>
+					},
+					function(data) {
 						if(data.redirect!=null && data.redirect==true){
 							alert("登入逾時 請重新登入");
 							parent.location.reload();
 							return;
 						}
-						
+
 						// console.log(data);
 						if(data.isSuccess==true){
 							alert("完成上班打卡\n打卡時間:"+data.chk.chk_in_time);
@@ -31,22 +31,23 @@
 						}
 					},"json");
 				});
-				
+
 				$('input#checkoutButton').click(function(){
 					$('input#checkoutButton').attr("disabled","disabled");
 					$.post("<?=site_url("employ/employ_json_action/update") ?>",{
-						"chk_num":$('input#chkNum').val()
+						chk_num : $('input#chkNum').val(),
+						chk_note : $('textarea#chkNote').val()
 					},
 					function(data){
-						
+
 						if(data.redirect!=null && data.redirect==true){
 							alert("登入逾時 請重新登入");
 							parent.location.reload();
 							return;
 						}
-						
+
 						if(data.isSuccess==true){
-							
+
 							alert("完成下班打卡 辛苦了!\n打卡時間:"+data.chk_out_time);
 							location.reload();
 						}else{
@@ -55,10 +56,10 @@
 						}
 					},"json");
 				});
-				
-				
+
+
 			});
-			
+
 		</script>
 	</head>
 	<body>
@@ -77,12 +78,13 @@
 						<th>序號</th>
 						<th>上班打卡時間</th>
 						<th>下班打卡時間</th>
+						<th>工作備註</th>
 						<th>管理員審核</th>
 						<th>管理員審核時間</th>
 						<th>審核時數</th>
 					</tr>
 					<? if(isset($current_check) and $current_check!=NULL): ?>
-						<? foreach ($current_check as $key=>$row) : ?> 
+						<? foreach ($current_check as $key=>$row) : ?>
 							<tr id="chkeckTr_<?=$row->chk_num ?>">
 								<td><?=$key+1 ?></td>
 								<td><?=$row->chk_in_time ?></td>
@@ -90,12 +92,24 @@
 									<? if(isset($row->chk_out_time)): ?>
 										<?=$row->chk_out_time ?>
 									<? endif ?>
-									
+
 									<? if(!isset($row->chk_out_time)): ?>
+
 										<input type="button" id="checkoutButton" value="下班打卡" class="btn btn-success"/>
 										<input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
 									<? endif ?>
 								</td>
+								<td>
+                                    <? if(isset($row->chk_out_time)): ?>
+                                        <?=nl2br($row->chk_note) ?>
+                                    <? endif ?>
+
+                                    <? if(!isset($row->chk_out_time)): ?>
+                                        <div>
+                                            <textarea id="chkNote" name="chk_note" class="form-control" rows="3" placeholder="工作備註"></textarea>
+                                        </div>
+                                    <? endif ?>
+                                </td>
 								<td><?=(isset($row->confirm_usr_num))?"已審核":"未審核" ?></td>
 								<td><?=(isset($row->confirm_date))?$row->confirm_date:"" ?></td>
 								<td><?=(isset($row->confirm_hours))?$row->confirm_hours:"" ?></td>
@@ -110,12 +124,13 @@
 						<th>序號</th>
 						<th>上班打卡時間</th>
 						<th>下班打卡時間</th>
+						<th>工作備註</th>
 						<th>管理員審核</th>
 						<th>管理員審核時間</th>
 						<th>審核時數</th>
 					</tr>
 					<? if(isset($previous_check) and $previous_check!=NULL): ?>
-						<? foreach ($previous_check as $key=>$row) : ?> 
+						<? foreach ($previous_check as $key=>$row) : ?>
 							<tr>
 								<td><?=$key+1 ?></td>
 								<td><?=$row->chk_in_time ?></td>
@@ -123,10 +138,21 @@
                                     <? if(isset($row->chk_out_time)): ?>
                                         <?=$row->chk_out_time ?>
                                     <? endif ?>
-                                    
+
                                     <? if(!isset($row->chk_out_time)): ?>
                                         <input type="button" id="checkoutButton" value="下班打卡" class="btn btn-success"/>
                                         <input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
+                                    <? endif ?>
+                                </td>
+                                <td>
+                                    <? if(isset($row->chk_out_time)): ?>
+                                        <?=nl2br($row->chk_note) ?>
+                                    <? endif ?>
+
+                                    <? if(!isset($row->chk_out_time)): ?>
+                                        <div>
+                                            <textarea id="chkNote" name="chk_note" class="form-control" rows="3" placeholder="工作備註"></textarea>
+                                        </div>
                                     <? endif ?>
                                 </td>
 								<td><?=(isset($row->confirm_usr_num))?"已審核":"未審核" ?></td>

@@ -33,12 +33,12 @@
 			return FALSE;
 		}
 
-		public function check_out($chk_num,$usr_num){
+		public function check_out($chk_num,$usr_num, $chk_note){
 			$chk = $this->dia_checkin_dao->query_by_chk_num($chk_num);
 
 			if(isset($chk)){
-				if($chk->usr_num==$usr_num){
-					$this->dia_checkin_dao->update($this->__assemble_update_checkin($chk_num));
+				if($chk->usr_num == $usr_num){
+					$this->dia_checkin_dao->update($this->__assemble_update_checkin($chk_num, $chk_note));
 					return TRUE;
 				}
 			}
@@ -134,7 +134,11 @@
 
             $source_chks = array();
             foreach ($usp_array as $key => $usp) {
-                $source_chks = array_merge($source_chks, $this->find_user_check_interval($chkin_start_time, $chkin_end_time, null, $usp->sto_num));
+                $chk = $this->find_user_check_interval($chkin_start_time, $chkin_end_time, null, $usp->sto_num);
+                if (!empty($chk)) {
+                    $source_chks = array_merge($source_chks, $chk);
+                }
+
             }
 
 			$chks = array();
@@ -197,9 +201,13 @@
 			return $chk;
 		}
 
-		private function __assemble_update_checkin($chk_num){
+		private function __assemble_update_checkin($chk_num, $chk_note){
 
 			$chk->chk_num=$chk_num;
+            if (!empty($chk_note)) {
+                $chk->chk_note=$chk_note;
+            }
+
 			$chk->chk_out_time=date('Y-m-d H:i:s');
 			return $chk;
 		}
@@ -211,6 +219,11 @@
 			$chk->confirm_hours=$input['confirm_hours'];
 			$chk->confirm_usr_num=$usr_num;
 			$chk->confirm_date=date('Y-m-d H:i:s');
+
+            if (!empty($input['confirm_note'])) {
+                $chk->confirm_note = $input['confirm_note'];
+            }
+
 			return $chk;
 		}
 
@@ -225,6 +238,8 @@
 				$result->chk_out_time=$chk->chk_out_time;
 				$result->interval=$this->__calculate_time_interval($chk->chk_in_time, $chk->chk_out_time);
 			}
+
+            $result->chk_note=$chk->chk_note;
 
 			return $result;
 
