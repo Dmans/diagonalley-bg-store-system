@@ -125,13 +125,13 @@ class Pos_tag_action extends MY_Controller {
 	}
 	
 	private function __save_tag_format_validate(){
-		$this->form_validation->set_rules('tag_name', '銷售類型名稱', 'trim|required|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('tag_desc', '銷售類型說明', 'trim|required|max_length[128]|xss_clean');
+		$this->form_validation->set_rules('tag_name', '銷售類型名稱', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('tag_desc', '銷售類型說明', 'trim|required|max_length[128]');
 	}
 	
 	private function __update_tag_format_validate(){
-		$this->form_validation->set_rules('tag_name', '銷售類型名稱', 'trim|required|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('tag_desc', '銷售類型說明', 'trim|required|max_length[128]|xss_clean');
+		$this->form_validation->set_rules('tag_name', '銷售類型名稱', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('tag_desc', '銷售類型說明', 'trim|required|max_length[128]');
 	}
 	
 	

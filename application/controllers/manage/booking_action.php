@@ -144,15 +144,15 @@ class Booking_action extends MY_Controller {
 	
 	
 	private function __save_booking_format_validate(){
-		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('dbk_content', '定位資訊', 'trim|required|max_length[2048]|xss_clean');
-		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
+		$this->form_validation->set_rules('dbk_content', '定位資訊', 'trim|required|max_length[2048]');
+		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
 	}
 	
 	private function __update_booking_format_validate(){
-		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('dbk_content', '定位資訊', 'trim|required|max_length[2048]|xss_clean');
-		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
+		$this->form_validation->set_rules('dbk_content', '定位資訊', 'trim|required|max_length[2048]');
+		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
 	}
 	
 }

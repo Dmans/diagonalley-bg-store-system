@@ -127,8 +127,8 @@ class Report_action extends MY_Controller {
 	}
 	
 	private function __list_gid_record_format_validate(){
-		$this->form_validation->set_rules('date_from', '查詢起始日期', 'trim|required|max_length[10]|xss_clean');
-		$this->form_validation->set_rules('date_to', '查詢結束日期', 'trim|required|max_length[10]|xss_clean');
+		$this->form_validation->set_rules('date_from', '查詢起始日期', 'trim|required|max_length[10]');
+		$this->form_validation->set_rules('date_to', '查詢結束日期', 'trim|required|max_length[10]');
 	}
 	
 }

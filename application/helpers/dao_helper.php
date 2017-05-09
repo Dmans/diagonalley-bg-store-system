@@ -10,11 +10,11 @@ function generate_result_set($query_result){
 	if(count($result_set)==0){
 		return NULL;
 	}
-	
+
 	if(count($result_set)==1){
 		return $result_set[0];
 	}
-	
+
 	return $result_set;
 }
 
@@ -25,10 +25,10 @@ function generate_result_list($query_result){
 			$result_set[] = $row;
 		}
 	}
-	if(count($result_set)==0){
-		return NULL;
-	}
-	
+	// if(count($result_set)==0){
+		// return NULL;
+	// }
+
 	return $result_set;
 }
 
@@ -42,11 +42,11 @@ function generate_single_result($query_result){
 	if(count($result_set)==0){
 		return NULL;
 	}
-	
+
 	if(count($result_set)==1){
 		return $result_set[0];
 	}
-	
+
 	return $result_set;
 }
 

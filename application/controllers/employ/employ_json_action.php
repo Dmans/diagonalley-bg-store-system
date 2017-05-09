@@ -13,6 +13,8 @@
 
 		public function save(){
 
+            $data = new stdClass();
+
 			if(!$this->__user_login_validate()){
 				$data->redirect=TRUE;
 				echo json_encode($data);
@@ -46,6 +48,8 @@
 		}
 
 		public function update(){
+
+            $data = new stdClass();
 
 			if(!$this->__user_login_validate()){
 				$data->redirect=TRUE;
@@ -133,14 +137,14 @@
         }
 
 		private function __update_employ_format_validate(){
-			$this->form_validation->set_rules('chk_num', '打卡流水號', 'trim|required|integer|xss_clean');
+			$this->form_validation->set_rules('chk_num', '打卡流水號', 'trim|required|integer');
 		}
 
 		private function __list_user_format_validate(){
-			$this->form_validation->set_rules('usr_id', '帳號', 'trim|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_name', '名稱', 'trim|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim|xss_clean');
-			$this->form_validation->set_rules('usr_status', '啟用狀態', 'trim|xss_clean');
+			$this->form_validation->set_rules('usr_id', '帳號', 'trim|max_length[32]');
+			$this->form_validation->set_rules('usr_name', '名稱', 'trim|max_length[32]');
+			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim');
+			$this->form_validation->set_rules('usr_status', '啟用狀態', 'trim');
 		}
 
 	}

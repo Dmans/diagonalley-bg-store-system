@@ -194,7 +194,7 @@
         }
 
 		private function __assemble_save_checkin($usr_num, $sto_num){
-
+		    $chk = new stdClass();
 			$chk->usr_num=$usr_num;
 			$chk->sto_num=$sto_num;
 			$chk->chk_in_time=date('Y-m-d H:i:s');
@@ -202,7 +202,7 @@
 		}
 
 		private function __assemble_update_checkin($chk_num, $chk_note){
-
+            $chk = new stdClass();
 			$chk->chk_num=$chk_num;
             if (!empty($chk_note)) {
                 $chk->chk_note=$chk_note;
@@ -228,7 +228,7 @@
 		}
 
 		private function __assemble_user_checkin($user,$chk, $store){
-
+            $result = new stdClass();
 			$result->chk_num=$chk->chk_num;
 			$result->usr_num=$chk->usr_num;
 			$result->usr_name=$user->usr_name;
@@ -253,13 +253,14 @@
 		}
 
         private function __calculate_summary($chks) {
-                $result=NULL;
+
                 $total_hours=0;
                 $total_confirm_hours=0;
                 foreach($chks as $chk){
                     $total_hours += $chk->interval;
                     $total_confirm_hours+=$chk->confirm_hours;
                 }
+                $result = new stdClass();
                 $result->total_hours=$total_hours;
                 $result->total_confirm_hours=$total_confirm_hours;
 

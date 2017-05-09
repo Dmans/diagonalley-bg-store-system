@@ -317,25 +317,25 @@ class Pos_action extends MY_Controller {
 	
 	
 	private function __save_format_validate(){
-		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]|xss_clean');
-		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]');
+		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]');
 	}
 	
 	private function __update_format_validate(){
 		
-		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]|xss_clean');
-		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]');
+		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]');
 	}
 	
 	private function __list_format_validate(){
 		
-		$this->form_validation->set_rules('pod_date', '查詢日期', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('pod_date', '查詢日期', 'trim|required');
 	}
 	
 	private function __pos_fast_button_format_validate(){
-		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]|xss_clean');
-		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]|xss_clean');
-		$this->form_validation->set_rules('pfs_order', '按鈕排序', 'trim|required|integer|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('pod_desc', '銷售說明', 'trim|max_length[256]');
+		$this->form_validation->set_rules('pod_svalue', '銷售金額', 'trim|required|integer|max_length[12]');
+		$this->form_validation->set_rules('pfs_order', '按鈕排序', 'trim|required|integer|max_length[12]');
 	}
 	
 	

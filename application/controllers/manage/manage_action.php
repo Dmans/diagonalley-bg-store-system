@@ -157,13 +157,13 @@ class Manage_action extends MY_Controller {
 	}
 
 	private function __save_daily_format_validate(){
-		$this->form_validation->set_rules('ddr_content', '公告內容', 'trim|required|max_length[2048]|xss_clean');
-		$this->form_validation->set_rules('ddr_status', '公告狀態', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('ddr_content', '公告內容', 'trim|required|max_length[2048]');
+		$this->form_validation->set_rules('ddr_status', '公告狀態', 'trim|required');
 	}
 	
 	private function __update_daily_format_validate(){
-		$this->form_validation->set_rules('ddr_content', '公告內容', 'trim|required|max_length[2048]|xss_clean');
-		$this->form_validation->set_rules('ddr_status', '公告狀態', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('ddr_content', '公告內容', 'trim|required|max_length[2048]');
+		$this->form_validation->set_rules('ddr_status', '公告狀態', 'trim|required');
 	}
 	
 }

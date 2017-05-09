@@ -265,38 +265,38 @@
 
 
 		private function __save_user_format_validate(){
-			$this->form_validation->set_rules('usr_id', '帳號', 'trim|required|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_name', '名稱', 'trim|required|max_length[32]|xss_clean');
-		    $this->form_validation->set_rules('usr_passwd', '密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]|xss_clean');
-			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim|required|integer|xss_clean');
-			$this->form_validation->set_rules('usr_memo', '備註', 'trim|max_length[1024]|xss_clean');
+			$this->form_validation->set_rules('usr_id', '帳號', 'trim|required|max_length[32]');
+			$this->form_validation->set_rules('usr_name', '名稱', 'trim|required|max_length[32]');
+		    $this->form_validation->set_rules('usr_passwd', '密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]');
+			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]');
+			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim|required|integer');
+			$this->form_validation->set_rules('usr_memo', '備註', 'trim|max_length[1024]');
 		}
 
 		private function __update_user_format_validate(){
-			$this->form_validation->set_rules('usr_name', '名稱', 'trim|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim|xss_clean');
-			$this->form_validation->set_rules('usr_status', '啟用狀態', 'trim|xss_clean');
-			$this->form_validation->set_rules('usr_memo', '備註', 'trim|max_length[1024]|xss_clean');
+			$this->form_validation->set_rules('usr_name', '名稱', 'trim|max_length[32]');
+			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim');
+			$this->form_validation->set_rules('usr_status', '啟用狀態', 'trim');
+			$this->form_validation->set_rules('usr_memo', '備註', 'trim|max_length[1024]');
 		}
 
 		private function __list_user_format_validate(){
-			$this->form_validation->set_rules('usr_id', '帳號', 'trim|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_name', '名稱', 'trim|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim|xss_clean');
-			$this->form_validation->set_rules('usr_status', '啟用狀態', 'trim|xss_clean');
+			$this->form_validation->set_rules('usr_id', '帳號', 'trim|max_length[32]');
+			$this->form_validation->set_rules('usr_name', '名稱', 'trim|max_length[32]');
+			$this->form_validation->set_rules('usr_role', '使用者角色', 'trim');
+			$this->form_validation->set_rules('usr_status', '啟用狀態', 'trim');
 		}
 
 		private function __change_passwd_format_validate($confirm_old_passwd){
-			$this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]|xss_clean|callback_old_password_validate['.$confirm_old_passwd.']');
-			$this->form_validation->set_rules('usr_passwd', '新密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]|xss_clean');
-			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]|xss_clean');
+			$this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]|callback_old_password_validate['.$confirm_old_passwd.']');
+			$this->form_validation->set_rules('usr_passwd', '新密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]');
+			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]');
 		}
 
 		private function __save_member_format_validate(){
-			$this->form_validation->set_rules('usr_id', '會員email', 'trim|required|max_length[128]|xss_clean|valid_email');
-			$this->form_validation->set_rules('usr_name', '會員名稱', 'trim|required|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_memo', '備註', 'trim|max_length[1024]|xss_clean');
+			$this->form_validation->set_rules('usr_id', '會員email', 'trim|required|max_length[128]|valid_email');
+			$this->form_validation->set_rules('usr_name', '會員名稱', 'trim|required|max_length[32]');
+			$this->form_validation->set_rules('usr_memo', '備註', 'trim|max_length[1024]');
 		}
 	}
 

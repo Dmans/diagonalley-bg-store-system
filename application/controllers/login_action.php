@@ -56,8 +56,8 @@
 		}
 
 		private function __login_format_validation($usr_passwd){
-			$this->form_validation->set_rules('usr_id', '帳號', 'required|max_length[64]|xss_clean|callback_validate_user['.$usr_passwd.']');
-		    $this->form_validation->set_rules('usr_passwd', '密碼', 'required|max_length[32]|xss_clean');
+			$this->form_validation->set_rules('usr_id', '帳號', 'required|max_length[64]|callback_validate_user['.$usr_passwd.']');
+		    $this->form_validation->set_rules('usr_passwd', '密碼', 'required|max_length[32]');
 		}
 
 

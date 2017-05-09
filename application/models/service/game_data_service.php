@@ -1,9 +1,9 @@
 <?php
     /**
-     * 
+     *
      */
     class game_data_service extends CI_Model {
-        
+
         function __construct()
 	    {
 	        parent::__construct();
@@ -14,71 +14,71 @@
 			$this->load->model('service/tag_data_service');
 			$this->load->model("constants/form_constants");
 	    }
-		
+
 		public function save_game($input){
 			return $this->dia_game_dao->insert($this->__assemble_save_game($input));
 		}
-		
+
 		public function save_game_id($input){
 			$this->dia_game_id_dao->insert($this->__assemble_save_game_id($input));
 		}
-		
+
 		public function update_game($input){
 			$this->dia_game_dao->update($this->__assemble_update_game($input));
 		}
-		
+
 		public function update_game_id($input){
 			$this->dia_game_id_dao->update($this->__assemble_update_game_id($input));
 		}
-		
+
 		public function modify_game_storage($gam_num, $modify_value, $new_gam_cvalue=NULL){
 			$game = $this->dia_game_dao->query_by_gam_num($gam_num);
 			$input['gam_num']=$gam_num;
 			$input['gam_storage']=($game->gam_storage+$modify_value);
-			
-			
+
+
 			if($new_gam_cvalue!=NULL){
 				// 計算新的遊戲成本
 				$old_gam_cvalue = $game->gam_cvalue;
 				$old_gam_storage = $game->gam_storage;
-				
-				$input['gam_cvalue']= 
+
+				$input['gam_cvalue']=
 					(($old_gam_cvalue*$old_gam_storage)+($new_gam_cvalue*$modify_value))/($game->gam_storage+$modify_value);
 			}
-			
+
 			$this->update_game($input);
 		}
-		
+
 		public function find_game($gam_num){
-			
+
 			$game=$this->dia_game_dao->query_by_gam_num($gam_num);
 			$game_tags=$this->dia_game_tag_dao->query_by_gam_num($gam_num);
-			
+
 			$condition['bar_type']=0;
 			$condition['bar_value']=$gam_num;
-			
+
 			$barcode = $this->dia_barcode_dao->query_by_condition($condition);
-			
+
 			return $this->__assemble_game_query_result($game, $game_tags, $barcode);
 		}
-		
+
 		public function find_game_id($gid_num){
 			return $this->__assemble_gid_query_result($this->dia_game_id_dao->query_by_gid_num($gid_num));
 		}
-		
+
 		public function find_games_list($input){
 			$result_set = $this->dia_game_dao->query_by_condition($input);
 			return $this->__assemble_game_query_result_list($result_set);
 		}
-		
+
 		public function find_gids_list($input){
 			$result_set = $this->dia_game_id_dao->query_by_condition($input);
-			
+
 			return $this->__assemble_gid_query_result_list($result_set);
 		}
-		
+
 		private function __assemble_save_game($input){
-				
+
 			$game->gam_cname=$input['gam_cname'];
 			$game->gam_ename=$input['gam_ename'];
 			$game->gam_storage=$input['gam_storage'];
@@ -94,11 +94,11 @@
 
 			return $game;
 		}
-		
+
 		private function __assemble_update_game($input){
 			$game=NULL;
 			$game->gam_num=$input['gam_num'];
-			
+
 			$value_conditions=array("gam_cname","gam_ename","gam_storage","gam_locate","gam_cardsize",
 									"gam_cardcount","gam_sale","gam_memo","gam_cvalue","gam_svalue","gam_status");
 			foreach ($value_conditions as $field_name) {
@@ -108,9 +108,9 @@
 			}
 			return $game;
 		}
-		
+
 		private function __assemble_save_game_id($input){
-				
+
 			$game_id->gam_num=$input['gam_num'];
 			$game_id->gid_enabled=1; //預設給上架
 			$game_id->gid_status=0; //預設給店內(未使用)
@@ -119,45 +119,45 @@
 
 			return $game_id;
 		}
-		
+
 		private function __assemble_update_game_id($input){
 			$game_id=NULL;
 			$game_id->gid_num=$input['gid_num'];
-			
+
 			if(isset($input['gid_enabled'])){
-				$game_id->gid_enabled=$input['gid_enabled'];	
+				$game_id->gid_enabled=$input['gid_enabled'];
 			}
-			
+
 			if(isset($input['gid_status'])){
-				$game_id->gid_status=$input['gid_status'];	
+				$game_id->gid_status=$input['gid_status'];
 			}
-			
+
 			if(isset($input['gid_rentable'])){
-				$game_id->gid_rentable=$input['gid_rentable'];	
+				$game_id->gid_rentable=$input['gid_rentable'];
 			}
-			
+
 			return $game_id;
 
 		}
-		
+
 		private function __assemble_game_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
-				
+
 				foreach ($query_result as $row) {
-					
+
 					$game_tags=$this->dia_game_tag_dao->query_by_gam_num($row->gam_num);
-		
+
 					$output[]=$this->__assemble_game_query_result($row,$game_tags);
 				}
 			}
-			
+
 			return $output;
 		}
-		
+
 		private function __assemble_game_query_result($game, $game_tags, $barcode=NULL){
-				
-			$result=NULL;
+
+			$result=new stdClass();
 			$result->gam_num=$game->gam_num;
 			$result->gam_cname=$game->gam_cname;
 			$result->gam_ename=$game->gam_ename;
@@ -172,16 +172,16 @@
 			$result->gam_svalue=$game->gam_svalue;
 			$result->gam_status=$game->gam_status;
 			$result->gam_sale_desc=$this->form_constants->transfer_gam_sale($game->gam_sale);
-			
+
 			$result->game_tags=$this->__decrate_gmae_tags_list($game_tags);
-			
+
 			if($barcode != NULL){
-				$result->barcode=$barcode[0];	
+				$result->barcode=$barcode[0];
 			}
-			
+
 			return $result;
 		}
-		
+
 		private function __assemble_gid_query_result_list($query_result){
 			$output = array();
 			if(!empty($query_result)){
@@ -189,11 +189,12 @@
 					$output[]=$this->__assemble_gid_query_result($row);
 				}
 			}
-			
+
 			return $output;
 		}
-		
+
 		private function __assemble_gid_query_result($gid){
+			$result = new stdClass();
 			$result->gam_num=$gid->gam_num;
 			$result->gid_num=$gid->gid_num;
 			$result->gid_status=$gid->gid_status;
@@ -204,7 +205,7 @@
 			$result->gid_enabled_desc=$this->form_constants->transfer_gid_enabled($gid->gid_enabled);
 			return $result;
 		}
-		
+
 		private function __decrate_gmae_tags_list($game_tags){
 			$result=array();
 			if(count($game_tags)>0){
@@ -213,9 +214,9 @@
 					$result[$game_tag->tag_num]=$tag;
 				}
 			}
-			
+
 			return $result;
 		}
     }
-    
+
 ?>

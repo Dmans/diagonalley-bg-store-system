@@ -190,25 +190,25 @@ class Order_action extends MY_Controller {
 	
     
 	private function __save_order_format_validate(){
-		$this->form_validation->set_rules('usr_num', '訂購會員帳號', 'trim|required|integer|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('gam_num', '訂購遊戲', 'trim|required|integer|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|integer|xss_clean');
+		$this->form_validation->set_rules('usr_num', '訂購會員帳號', 'trim|required|integer|max_length[32]');
+		$this->form_validation->set_rules('gam_num', '訂購遊戲', 'trim|required|integer|max_length[32]');
+		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|integer');
 	}
 	
 	// private function __update_activity_format_validate(){
-		// $this->form_validation->set_rules('act_name', '活動名稱', 'trim|required|max_length[32]|xss_clean');
-		// $this->form_validation->set_rules('act_desc', '活動說明', 'trim|required|max_length[128]|xss_clean');
-		// $this->form_validation->set_rules('act_value', '活動數值', 'trim|required|greater_than[-1]|integer|xss_clean');
-		// $this->form_validation->set_rules('act_type', '活動類型', 'trim|xss_clean');
-		// $this->form_validation->set_rules('act_status', '活動啟用狀態', 'trim|xss_clean');
+		// $this->form_validation->set_rules('act_name', '活動名稱', 'trim|required|max_length[32]');
+		// $this->form_validation->set_rules('act_desc', '活動說明', 'trim|required|max_length[128]');
+		// $this->form_validation->set_rules('act_value', '活動數值', 'trim|required|greater_than[-1]|integer');
+		// $this->form_validation->set_rules('act_type', '活動類型', 'trim');
+		// $this->form_validation->set_rules('act_status', '活動啟用狀態', 'trim');
 	// }
 // 	
 	private function __list_order_format_validate(){
-		$this->form_validation->set_rules('ord_num', '訂單流水號', 'trim|integer|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('gam_name', '遊戲名稱', 'trim|max_length[128]|xss_clean');
-		$this->form_validation->set_rules('gam_num', '遊戲流水號', 'trim||integer|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('start_order_date', '訂購日期區間開始日', 'trim|xss_clean');
-		$this->form_validation->set_rules('end_order_date', '訂購日期區間結束日', 'trim|xss_clean');
+		$this->form_validation->set_rules('ord_num', '訂單流水號', 'trim|integer|max_length[32]');
+		$this->form_validation->set_rules('gam_name', '遊戲名稱', 'trim|max_length[128]');
+		$this->form_validation->set_rules('gam_num', '遊戲流水號', 'trim||integer|max_length[32]');
+		$this->form_validation->set_rules('start_order_date', '訂購日期區間開始日', 'trim');
+		$this->form_validation->set_rules('end_order_date', '訂購日期區間結束日', 'trim');
 	}
 	
 	

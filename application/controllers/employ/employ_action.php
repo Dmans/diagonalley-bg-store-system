@@ -175,9 +175,9 @@
 
 
 		private function __change_passwd_format_validate(){
-			$this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]|xss_clean');
-			$this->form_validation->set_rules('usr_passwd', '新密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]|xss_clean');
-			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]|xss_clean');
+			$this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]');
+			$this->form_validation->set_rules('usr_passwd', '新密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]');
+			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]');
 		}
 	}
 

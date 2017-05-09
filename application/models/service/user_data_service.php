@@ -51,7 +51,7 @@
 		private function __assemble_save_user($input){
 
 			$user->usr_id=$input['usr_id'];
-			$user->usr_passwd = $this->encrypt->sha1($input['usr_passwd']);
+			$user->usr_passwd = sha1($input['usr_passwd']);
 			$user->usr_name = $input['usr_name'];
 			$user->usr_role = $input['usr_role'];
 			$user->usr_status = 1; //預設:啟用(1)
@@ -111,7 +111,7 @@
 
 		private function __assemble_query_result($row){
 
-			$result=NULL;
+			$result=new stdClass();
 			$result->usr_num=$row->usr_num;
 			$result->usr_id=$row->usr_id;
 			$result->usr_name=$row->usr_name;

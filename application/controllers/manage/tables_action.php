@@ -19,7 +19,7 @@ class Tables_action extends MY_Controller {
         $user = $this->session->userdata('user');
 
         log_message("info","Tables_action.save_form - start usr_num=".$user->usr_num);
-
+        $data = new stdClass();
         $data->stores = $this->store_data_service->get_stores();
         $this->load->view("manage/tables_iform", $data);
 
@@ -148,11 +148,11 @@ class Tables_action extends MY_Controller {
 
 
     private function __save_table_format_validate(){
-        $this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]|xss_clean');
+        $this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]');
     }
 
     private function __update_table_format_validate(){
-        $this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]|xss_clean');
+        $this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]');
     }
 
 }

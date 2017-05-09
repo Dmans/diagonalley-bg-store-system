@@ -1,27 +1,26 @@
 <?php
-$lang['required'] = "%s 欄位必填。";
-$lang['isset'] = "%s 欄位必須有值。";
-$lang['valid_email'] = "%s 欄位必須為正確的電子郵件。";
-$lang['valid_emails'] = "%s 欄位必須全部為正確的電子郵件。";
-$lang['valid_url'] = "%s 欄位必須為正確的URL。";
-$lang['valid_ip'] = "%s 欄位必須為正確的IP。";
-$lang['min_length'] = "%s 欄位必須最少有 %s 個字元。";
-$lang['max_length'] = "%s 欄位不能超過 %s 個字元。";
-$lang['exact_length'] = "%s 欄位必須剛好有 %s 個字元。";
-$lang['alpha'] = "%s 欄位只能為英文字元。";
-$lang['alpha_numeric'] = "%s 欄位只能為英數字元。";
-$lang['alpha_dash'] = "%s 欄位只能為英數字元、底線和破折號。";
-$lang['numeric'] = "%s 欄位只能為數字。";
-$lang['is_numeric'] = "%s 欄位只能為數字字元。";
-$lang['integer'] = "%s 欄位只能為整數。";
-$lang['regex_match'] = "%s 欄位格式不正確。";
-$lang['matches'] = "%s 欄位和 %s 欄位不相符。";
-$lang['is_unique'] = "%s 欄位必須為資料表中的唯一值。";
-$lang['is_natural'] = "%s 欄位只能包含正整數。";
-$lang['is_natural_no_zero'] = "%s 欄位只能包含非負整數。";
-$lang['decimal'] = "%s 欄位只能為十進制含小數位數值。";
-$lang['less_than'] = "%s 欄位數值必須小於 %s。";
-$lang['greater_than'] = "%s 欄位數值必須大於 %s。";
-
+$lang['required'] = '%s 必須填寫';
+$lang['isset'] = '%s 一定要有內容';
+$lang['valid_email'] = '%s 必須填寫正確的email信箱';
+$lang['valid_emails'] = '%s 所有必須填寫正確的email信箱';
+$lang['valid_url'] = '%s 必須填寫正確的網址';
+$lang['valid_ip'] = '%s 必須填寫正確的IP位址';
+$lang['min_length'] = '%s 字串長度至少要 %s 個字';
+$lang['max_length'] = '%s 字串長度不可超過 %s 個字';
+$lang['exact_length'] = '%s 字串長度必須剛好 %s 個字';
+$lang['alpha'] = '%s 只能填寫英文字母';
+$lang['alpha_numeric'] = '%s 只能填寫數字英文字母及數字';
+$lang['alpha_dash'] = '%s 只能填寫英文字母、數字、底線(_)或破折號(-)';
+$lang['numeric'] = '%s 只能填寫數字';
+$lang['is_numeric'] = '%s 只能填寫數字';
+$lang['integer'] = '%s 只能填寫整數數字(不可小數點)';
+$lang['regex_match'] = '%s 不符合正確的格式';
+$lang['matches'] = '%s 與 %s 兩者不相符合';
+$lang['is_unique'] = "%s 欄位必須是獨一無二資料";
+$lang['is_natural'] = '%s 只能填寫正整數數字(不可有負值、小數點)';
+$lang['is_natural_no_zero'] = '%s 只能填寫大於零的數字';
+$lang['decimal'] = '%s 必須包含十進位數字';
+$lang['less_than'] = '%s 數字大小必須小於 %s';
+$lang['greater_than'] = '%s 數字大小必須大於 %s';
 /* End of file form_validation_lang.php */
 /* Location: ./system/language/zh-TW/form_validation_lang.php */

@@ -463,46 +463,46 @@ class Game_action extends MY_Controller {
 	}
 	
 	private function __save_game_format_validate(){
-		$this->form_validation->set_rules('gam_cname', '遊戲中文名稱', 'trim|required|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('gam_ename', '遊戲英文名稱', 'trim|required|max_length[64]|xss_clean');
-		$this->form_validation->set_rules('gam_storage', '遊戲庫存', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_locate', '遊戲庫位', 'trim|max_length[64]|xss_clean');
-		$this->form_validation->set_rules('gam_cardsize', '遊戲牌套尺寸', 'trim|max_length[64]|xss_clean');
-		$this->form_validation->set_rules('gam_cardcount', '遊戲牌數量', 'trim|integer|max_length[12]|xss_clean');
-		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_cvalue', '遊戲成本價', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_sale', '遊戲是否可販售', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_memo', '遊戲備註', 'trim|max_length[256]|xss_clean');
+		$this->form_validation->set_rules('gam_cname', '遊戲中文名稱', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('gam_ename', '遊戲英文名稱', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('gam_storage', '遊戲庫存', 'trim|required|greater_than[-1]');
+		$this->form_validation->set_rules('gam_locate', '遊戲庫位', 'trim|max_length[64]');
+		$this->form_validation->set_rules('gam_cardsize', '遊戲牌套尺寸', 'trim|max_length[64]');
+		$this->form_validation->set_rules('gam_cardcount', '遊戲牌數量', 'trim|integer|max_length[12]');
+		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|greater_than[-1]');
+		$this->form_validation->set_rules('gam_cvalue', '遊戲成本價', 'trim|required|greater_than[-1]');
+		$this->form_validation->set_rules('gam_sale', '遊戲是否可販售', 'trim|required|greater_than[-1]');
+		$this->form_validation->set_rules('gam_memo', '遊戲備註', 'trim|max_length[256]');
 	}
 	
 	private function __update_game_format_validate(){
-		$this->form_validation->set_rules('gam_cname', '遊戲中文名稱', 'trim|required|max_length[32]|xss_clean');
-		$this->form_validation->set_rules('gam_ename', '遊戲英文名稱', 'trim|required|max_length[64]|xss_clean');
-		$this->form_validation->set_rules('gam_locate', '遊戲庫位', 'trim|max_length[64]|xss_clean');
-		$this->form_validation->set_rules('gam_cardsize', '遊戲牌套尺寸', 'trim|max_length[64]|xss_clean');
-		$this->form_validation->set_rules('gam_cardcount', '遊戲牌數量', 'trim|integer|max_length[12]|xss_clean');
-		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|greater_than[-1]|xss_clean');
-		//$this->form_validation->set_rules('gam_cvalue', '遊戲成本價', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_sale', '遊戲是否可販售', 'trim|required|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_memo', '遊戲備註', 'trim|max_length[256]|xss_clean');
+		$this->form_validation->set_rules('gam_cname', '遊戲中文名稱', 'trim|required|max_length[32]');
+		$this->form_validation->set_rules('gam_ename', '遊戲英文名稱', 'trim|required|max_length[64]');
+		$this->form_validation->set_rules('gam_locate', '遊戲庫位', 'trim|max_length[64]');
+		$this->form_validation->set_rules('gam_cardsize', '遊戲牌套尺寸', 'trim|max_length[64]');
+		$this->form_validation->set_rules('gam_cardcount', '遊戲牌數量', 'trim|integer|max_length[12]');
+		$this->form_validation->set_rules('gam_svalue', '遊戲售價', 'trim|required|greater_than[-1]');
+		//$this->form_validation->set_rules('gam_cvalue', '遊戲成本價', 'trim|required|greater_than[-1]');
+		$this->form_validation->set_rules('gam_sale', '遊戲是否可販售', 'trim|required|greater_than[-1]');
+		$this->form_validation->set_rules('gam_memo', '遊戲備註', 'trim|max_length[256]');
 	}
 
 	private function __update_game_storage_format_validate(){
-		$this->form_validation->set_rules('modify_gam_storage', '異動庫存量', 'trim|required|integer|greater_than[-1]|xss_clean');
-		$this->form_validation->set_rules('gam_cvalue', '遊戲成本', 'trim|required|integer|greater_than[-1]|xss_clean');
+		$this->form_validation->set_rules('modify_gam_storage', '異動庫存量', 'trim|required|integer|greater_than[-1]');
+		$this->form_validation->set_rules('gam_cvalue', '遊戲成本', 'trim|required|integer|greater_than[-1]');
 	} 
 	
 	private function __save_gid_format_validate(){
-		$this->form_validation->set_rules('gid_rentable', '遊戲是否可出租', 'trim|required|integer|xss_clean');
+		$this->form_validation->set_rules('gid_rentable', '遊戲是否可出租', 'trim|required|integer');
 	}
 	
 	private function __update_gid_format_validate(){
-		$this->form_validation->set_rules('gid_enabled', '遊戲上架狀態', 'trim|required|integer|xss_clean');
-		$this->form_validation->set_rules('gid_rentable', '遊戲是否可出租', 'trim|required|integer|xss_clean');
+		$this->form_validation->set_rules('gid_enabled', '遊戲上架狀態', 'trim|required|integer');
+		$this->form_validation->set_rules('gid_rentable', '遊戲是否可出租', 'trim|required|integer');
 	}
     
 	private function __update_bar_code_format_validate(){
-		$this->form_validation->set_rules('bar_code', '條碼不得為空白', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('bar_code', '條碼不得為空白', 'trim|required');
 	}
 }
 
