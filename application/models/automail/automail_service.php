@@ -16,15 +16,13 @@
 
         public function find_in_progress_checkin() {
 
-            $condition['chkin_start_time']=date('Y-m-t');
-
+            $condition['chkin_start_time']=date('Y-m-d');
             $chks = $this->dia_checkin_dao->query_by_condition($condition);
             log_message("info","CHECK!:".print_r($chks,TRUE));
             $result_set=array();
             if(count($chks)>0){
 
                 $stores = $this->get_stores();
-
                 foreach ($chks as $key => $chk) {
                     $user = $this->dia_user_dao->query_by_usr_num($chk->usr_num);
                     $result_set[]=$this->__assemble_user_checkin($user, $chk, $stores[$chk->sto_num]);
