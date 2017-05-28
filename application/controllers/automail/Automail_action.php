@@ -12,7 +12,7 @@ class Automail_action extends CI_Controller {
 
     public function afternoon($valid, $send=FALSE){
 
-        $receiver = array('lijia.yeh@gmail.com ', 'gpsam25@gmail.com', 'dmans1124@gmail.com');
+        $receiver = array('lijia.yeh@gmail.com', 'gpsam25@gmail.com', 'dmans1124@gmail.com');
 
         // $receiver = array('dmans1124@gmail.com');
 
@@ -40,7 +40,7 @@ class Automail_action extends CI_Controller {
     private function send_mail($receiver, $data, $subject) {
         $this->load->library('email');
 
-        $this->email->from('Diagonalleybg@gmail.com', '古靈閣Auto-mail');
+        $this->email->from('Auto-Mail@bogamon.com', '古靈閣Auto-mail');
         $this->email->to($receiver);
 
         $this->email->subject($subject);
