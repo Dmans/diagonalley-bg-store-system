@@ -12,6 +12,7 @@
 			<div>使用者流水號:<?=$user->usr_num ?></div>
 			<div>使用者帳號:<?=$user->usr_id ?></div>
 			<div>使用者名稱:<?=$user->usr_name ?></div>
+			<div>使用者信箱:<?=$user->usr_mail ?></div>
 			<div>帳號類型:<?=$user->usr_role_desc ?></div>
 			<div>啟用狀態:<?=$user->usr_status_desc ?></div>
 			<div>使用者備註:<br/>
