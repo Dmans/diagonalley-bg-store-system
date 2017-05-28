@@ -31,14 +31,20 @@
 			<div>使用者名稱:<input type="text" name="usr_name" maxlength="32" /></div>
 			<div>使用者密碼:<input type="password" name="usr_passwd" maxlength="32" /></div>
 			<div>確認使用者密碼:<input type="password" name="confirm_usr_passwd" maxlength="32" /></div>
+			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" /></div>
 			<div>使用者帳號類型:
-				<? if($usr_role==0):  ?><input type="radio" name="usr_role"  value="1" />店長<? endif ?>
+				<? if($usr_role==0):  ?>
+					<input type="radio" name="usr_role"  value="1" />店長
+				<? endif ?>
 				<input type="radio" name="usr_role"  value="2" />員工
 				<input type="radio" name="usr_role"  value="3" checked="checked" />會員
 			</div>
+			
+
+			
 			<? if($usr_role==0):  ?>
 			<div id="storePermission">店舖權限:
-                <? foreach ($stores as $key => $store) : ?>
+                <? foreach ($stores as $key=>$store): ?>
                     <input type="checkbox" id="store_<?=$key ?>"
                             name="sto_nums[]" value="<?=$store->sto_num ?>"
                     <label title="<?=$store->sto_name ?>" for="store_<?=$key ?>" ><?=$store->sto_name ?></label>
