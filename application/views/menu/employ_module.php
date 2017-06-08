@@ -1,5 +1,7 @@
 <div id="employ_area">
 	<h4>員工模組</h4>
+	<div><a target="content" href="<?php echo site_url("user/user_action/update_form/".$usr_num) ?>">維護個人資料</a></div>
+	<div><a target="content" href="<?php echo site_url("user/user_action/page_detail/".$usr_num) ?>">檢視個人資料</a></div>
 	<div><a target="content" href="<?=site_url("user/user_action/change_passwd_form") ?>">維護密碼</a></div>
 	<? foreach ($stores as $key => $store) : ?>
 	   <div><a target="content" href="<?=site_url("employ/employ_action/list_form2/".$store->sto_num."/") ?>">上下班打卡(<?=$store->sto_name ?>)</a></div>
