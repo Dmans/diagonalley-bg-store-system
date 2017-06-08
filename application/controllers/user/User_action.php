@@ -68,8 +68,6 @@ class User_action extends MY_Controller {
 		
 		$user = $this->session->userdata('user');
 		
-		//if($this->__user_role_check($user->usr_role)){return;}
-		
 		if ($user->usr_num != $usr_num and $this->__user_role_check($user->usr_role)) {
 			return;
 		}
@@ -91,8 +89,9 @@ class User_action extends MY_Controller {
 	public function update(){
 		
 		$user = $this->session->userdata('user');
+		
 		$input=$this->input->post();
-		//if($this->__user_role_check($user->usr_role)){return;}
+		
 		if ($user->usr_num != $input['usr_num'] and $this->__user_role_check($user->usr_role)) {
 			return;
 		}
