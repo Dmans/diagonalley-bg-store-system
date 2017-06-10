@@ -37,6 +37,8 @@
 			<div>使用者流水號:<?=$update_user->usr_num ?><input type="hidden" name="usr_num" value="<?=$update_user->usr_num ?>" /></div>
 			<div>使用者帳號:<?=$update_user->usr_id ?></div>
 			<div>使用者名稱:<input type="text" name="usr_name" maxlength="32" value="<?=$update_user->usr_name ?>" /></div>
+			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" value="<?php echo$update_user->usr_mail?>" /></div>
+			
 			<div>帳號類型:
     			    <? if($usr_role==0):  ?>
     			        <input type="radio" name="usr_role"  value="0" <?=($update_user->usr_role==0)?'checked="checked"':'' ?> />Root

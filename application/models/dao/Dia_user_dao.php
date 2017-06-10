@@ -51,7 +51,7 @@
 			}
 			
 			//step2.加入like條件
-			$string_conditions=array("usr_name","usr_id");
+			$string_conditions=array("usr_name","usr_id","usr_mail");
 			foreach ($string_conditions as $field_name) {
 				if(!empty($condition[$field_name])){
 					$this->db->like($field_name,$condition[$field_name]);

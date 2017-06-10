@@ -12,6 +12,7 @@
 		<? echo form_open('user/user_action/lists'); ?>
 			<div>帳號:<input type="text" name="usr_id" maxlength="32" /></div>
 			<div>名稱:<input type="text" name="usr_name" maxlength="32" /></div>
+			<div>信箱:<input type="text" name="usr_mail" maxlength="32" /></div>
 			<div>帳號類型:
 				<? if($usr_role==0):  ?>
 				    <input type="radio" name="usr_role"  value="0" <?=set_radio("usr_role","0")?>/>Root
@@ -38,6 +39,7 @@
 						<th>使用者流水號</th>
 						<th>使用者帳號</th>
 						<th>使用者名稱</th>
+						<th>使用者信箱</th>
 						<th>帳號類型</th>
 						<th>啟用狀態</th>
 						<th>註冊日期</th>
@@ -58,6 +60,7 @@
 							<td><?=$row->usr_num ?></td>
 							<td><?=$row->usr_id ?></td>
 							<td><?=$row->usr_name ?></td>
+							<td><?= $row->usr_mail ?></td>
 							<td><?=$row->usr_role_desc ?></td>
 							<td><?=$row->usr_status_desc ?></td>
 							<td><?=$row->register_date ?></td>
@@ -74,3 +77,4 @@
 		</div>
 	</body>
 </html>
+
