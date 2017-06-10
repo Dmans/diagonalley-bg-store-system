@@ -9,13 +9,12 @@ class User_action extends MY_Controller {
 		$this->load->library('form_validation');
 		$this->load->model("user/user_service");
 		$this->load->model('service/store_data_service');
-		
+		$this->load->model('constants/form_constants');
 	}
 	
 	public function save_form(){
 		
 		$user = $this->session->userdata('user');
-		
 		if($this->__user_role_check($user->usr_role)){return;}
 		
 		log_message("info","User_action.save_form - start usr_num=".$user->usr_num);
@@ -69,7 +68,9 @@ class User_action extends MY_Controller {
 		
 		$user = $this->session->userdata('user');
 		
-		if($this->__user_role_check($user->usr_role)){return;}
+		if ($user->usr_num != $usr_num and $this->__user_role_check($user->usr_role)) {
+			return;
+		}
 		
 		log_message("info","User_action.update_form(update_usr_num=".$usr_num.") - start usr_num=".$user->usr_num);
 		
@@ -78,7 +79,7 @@ class User_action extends MY_Controller {
 		$update_user=$this->user_service->find_user_for_update($usr_num);
 		$data['update_user'] =$update_user;
 		$data['stores'] = $this->store_data_service->get_stores();
-		
+		$data['form_constants'] = $this->form_constants;
 		
 		$this->load->view("user/user_uform",$data);
 		
@@ -89,9 +90,11 @@ class User_action extends MY_Controller {
 		
 		$user = $this->session->userdata('user');
 		
-		if($this->__user_role_check($user->usr_role)){return;}
-		
 		$input=$this->input->post();
+		
+		if ($user->usr_num != $input['usr_num'] and $this->__user_role_check($user->usr_role)) {
+			return;
+		}
 		
 		log_message("info","User_action.update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
 		
@@ -112,7 +115,11 @@ class User_action extends MY_Controller {
 		
 		$extend_url=array();
 		$extend_url[]=$this->__generate_url_data("維護使用者", "user/user_action/update_form/",$input['usr_num']);
-		$extend_url[]=$this->__generate_url_data("查詢使用者", "user/user_action/list_form/");
+		
+		if ($user->usr_role <= 1) {
+			$extend_url[]=$this->__generate_url_data("查詢使用者", "user/user_action/list_form/");
+		}
+		
 		$data['extend_url']=$extend_url;
 		
 		$this->load->view("message",$data);
@@ -168,6 +175,10 @@ class User_action extends MY_Controller {
 	public function page_detail($usr_num){
 		
 		$user = $this->session->userdata('user');
+		
+		if ($user->usr_num != $usr_num and $this->__user_role_check($user->usr_role)) {
+			return;
+		}
 		
 		log_message("info","User_action.page_detail(detail_usr_num=".$usr_num.") - start usr_num=".$user->usr_num);
 		
