@@ -5,20 +5,28 @@
     class Automail_service extends CI_Model {
 
         function __construct()
-	    {
-	        parent::__construct();
-			$this->load->model('dao/dia_checkin_dao');
-			$this->load->model('dao/dia_user_dao');
+        {
+            parent::__construct();
+            $this->load->model('dao/dia_checkin_dao');
+            $this->load->model('dao/dia_user_dao');
             $this->load->model('dao/dia_user_store_permission_dao');
             $this->load->model('service/store_data_service');
-			$this->load->model("constants/form_constants");
-	    }
+            $this->load->model("constants/form_constants");
+        }
+        
+        public function get_automail_data() {
+            $data = array();
+            $data['chks'] = $this->find_in_progress_checkin();
+            $data['uncheckin_store'] = $this->find_uncheckin_store($data['chks']);
+            
+            return $data;
+        }
 
         public function find_in_progress_checkin() {
 
             $condition['chkin_start_time']=date('Y-m-d');
             $chks = $this->dia_checkin_dao->query_by_condition($condition);
-            log_message("info","CHECK!:".print_r($chks,TRUE));
+
             $result_set=array();
             if(count($chks)>0){
 
@@ -45,13 +53,57 @@
             print_r($stores,TRUE);
             return $stores;
         }
-
+        
         public function get_stores() {
             return $this->store_data_service->get_real_stores();
+        }
+        
+        public function send_mail() {
+            
+            $data = $this->get_automail_data();
+            
+            if(count($data['uncheckin_store'])>0) {
+                $unchecked_stores = $data['uncheckin_store'];
+                $user_nums = array();
+                foreach ($unchecked_stores as $unchecked_store) {
+                    $user_store_permis = $this->dia_user_store_permission_dao->query_by_sto_num($unchecked_store->sto_num);
+                    foreach($user_store_permis as $permit) {
+                        $user_nums[] = $permit->usr_num;
+                    }
+                }
+                
+                $user_nums = array_unique($user_nums);
+                
+                $receiver = array();
+                foreach ($user_nums as $usr_num) {
+                    $user = $this->dia_user_dao->query_by_usr_num($usr_num);
+                    
+                    if(!empty($user->usr_mail)) {
+                        $receiver[] = $user->usr_mail;
+                    }
+                }
+                
+                $this->send_automail($receiver, $data, '本日店鋪無人打卡警示');
+            }
+        }
+        
+        private function send_automail($receiver, $data, $subject) {
+            $this->load->library('email');
+            
+            $this->email->from('Auto-Mail@bogamon.com', '古靈閣Auto-mail');
+            $this->email->to($receiver);
+            
+            $this->email->subject($subject);
+            $this->email->message($this->load->view("automail/afternoon", $data, TRUE));
+            
+            $this->email->send();
+            
+            // echo $this->email->print_debugger();
         }
 
         private function __assemble_user_checkin($user,$chk, $store){
 
+            $result = new stdClass();
             $result->chk_num=$chk->chk_num;
             $result->usr_num=$chk->usr_num;
             $result->usr_name=$user->usr_name;
