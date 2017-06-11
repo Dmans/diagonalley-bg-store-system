@@ -40,15 +40,13 @@
 			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" value="<?php echo$update_user->usr_mail?>" /></div>
 			
 			<div>帳號類型:
-				<?php if($usr_role<=1):  ?>
-					<? if($usr_role==0):  ?>
-    			        <input type="radio" name="usr_role"  value="0" <?=($update_user->usr_role==0)?'checked="checked"':'' ?> />Root
-                        <input type="radio" name="usr_role"  value="1" <?=($update_user->usr_role==1)?'checked="checked"':'' ?> />店長
-                    <? endif ?>
+				<?php if($usr_role==0):  ?>
+    		        <input type="radio" name="usr_role"  value="0" <?=($update_user->usr_role==0)?'checked="checked"':'' ?> />Root
+                    <input type="radio" name="usr_role"  value="1" <?=($update_user->usr_role==1)?'checked="checked"':'' ?> />店長
                     <input type="radio" name="usr_role"  value="2" <?=($update_user->usr_role==2)?'checked="checked"':'' ?> />員工
                     <input type="radio" name="usr_role"  value="3" <?=($update_user->usr_role==3)?'checked="checked"':'' ?> />會員
 				<?php endif; ?>
-				<?php if($usr_role>1):  ?>
+				<?php if($usr_role>0):  ?>
 					<?php echo $form_constants->transfer_usr_role($update_user->usr_role); ?>
 				<?php endif; ?>
     			    
@@ -89,6 +87,7 @@
 			</div>
 		</form>
 	</body>
+
 
 </html>
 

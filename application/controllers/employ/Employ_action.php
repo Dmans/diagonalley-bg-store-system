@@ -34,6 +34,10 @@
 
 			log_message("info","Employ_action.list_form2 - start usr_num=".$user->usr_num.", sto_num=".$sto_num);
 
+			if(empty($user->usr_mail)) {
+				echo "<h2 style='color:red'>你是不是還沒填Ｅ-mail!!!!!</h2>";
+			}
+			
 			$current_month_start = date('Y-m-01');
 			$current_month_end = date('Y-m-t');
 

@@ -23,10 +23,17 @@ class user_data_service extends CI_Model {
 	}
 	
 	public function update_user($input){
+		
 		$this->dia_user_dao->update($this->__assemble_update_user($input));
 		
 		if(!empty($input['sto_nums'])) {
 			$this->save_user_store_permission($input['usr_num'], $input['sto_nums']);
+		}
+		
+		//Update user session if update data have the same usr_num
+		$user = $this->session->user;
+		if ($user->usr_num == $input['usr_num']) {
+			$this->session->user = $this->dia_user_dao->query_by_usr_num($user->usr_num);
 		}
 	}
 	
@@ -69,6 +76,9 @@ class user_data_service extends CI_Model {
 	}
 	
 	private function __assemble_update_user($input){
+		
+		$session_user = $this->session->userdata('user');
+		
 		$user = new stdClass();
 		$user->usr_num=$input['usr_num'];
 		
@@ -76,7 +86,7 @@ class user_data_service extends CI_Model {
 			$user->usr_name = $input['usr_name'];
 		}
 		
-		if(isset($input['usr_role'])){
+		if(isset($input['usr_role']) and $session_user->usr_role == 0){
 			$user->usr_role = $input['usr_role'];
 		}
 		
