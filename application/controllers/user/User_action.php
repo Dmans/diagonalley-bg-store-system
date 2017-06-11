@@ -218,6 +218,9 @@ class User_action extends MY_Controller {
 		$input['usr_num']=$user->usr_num;
 		$this->user_service->update_passwd($input);
 		
+		// update user password in session
+		$user->usr_passwd = sha1($input['usr_passwd']);
+		
 		$data['message']="維護使用者密碼成功";
 		
 		$this->load->view("message",$data);
