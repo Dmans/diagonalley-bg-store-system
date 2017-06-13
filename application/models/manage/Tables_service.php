@@ -9,6 +9,7 @@
             parent::__construct();
             $this->load->model('dao/dia_tables_dao');
             $this->load->model('dao/dia_store_dao');
+            $this->load->model('service/tables_data_service');
             $this->load->model("constants/form_constants");
         }
 
@@ -22,9 +23,16 @@
             $data=$this->__assemble_update_table($input);
             $this->dia_tables_dao->update($data);
         }
+        
+        public function find_tables_for_list($input){
+        	
+        	log_message("info","find_tables_for_list(input=".print_r($input,TRUE).") - start");
+        	return $this->tables_data_service->find_tables_list($input);
+        }
 
         private function __assemble_save_table($input){
 
+        	$dtb = New stdClass();
             $dtb->dtb_name=$input['dtb_name'];
             $dtb->dtb_status=$input['dtb_status'];
             $dtb->dtb_max_cap=$input['dtb_max_cap'];
@@ -35,12 +43,12 @@
 
         public function find_table($dtb_num){
             $table = $this->dia_tables_dao->query_by_dtb_num($dtb_num);
-            $table->store = $this->dia_store_dao->query_by_sto_num($$table->sto_num);
+            $table->store = $this->dia_store_dao->query_by_sto_num($table->sto_num);
             return $table;
         }
 
         private function __assemble_update_table($input){
-
+        	$dtb = New stdClass();
             $dtb->dtb_num=$input['dtb_num'];
 
             if(isset($input['dtb_name'])){

@@ -53,15 +53,15 @@
 			}
 
 			//step2.加入like條件
-			// $string_conditions=array("gam_cname","gam_ename");
-			// foreach ($string_conditions as $field_name) {
-				// if(!empty($condition[$field_name])){
-					// $this->db->like($field_name,$condition[$field_name]);
-				// }
-			// }
+			$string_conditions=array("dtb_name");
+			foreach ($string_conditions as $field_name) {
+				if(!empty($condition[$field_name])){
+					$this->db->like($field_name,$condition[$field_name]);
+				}
+			}
 
 			//step3.加入選用where條件
-			$custom_value_conditions=array("dtb_name");
+			$custom_value_conditions=array("dtb_max_cap","sto_num");
 			foreach ($custom_value_conditions as $field_name) {
 				if(isset($condition[$field_name]) && $condition[$field_name]!=-1){
 					$this->db->where($field_name,$condition[$field_name]);

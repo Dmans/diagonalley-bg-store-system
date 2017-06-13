@@ -5,6 +5,7 @@
 	<div><a target="content" href="<?php echo site_url("manage/manage_action/daily_page_list") ?>">店內公告列表(個人)</a></div> -->
 	<div><a target="content" href="<?php echo site_url("manage/booking_action/booking_page_list") ?>">查詢/維護定位資料</a></div>
 	<div><a target="content" href="<?php echo site_url("manage/tables_action/save_form") ?>">新增店舖遊戲桌資料</a></div>
+	<div><a target="content" href="<?php echo site_url("manage/tables_action/list_form") ?>">查詢/維護店舖遊戲桌資料</a></div>
 <!--	<div>
 		<h6>===銷售資料===</h6>
 		<ul>
