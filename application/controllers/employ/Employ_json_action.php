@@ -102,7 +102,7 @@
 				echo json_encode($data);
 				return;
 			}
-
+            $data = new stdClass();
 			$data->isSuccess=$this->employ_service->confirm($input, $user->usr_num);
 			$data->confirm_date=date('Y-m-d H:i:s');
 

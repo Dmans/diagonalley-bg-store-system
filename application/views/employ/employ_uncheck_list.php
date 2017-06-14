@@ -20,9 +20,10 @@
 				$('input[id^="confirmButton"]').each(function(){
 					$(this).click(function(){
 						var chkNum=$(this).parent().find('input#chkNum').val();
+						var confirmHours = $('input#confirmHours_' + chkNum).val();
 						$.post("<?=site_url("employ/employ_json_action/update_confirm") ?>",{
 							chk_num : chkNum,
-							confirm_hours : $('input#confirmHours_' + chkNum).val(),
+							confirm_hours : confirmHours,
 							confirm_note : $('textarea#confirmNote_' + chkNum).val()
 						},
 						function(data){
@@ -38,7 +39,7 @@
 								alert("已審核\n審核時間:"+data.confirm_date);
 								var confirmNote = $('textarea#confirmNote_' + chkNum).val().replace(/\n\r?/g, "<br />");
 								$('td#confirmButtonArea_'+chkNum).html(
-								    "已審核<br/>" +
+								    "已審核, 審核時數：" + confirmHours + "<br/>" +
 								    "審核備註:<br/>" + confirmNote
 							    );
 								$('td#confirmDateArea_'+chkNum).html(data.confirm_date);
