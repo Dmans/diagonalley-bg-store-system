@@ -21,8 +21,8 @@ class Tables_action extends MY_Controller {
         $user = $this->session->userdata('user');
 
         log_message("info","Tables_action.save_form - start usr_num=".$user->usr_num);
-        $data = new stdClass();
-        $data->stores = $this->store_data_service->get_stores();
+        $data= array();
+        $data['stores'] = $this->store_data_service->get_real_stores_by_user_num($user->usr_num);
         $this->load->view("manage/tables_iform", $data);
 
         log_message("info","Tables_action.save_form - end usr_num=".$user->usr_num);
@@ -126,12 +126,6 @@ class Tables_action extends MY_Controller {
      	$input=$this->input->post();
      	
      	log_message("info","Tables_action.lists(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);    	
-    	
-//     	$this->__list_tables_format_validate();
-//     	if($this->form_validation->run() != TRUE){
-//     		$this->list_form();
-//     		return;
-//     	}
     	
     	$query_result=$this->tables_service->find_tables_for_list($input);
     	log_message("info","Tables_action.lists(".print_r($query_result,TRUE).") - end usr_num=".$user->usr_num);
