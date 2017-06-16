@@ -11,6 +11,7 @@ class Tables_action extends MY_Controller {
         $this->load->library('form_validation');
         $this->load->model("manage/tables_service");
         $this->load->model("service/store_data_service");
+        $this->load->model("dao/dia_tables_dao");
         
 
     }
@@ -33,9 +34,11 @@ class Tables_action extends MY_Controller {
         $input=$this->input->post();
 
         log_message("info","Tables_action.save(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-
+        $sto_num =$input['sto_num'];
+        
+        log_message("info","Tables_action.save(sto_num=".print_r($sto_num,TRUE).") - start usr_num=".$user->usr_num);
         //step1. 驗證輸入資料格式
-        $this->__save_table_format_validate();
+        $this->__save_table_format_validate($sto_num);
         if($this->form_validation->run() != TRUE){
             $this->save_form($input);
             return;
@@ -55,80 +58,41 @@ class Tables_action extends MY_Controller {
         $this->load->view("message",$data);
 
         log_message("info","Tables_action.save(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
-    }
-
-    public function update_form($dtb_num){
-
-        $user = $this->session->userdata('user');
-
-        log_message("info","Tables_action.update_form(dtb_num=$dtb_num) - start usr_num=".$user->usr_num);
-
-        $dtb = $this->tables_service->find_table($dtb_num);
-
-        $this->load->view("manage/booking_uform",$dtb);
-
-        log_message("info","Tables_action.update_form(dtb_num=$dtb_num)  - end usr_num=".$user->usr_num);
-    }
-
-    public function update(){
-        $user = $this->session->userdata('user');
-
-        $input=$this->input->post();
-
-        log_message("info","Tables_action.update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-
-        //step1. 驗證輸入資料格式
-        $this->__update_table_format_validate();
-        if($this->form_validation->run() != TRUE){
-            $this->update_form();
-            return;
-        }
-        $this->tables_service->update_table($input);
-        $data['message']="維護店舖遊戲桌資料成功";
-
-        $extend_url=array();
-        $extend_url[]=$this->__generate_url_data("繼續維護店舖遊戲桌資料", "manage/tables_action/update_form/",$input['dtb_num']);
-        $extend_url[]=$this->__generate_url_data("店舖遊戲桌資料列表", "manage/tables_action/booking_page_list/");
-        $extend_url[]=$this->__generate_url_data("回公告欄", "manage/manage_action/daily_message_list/");
-        $data['extend_url']=$extend_url;
-
-        $this->load->view("message",$data);
-
-        log_message("info","Tables_action.update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
-    }
+    }    
     
-    public function tables_update_form($dtb_num){
+    public function update_form($dtb_num){
     	$user =$this->session->userdata('user');
     	
-    	log_message("info","Tables_action.tables_update_form(dtb_num=$dtb_num) - start usr_num=".$user->usr_num);
+    	log_message("info","Tables_action.pdate_form(dtb_num=$dtb_num) - start usr_num=".$user->usr_num);
     	
     	$dtb = $this->tables_service->find_table($dtb_num);
     	
     	$this->load->view("manage/tables_uform",$dtb);
     	
-    	log_message("info","Tables_action.tables_update_form(dtb_num=$dtb_num)  - end usr_num=".$user->usr_num);
+    	log_message("info","Tables_action.update_form(dtb_num=$dtb_num)  - end usr_num=".$user->usr_num);
     	
     }
     
-    public function tables_update(){
+    public function update(){
     	$user =$this->session->userdata('user');
     	
     	$input = $this->input->post();
     	
-    	log_message("info","Tables_action. tables_update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-    	
-    	$this->tables_service->update_table($input);
-    	
-    	$this->__update_table_format_validate();
+    	log_message("info","Tables_action. update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+    	$datas=new stdClass();
+    	$sto_num=array();
+    	$datas = $this->dia_tables_dao->query_by_dtb_num($input['dtb_num']);
+    	$sto_num =$datas->sto_num;
+    	$this->__update_table_format_validate($sto_num);
     	if($this->form_validation->run() != TRUE){
-    		$this->tables_update_form();
+    		$this->update_form($input['dtb_num']);
     		return;
     	}
-    	
+    	$this->tables_service->update_table($input);
     	$data['message']="維護店舖遊戲桌資料成功";
     	
     	$extend_url=array();
-    	$extend_url[]=$this->__generate_url_data("繼續維護店舖遊戲桌資料", "manage/tables_action/tables_update_form/",$input['dtb_num']);
+    	$extend_url[]=$this->__generate_url_data("繼續維護店舖遊戲桌資料", "manage/tables_action/update_form/",$input['dtb_num']);
     	$extend_url[]=$this->__generate_url_data("查詢店舖遊戲桌資料列表", "manage/tables_action/list_form/");
     	$extend_url[]=$this->__generate_url_data("回公告欄", "manage/manage_action/daily_message_list/");
     	$data['extend_url']=$extend_url;
@@ -225,19 +189,14 @@ class Tables_action extends MY_Controller {
 
         log_message("info","Tables_action.booking_page_list - end usr_num=".$user->usr_num);
     }
-    public function store_validate($user_sto_num,$select_sto_num){
-    	if($user_sto_num == $select_sto_num){
-    		return true;
-    	}
-    	else {
-    		$this->form_validation->set_message('store_validate', ' %s 錯誤');
-    		return FALSE;
-    	}
-    }
-    
-    public function dtb_name_validate($dtb_name){
-    	
-    	$query_result=$this->tables_service->find_tables_for_list($dtb_name);
+
+    public function dtb_name_validate($dtb_name,$sto_num){
+     
+        $condition=array();
+        $condition['sto_num']=$sto_num;
+        $condition['dtb_name']=$dtb_name;
+        log_message("info","Tables_action.dtb_name_validate(".print_r($condition,TRUE).") - end");
+        $query_result=$this->tables_service->find_tables_for_list($condition);
     	if(empty($query_result)){
     		return TRUE;
     	}else{
@@ -245,17 +204,12 @@ class Tables_action extends MY_Controller {
     		return FALSE;
     	}
     }
-
-
-    private function __save_table_format_validate(){
-    	$this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]|callback_dtb_name_validate');
+    private function __save_table_format_validate($sto_num){
+    	$this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]|callback_dtb_name_validate['.$sto_num.']');
     }
 
-    private function __update_table_format_validate(){
-        $this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]');
-    }
-    private function __list_tables_format_validate($select_sto_num){
-    	$this->form_validation->set_rules('sto_num','店鋪權限',callback_store_validate['.$select_sto_num.']);
+    private function __update_table_format_validate($sto_num){
+        $this->form_validation->set_rules('dtb_name', '遊戲桌名稱', 'trim|required|max_length[48]|callback_dtb_name_validate['.$sto_num.']');
     }
 
 }

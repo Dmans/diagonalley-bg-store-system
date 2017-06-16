@@ -45,7 +45,7 @@
 						
 							<td>
 							<?php if($row->dtb_status==1):?>
-								<a href="<?=site_url("manage/tables_action/tables_update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-mini">維護</a>
+								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-mini">維護</a>
 							<?php else : ?>
 								<a class="btn btn-warning btn-mini">已預約</a>
 							<?php endif; ?>

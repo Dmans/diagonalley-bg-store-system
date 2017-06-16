@@ -31,6 +31,11 @@
 			return $this->query_by_condition($condition);
 		}
 		
+		public function query_by_sto_num($sto_num){
+			$condition['sto_num']=$sto_num;
+			return $this->query_by_condition($condition);
+		}
+		
 		public function query_by_dbk_date_interval($start_date,$end_date=NULL){
 			$condition['start_dbk_date']=$start_date;
 			if($end_date!=NULL){
@@ -61,15 +66,15 @@
 			}
 			
 			//step2.加入like條件
-			// $string_conditions=array("gam_cname","gam_ename");
-			// foreach ($string_conditions as $field_name) {
-				// if(!empty($condition[$field_name])){
-					// $this->db->like($field_name,$condition[$field_name]);
-				// }
-			// }
+			$string_conditions=array("dbk_name","dbk_phone","dbk_memo");
+			foreach ($string_conditions as $field_name) {
+				if(!empty($condition[$field_name])){
+					$this->db->like($field_name,$condition[$field_name]);
+				}
+			}
 			
 			//step3.加入選用where條件
-			$custom_value_conditions=array("usr_num","dbk_status");
+			$custom_value_conditions=array("usr_num","dbk_status","dbk_count","dtb_num","sto_num");
 			foreach ($custom_value_conditions as $field_name) {
 				if(isset($condition[$field_name]) && $condition[$field_name]!=-1){
 					$this->db->where($field_name,$condition[$field_name]);
