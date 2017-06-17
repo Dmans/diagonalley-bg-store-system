@@ -124,15 +124,18 @@
             return $this->dia_checkin_dao->query_by_condition($condition);
         }
 
-        public function find_employ_monthly_record($chkin_start_time, $chkin_end_time, $usr_num){
+        public function find_employ_monthly_record($year_month, $usr_num){
 
             // step1. 取得所選區間打卡紀錄
             // Find search user store permission
             $usp_array = $this->dia_user_store_permission_dao->query_by_usr_num($usr_num);
+            
+            $chk_start_date = date('Y-m-d', strtotime($year_month.'-01'));
+            $chk_end_date = date('Y-m-t', strtotime($year_month.'-01'));
 
             $source_chks = array();
             foreach ($usp_array as $key => $usp) {
-                $chk = $this->find_user_check_interval($chkin_start_time, $chkin_end_time, null, $usp->sto_num);
+                $chk = $this->find_user_check_interval($chk_start_date, $chk_end_date, null, $usp->sto_num);
                 if (!empty($chk)) {
                     $source_chks = array_merge($source_chks, $chk);
                 }

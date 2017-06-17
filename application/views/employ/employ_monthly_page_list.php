@@ -38,9 +38,12 @@
 		<h3>員工打卡紀錄查詢</h3>
 		<div>
 			<? echo form_open('employ/employ_action/employ_monthly_list'); ?>
-				<div>查詢區間:
-					從<input type="text" id="dateFrom" name="chk_start_date"/>
-					到<input type="text" id="dateTo" name="chk_end_date"/>
+				<div>查詢月份:
+					<select name="year_month">
+						<?php foreach ($month_options as $option): ?>
+							<option value="<?php echo $option?>" <?php echo set_select('year_month', $option)?> ><?php echo $option?></option>
+						<?php endforeach; ?>
+					</select>
 				</div>
 				<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 			</form>

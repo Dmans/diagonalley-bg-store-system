@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>未確認打卡資料</title>
+		<title>未審核打卡資料</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/flick/jquery-ui-1.8.22.custom.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/jquery-ui-timepicker.css" />
@@ -56,7 +56,7 @@
 
 	</head>
 	<body>
-		<h3>未確認打卡資料</h3>
+		<h3>未審核打卡資料</h3>
 		<div class="row">
 			<div class="span10">
 				<table class="table table-striped table-hover table-bordered table-condensed">

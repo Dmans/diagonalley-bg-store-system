@@ -11,23 +11,6 @@
 
 	    }
 
-		// public function list_form(){
-//
-        	// $user = $this->session->userdata('user');
-//
-			// log_message("info","Employ_action.list_form - start usr_num=".$user->usr_num);
-//
-			// $chks = $this->employ_service->find_user_check_list($user->usr_num);
-//
-			// $data['chks']=$chks;
-			// $data['usr_name']=$user->usr_name;
-//
-        	// $this->load->view("employ/employ_page_list",$data);
-//
-			// log_message("info","Employ_action.list_form - end usr_num=".$user->usr_num);
-        // }
-
-
 		public function list_form2($sto_num){
 
         	$user = $this->session->userdata('user');
@@ -81,16 +64,16 @@
 
             log_message("info","Employ_action.list_form3 - end usr_num=".$user->usr_num.", sto_num=".$sto_num);
         }
-
-		public function change_passwd_form(){
-
-        	$user = $this->session->userdata('user');
-
-			log_message("info","Employ_action.change_passwd_form - start usr_num=".$user->usr_num);
-
-        	$this->load->view("user/passwd_uform");
-
-			log_message("info","Employ_action.change_passwd_form - end usr_num=".$user->usr_num);
+        
+        public function change_passwd_form(){
+            
+            $user = $this->session->userdata('user');
+            
+            log_message("info","Employ_action.change_passwd_form - start usr_num=".$user->usr_num);
+            
+            $this->load->view("user/passwd_uform");
+            
+            log_message("info","Employ_action.change_passwd_form - end usr_num=".$user->usr_num);
         }
 
 		public function change_passwd(){
@@ -119,68 +102,71 @@
 			log_message("info","Employ_action.change_passwd() - end usr_num=".$user->usr_num);
 
 		}
-
+            
 		public function confirm_list_form(){
-
-        	$user = $this->session->userdata('user');
-
-			if($this->__user_role_check($user->usr_role)){return;}
-
-			log_message("info","Employ_action.confirm_list_form - start usr_num=".$user->usr_num);
-
-			$chks = $this->employ_service->find_unconfirmed_list($user->usr_num);
-
-			log_message("info","chks:".print_r($chks,TRUE));
-
-			$data['chks']=$chks;
-
-			// $data['usr_name']=$user->usr_name;
-
-
-        	$this->load->view("employ/employ_uncheck_list",$data);
-
-			log_message("info","Employ_action.confirm_list_form - end usr_num=".$user->usr_num);
+		    
+		    $user = $this->session->userdata('user');
+		    
+		    if($this->__user_role_check($user->usr_role)){return;}
+		    
+		    log_message("info","Employ_action.confirm_list_form - start usr_num=".$user->usr_num);
+		    
+		    $chks = $this->employ_service->find_unconfirmed_list($user->usr_num);
+		    
+		    log_message("info","chks:".print_r($chks,TRUE));
+		    
+		    $data['chks']=$chks;
+		    
+		    $this->load->view("employ/employ_uncheck_list",$data);
+		    
+		    log_message("info","Employ_action.confirm_list_form - end usr_num=".$user->usr_num);
         }
 
-		public function employ_monthly_list_form($query_result=NULL){
-
-        	$user = $this->session->userdata('user');
-
-			$input=$this->input->post();
-
-			log_message("info","Employ_action.employ_monthly_list_form - start usr_num=".$user->usr_num);
-
-			$data=null;
-			if($query_result!=NULL){
-				$data['query_result']=$query_result;
-			}
-
-        	$this->load->view("employ/employ_monthly_page_list",$data);
-
-			log_message("info","Employ_action.employ_monthly_list_form - end usr_num=".$user->usr_num);
+        public function employ_monthly_list_form($data=array()){
+            
+            $user = $this->session->userdata('user');
+            
+            $input=$this->input->post();
+            
+            log_message("info","Employ_action.employ_monthly_list_form - start usr_num=".$user->usr_num);
+            
+            $data['month_options'] = $this->get_month_options();
+            $this->load->view("employ/employ_monthly_page_list",$data);
+            
+            log_message("info","Employ_action.employ_monthly_list_form - end usr_num=".$user->usr_num);
         }
 
-		public function employ_monthly_list(){
-
-        	$user = $this->session->userdata('user');
-
-			$input=$this->input->post();
-
-			log_message("info","Employ_action.employ_monthly_list(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-
-
-			$query_result=$this->employ_service->find_employ_monthly_record($input['chk_start_date'],$input['chk_end_date'], $user->usr_num);
-
-        	$this->employ_monthly_list_form($query_result);
-
-			log_message("info","Employ_action.employ_monthly_list - end usr_num=".$user->usr_num);
+        public function employ_monthly_list(){
+            
+            $user = $this->session->userdata('user');
+            $input=$this->input->post();
+            
+            log_message("info","Employ_action.employ_monthly_list(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+            
+            $data=array();
+            $data['year_month'] = $input['year_month'];
+            $data['query_result'] = $this->employ_service->find_employ_monthly_record($input['year_month'], $user->usr_num);
+            $this->employ_monthly_list_form($data);
+            
+            log_message("info","Employ_action.employ_monthly_list - end usr_num=".$user->usr_num);
+        }
+        
+        private function get_month_options() {
+            $first_day = date('Y-m-01');
+            return [date('Y-m', strtotime($first_day)),
+                    date('Y-m', strtotime("$first_day -1 month")),
+                    date('Y-m', strtotime("$first_day -2 month")),
+                    date('Y-m', strtotime("$first_day -3 month")),
+                    date('Y-m', strtotime("$first_day -4 month")),
+                    date('Y-m', strtotime("$first_day -5 month"))
+                   ];
         }
 
-		private function __change_passwd_format_validate(){
-			$this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]');
-			$this->form_validation->set_rules('usr_passwd', '新密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]');
-			$this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]');
-		}
-	}
+        private function __change_passwd_format_validate(){
+            $this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]');
+            $this->form_validation->set_rules('usr_passwd', '新密碼', 'trim|required|max_length[32]|matches[confirm_usr_passwd]');
+            $this->form_validation->set_rules('confirm_usr_passwd', '確認密碼', 'trim|required|max_length[32]');
+        }
+    }
 
 ?>
