@@ -25,30 +25,22 @@
         
         public function get_real_stores_by_user_num($usr_num){
         	$usr_permission = $this->dia_user_store_permission_dao->query_by_usr_num($usr_num);
-        	//log_message("info","Tables_action.lists_form(".print_r($usr_permission,TRUE).") - end ");
         	$stores = array();
         	foreach ($usr_permission as $row){
-        		log_message("info","get_real_stores_by_user_num".print_r($row,TRUE));
         		// 取得store
         		$store = $this->dia_store_dao->query_by_sto_num($row->sto_num);
-        		log_message("info","get_real_stores_by_user_num2".print_r($store,TRUE));
+        		if($store->sto_type!= 1){
         		$stores[]=$store;
-//         		$converted_sto_num['sto_num']= $row;
+        		}
         	}
-        	log_message("info","get_real_stores_by_user_num3".print_r($stores,TRUE));
-        	
-        	
         	return $stores;
-        	
-        	
-        		
         }
 
         private function convert_store_array($stores) {
             $converted_stores = array();
             foreach ($stores as $store) {
-                $converted_stores[$store->sto_num] = $store;
-            }
+              $converted_stores[$store->sto_num] = $store;
+             }
 
             return $converted_stores;
         }
