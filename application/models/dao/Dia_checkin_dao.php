@@ -68,10 +68,13 @@
 			}
 
 			//step4.加入特殊條件
-			if(isset($condition['uncheck']) && $condition['uncheck']==TRUE){
-				// log_message("info","in!");
+			if(isset($condition['unconfirmed']) && $condition['unconfirmed']==TRUE){
 				$this->db->where("confirm_date IS NULL",NULL, FALSE);
 				$this->db->where("chk_out_time IS NOT NULL",NULL, FALSE);
+			}
+			
+			if(isset($condition['uncheckout']) && $condition['uncheckout']==TRUE){
+			    $this->db->where("chk_out_time IS NULL",NULL, FALSE);
 			}
 
 			if(isset($condition["chkin_start_time"])){

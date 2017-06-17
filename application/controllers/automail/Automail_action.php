@@ -10,8 +10,6 @@ class Automail_action extends CI_Controller {
 
     public function afternoon($valid, $send=FALSE){
 
-    	$data = $this->automail_service->get_automail_data();
-    	
         if($valid == 'fmweeije45gEEFGerr') {
             
             if ($send) {
@@ -20,6 +18,15 @@ class Automail_action extends CI_Controller {
             } else {
                 $this->load->view("automail/afternoon", $this->automail_service->get_automail_data());
             }
+        } else {
+            echo "Hello";
+        }
+    }
+    
+    public function uncheckout($valid, $send=FALSE) {
+        if($valid == 'fmweeije45gEEFGerr') {
+            $this->automail_service->send_uncheckout_mail($send);
+            echo 'Done';
         } else {
             echo "Hello";
         }

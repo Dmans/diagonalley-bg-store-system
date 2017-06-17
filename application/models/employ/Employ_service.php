@@ -62,13 +62,13 @@
 
         }
 
-        public function find_uncheck_list($usr_num){
+        public function find_unconfirmed_list($usr_num){
             $chks = array();
 
             if($usr_num != null) {
                 $usp_array = $this->dia_user_store_permission_dao->query_by_usr_num($usr_num);
 
-                $condition['uncheck']=TRUE;
+                $condition['unconfirmed']=TRUE;
                 foreach ($usp_array as $key => $usp) {
                     $condition['sto_num']=$usp->sto_num;
 
@@ -76,9 +76,7 @@
                     if (!empty($chk)) {
                         $chks = array_merge($chks, $chk);
                     }
-
                 }
-
             }
 
             $result_set=array();

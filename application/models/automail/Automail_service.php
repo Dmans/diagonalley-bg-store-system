@@ -12,6 +12,7 @@
             $this->load->model('dao/dia_user_store_permission_dao');
             $this->load->model('service/store_data_service');
             $this->load->model("constants/form_constants");
+            $this->load->library('email');
         }
         
         public function get_automail_data() {
@@ -25,6 +26,7 @@
         public function find_in_progress_checkin() {
 
             $condition['chkin_start_time']=date('Y-m-d');
+            $condition['uncheckout']=TRUE;
             $chks = $this->dia_checkin_dao->query_by_condition($condition);
 
             $result_set=array();
@@ -47,7 +49,6 @@
 
             $stores = $this->get_stores();
             foreach ($chks as $key => $chk) {
-                // log_message("info","store:".print_r($stores,TRUE));
                 unset($stores[$chk->sto_num]);
             }
             print_r($stores,TRUE);
@@ -58,7 +59,7 @@
             return $this->store_data_service->get_real_stores();
         }
         
-        public function send_mail() {
+        public function send_afternoon_mail() {
             
             $data = $this->get_automail_data();
             
@@ -83,22 +84,35 @@
                     }
                 }
                 
-                $this->send_automail($receiver, $data, '本日店鋪無人打卡警示');
+                $this->send_automail($receiver, $this->load->view("automail/afternoon", $data, TRUE), '本日店鋪無人打卡警示');
             }
         }
         
-        private function send_automail($receiver, $data, $subject) {
-            $this->load->library('email');
+        public function send_uncheckout_mail($is_send) {
+            $uncheckout_list = $this->find_in_progress_checkin();
+            
+            foreach($uncheckout_list as $uncheckout) {
+                $subject = "今日未打卡下班警示";
+                $receiver = $uncheckout->usr_mail;
+                $message = $this->load->view("automail/uncheckout", $uncheckout, TRUE);
+                if ($is_send) {
+                    if(!empty($uncheckout->usr_mail)) {
+                        $this->send_automail($receiver, $message, $subject);
+                    }
+                } else {
+                    echo $message;
+                }
+            }
+        }
+        
+        private function send_automail($receiver, $message, $subject) {
             
             $this->email->from('Auto-Mail@bogamon.com', '古靈閣Auto-mail');
             $this->email->to($receiver);
-            
             $this->email->subject($subject);
-            $this->email->message($this->load->view("automail/afternoon", $data, TRUE));
+            $this->email->message($message);
             
             $this->email->send();
-            
-            // echo $this->email->print_debugger();
         }
 
         private function __assemble_user_checkin($user,$chk, $store){
@@ -107,7 +121,9 @@
             $result->chk_num=$chk->chk_num;
             $result->usr_num=$chk->usr_num;
             $result->usr_name=$user->usr_name;
+            $result->usr_mail=$user->usr_mail;
             $result->chk_in_time=$chk->chk_in_time;
+            $result->chk_out_time=$chk->chk_out_time;
             $result->sto_name=$store->sto_name;
             $result->sto_num=$store->sto_num;
 

@@ -35,7 +35,7 @@
 			log_message("info","Employ_action.list_form2 - start usr_num=".$user->usr_num.", sto_num=".$sto_num);
 
 			if(empty($user->usr_mail)) {
-				echo "<h2 style='color:red'>你是不是還沒填Ｅ-mail!!!!!</h2>";
+				echo "<h2 style='color:red'>{$user->usr_name}不填Ｅ-mail 過陣子可能會不能打卡上班耶</h2>";
 			}
 			
 			$current_month_start = date('Y-m-01');
@@ -128,7 +128,7 @@
 
 			log_message("info","Employ_action.confirm_list_form - start usr_num=".$user->usr_num);
 
-			$chks = $this->employ_service->find_uncheck_list($user->usr_num);
+			$chks = $this->employ_service->find_unconfirmed_list($user->usr_num);
 
 			log_message("info","chks:".print_r($chks,TRUE));
 
@@ -175,8 +175,6 @@
 
 			log_message("info","Employ_action.employ_monthly_list - end usr_num=".$user->usr_num);
         }
-
-
 
 		private function __change_passwd_format_validate(){
 			$this->form_validation->set_rules('old_usr_passwd', '舊密碼', 'trim|required|max_length[32]');
