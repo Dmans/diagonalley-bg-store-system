@@ -26,7 +26,7 @@
 				<tr>
 					<td valign="top"><?=$row->dbk_date ?></td>
 					<td>
-						<div style="text-align: left"><?=nl2br($row->dbk_content) ?></div>
+						<div style="text-align: left"><?=nl2br($row->dbk_memo) ?></div>
 					</td>
 					<td><a href="<?=site_url("manage/booking_action/update_form/".$row->dbk_num) ?>">維護</a></td>
 					<td><a href="<?=site_url("manage/booking_action/remove/".$row->dbk_num) ?>">刪除</a></td>

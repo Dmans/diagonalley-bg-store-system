@@ -10,7 +10,8 @@ class Booking_action extends MY_Controller {
         parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model("manage/booking_service");
-    }
+		$this->load->model("dao/dia_store_dao");
+;    }
 	
 	public function save_form(){
 
@@ -91,6 +92,30 @@ class Booking_action extends MY_Controller {
 		
 		log_message("info","Booking_action.update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
 	}
+	
+	public function list_form($query_result=NULL){
+	    $user = $this->session->userdata('user');
+	 
+	    log_message("info","Tables_action.list_form - start usr_num=".$user->usr_num);
+    	$data= array();
+	    $data['stores'] = $this->store_data_service->get_real_stores_by_user_num($user->usr_num);
+	    log_message("info","Tables_action.lists_form(".print_r($data,TRUE).") - end usr_num=".$user->usr_num);
+	    if(!empty($query_result)){
+	       $data['query_result']=$query_result;
+	    }
+	    log_message("info","Tables_action.lists_form2(".print_r($data,TRUE).") - end2 usr_num=".$user->usr_num);
+	 
+	    $this->load->view("manage/tables_qform",$data);
+	}
+	
+	public function lists(){
+	    $user = $this->session->userdata('user');
+	    $input=$this->input->post();
+	    log_message("info","Tables_action.lists(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+	    $data['bookings']=$this->booking_service->find_enabled_bookings($input);
+	    log_message("info","Tables_action.lists(".print_r($query_result,TRUE).") - end usr_num=".$user->usr_num);
+	    $this->list_form($query_result);
+	}
 
 	public function remove($dbk_num){
 
@@ -130,28 +155,28 @@ class Booking_action extends MY_Controller {
 	}
 	
 	public function booking_message_list(){
-			
-		$user = $this->session->userdata('user');
-
-		log_message("info","Booking_action.booking_page_list - start usr_num=".$user->usr_num);
-		
-		$data['bookings']=$this->booking_service->find_enabled_bookings(date('Y-m-d H:i:s',strtotime("now +1 week")));
-
-    	$this->load->view("manage/booking_message_list",$data);
-		
-		log_message("info","Booking_action.booking_page_list - end usr_num=".$user->usr_num);
+	 
+	 $user = $this->session->userdata('user');
+	 
+	 log_message("info","Booking_action.booking_page_list - start usr_num=".$user->usr_num);
+	 $data['bookings']=$this->booking_service->find_enabled_bookings(date('Y-m-d H:i:s',strtotime("now +1 week")));
+	 log_message("info","Booking_action.booking_message_list(".print_r($data['bookings'],TRUE).") - end");
+	 
+	 $this->load->view("manage/booking_message_list",$data);
+	 
+	 log_message("info","Booking_action.booking_page_list - end usr_num=".$user->usr_num);
 	}
 	
 	
 	private function __save_booking_format_validate(){
 		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
-		$this->form_validation->set_rules('dbk_content', '定位資訊', 'trim|required|max_length[2048]');
+		$this->form_validation->set_rules('dbk_memo', '定位資訊', 'trim|required|max_length[2048]');
 		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
 	}
 	
 	private function __update_booking_format_validate(){
 		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
-		$this->form_validation->set_rules('dbk_content', '定位資訊', 'trim|required|max_length[2048]');
+		$this->form_validation->set_rules('dbk_memo', '定位資訊', 'trim|required|max_length[2048]');
 		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
 	}
 	

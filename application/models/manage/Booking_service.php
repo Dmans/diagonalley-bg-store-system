@@ -9,6 +9,7 @@
             parent::__construct();
             $this->load->model('dao/dia_booking_dao');
             $this->load->model('dao/dia_booking_table_dao');
+            $this->load->model("dao/dia_store_dao");
             $this->load->model("constants/form_constants");
         }
 
@@ -40,21 +41,24 @@
             if($end_dbk_date!=NULL){
                 $condition["end_dbk_date"]=$end_dbk_date;
             }
-
-            return $this->dia_booking_dao->query_by_condition($condition);
-
+            
+            $data=$this->dia_booking_dao->query_by_condition($condition);
+            log_message("info","Booking_service.find_enabled_bookings(input=".print_r($data,TRUE).") - start");
+            return $this->__assemble_query_result_list($data);
+        }
+        
+        public function find_bookings_by_list($input){
+         $condition=NULL;
+         $condition['dbk_status']=1;
+         $condition["order_dbk_date"]="ASC";
+         $condition["start_dbk_date"]=date('Y-m-d');
         }
 
         public function update_booking($input){
             $data=$this->__assemble_update_booking($input);
             $this->dia_booking_dao->update($data);
         }
-
-
-
-
-
-
+        
         public function find_dailys($usr_num=NULL){
             return $this->find_daily_record_for_list(FALSE,$usr_num);
         }
@@ -151,6 +155,36 @@
             $daily->ddr_type_desc=$this->form_constants->transfer_ddr_type($daily->ddr_type);
 
             return $daily;
+        }
+        
+        private function __assemble_query_result_list($query_result){
+         $output = array();
+         if(!empty($query_result)){
+          foreach ($query_result as $row) {
+           $output[]=$this->__assemble_query_result($row);
+          }
+         }
+         
+         return $output;
+        }
+        
+        private function __assemble_query_result($row){
+         log_message("info","Booking_service. __assemble_query_result(input=".print_r($row,TRUE).") - start");
+         $result=new stdClass();
+         $result->dbk_num=$row->dbk_num;
+         $result->usr_num=$row->usr_num;
+         $result->dbk_date=$row->dbk_date;
+         $result->dbk_name=$row->dbk_name;
+         $result->dbk_count=$row->dbk_count;
+         $result->dbk_phone=$row->dbk_phone;
+         $result->dbk_memo=$row->dbk_memo;
+         $result->dbk_status=$row->dbk_status;
+         $result->dtb_num=$row->dtb_num;
+         $result->sto_num=$row->sto_num;
+         $gsns = $this->dia_store_dao->query_by_sto_num($row->sto_num);
+         $result->sto_name=$gsns->sto_name;
+         return $result;
+         
         }
 
     }
