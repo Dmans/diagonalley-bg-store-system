@@ -44,10 +44,10 @@
 						<tr>
 						
 							<td>
-							<?php if($row->dtb_status==1):?>
-								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-mini">維護</a>
-							<?php else : ?>
+							<?php if($row->dbk_status==1):?>
 								<a class="btn btn-warning btn-mini">已預約</a>
+							<?php else : ?>
+								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-mini">維護</a>
 							<?php endif; ?>
 							</td>
 							<td><?php echo $row->sto_name ?></td>
