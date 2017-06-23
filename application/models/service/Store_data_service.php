@@ -29,7 +29,7 @@
         	foreach ($usr_permission as $row){
         		// 取得store
         		$store = $this->dia_store_dao->query_by_sto_num($row->sto_num);
-        		if($store->sto_type!= 1){
+        		if($store->sto_type==0){
         		$stores[]=$store;
         		}
         	}
