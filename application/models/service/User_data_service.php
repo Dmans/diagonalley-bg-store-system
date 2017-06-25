@@ -32,7 +32,7 @@ class user_data_service extends CI_Model {
 		
 		//Update user session if update data have the same usr_num
 		$user = $this->session->user;
-		if ($user->usr_num == $input['usr_num']) {
+		if (!empty($user) and $user->usr_num == $input['usr_num']) {
 			$this->session->user = $this->dia_user_dao->query_by_usr_num($user->usr_num);
 		}
 	}
@@ -109,6 +109,10 @@ class user_data_service extends CI_Model {
 			$user->usr_mail = $input['usr_mail'];
 		}
 		
+		if(isset($input['usr_hourly_salary']) and $session_user->usr_role <= 1){
+		    $user->usr_hourly_salary= $input['usr_hourly_salary'];
+		}
+		
 		
 		return $user;
 	}
@@ -126,21 +130,13 @@ class user_data_service extends CI_Model {
 	
 	private function __assemble_query_result($row){
 		
-		$result=new stdClass();
-		$result->usr_num=$row->usr_num;
-		$result->usr_id=$row->usr_id;
-		$result->usr_name=$row->usr_name;
-		$result->usr_role=$row->usr_role;
-		$result->usr_mail=$row->usr_mail;
+		$new_result = $row;
+		$new_result->usr_role_desc=$this->form_constants->transfer_usr_role($new_result->usr_role);
+		$new_result->usr_status_desc=$this->form_constants->transfer_usr_status($new_result->usr_status);
+		$new_result->usr_memo=(isset($new_result->usr_memo))?$new_result->usr_memo:"";
 		
-		$result->usr_role_desc=$this->form_constants->transfer_usr_role($row->usr_role);
-		$result->usr_status=$row->usr_status;
-		$result->usr_status_desc=$this->form_constants->transfer_usr_status($row->usr_status);
-		$result->usr_memo=(isset($row->usr_memo))?$row->usr_memo:"";
-		$result->register_date=$row->register_date;
-		$result->modify_date=$row->modify_date;
-		$result->usr_error_login=$row->usr_error_login;
-		
+		// For security remove password
+		unset($new_result->usr_passwd);
 		
 		// Assemble user store permission
 		$usps = $this->dia_user_store_permission_dao->query_by_usr_num($row->usr_num);
@@ -151,11 +147,9 @@ class user_data_service extends CI_Model {
 			}
 		}
 		
+		$new_result->user_store_permission = $tmpusps;
 		
-		$result->user_store_permission = $tmpusps;
-		
-		
-		return $result;
+		return $new_result;
 	}
 }
 

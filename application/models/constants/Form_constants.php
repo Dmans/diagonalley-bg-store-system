@@ -19,6 +19,8 @@
 					return '員工';
 				case '3':
 					return '會員';
+				case '4':
+				    return '工讀生';
 			}
 			
 			return NULL;
