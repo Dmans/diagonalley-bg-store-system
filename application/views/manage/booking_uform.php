@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-ui-timepicker-zh-TW.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
+					//另一種寫法input#dbkDate
 				$("input[id^='dbkDate']").datetimepicker({
 					dateFormat:'yy-mm-dd',
 					timeFormat: "hh:mm:ss",
@@ -34,7 +35,7 @@
 			<input type="hidden" name="dbk_num" value="<?=$dbk_num ?>" />
 			<div>定位時間:<input type="text" id="dbkDate" name="dbk_date" value="<?=set_value('dbk_date', $dbk_date); ?>" /></div>
 			<div>定位資訊:<br/>
-				<textarea name="dbk_content" cols="50" rows="10"><?=set_value('dbk_content', $dbk_content); ?></textarea>
+				<textarea name="dbk_memo" cols="50" rows="10"><?=set_value('dbk_memo', $dbk_memo); ?></textarea>
 			</div>
 			<div>定位狀態:
 				<input type="radio" name="dbk_status"  value="0" <?=set_radio("dbk_status","0",($dbk_status==0)?TRUE:FALSE) ?> />隱藏

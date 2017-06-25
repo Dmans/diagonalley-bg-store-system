@@ -35,6 +35,11 @@
 			$condition['sto_num']=$sto_num;
 			return $this->query_by_condition($condition);
 		}
+		public function query_by_dtb_num($dtb_num){
+		    $this->db->where('dtb_num',$dtb_num);
+		    $query = $this->db->get($this->table_name);
+		    return generate_single_result($query);
+		}
 		
 		public function query_by_dbk_date_interval($start_date,$end_date=NULL){
 			$condition['start_dbk_date']=$start_date;
