@@ -55,9 +55,9 @@
 					<? foreach ($query_result as $row) : ?>
 						<tr>
 							<td>
-								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-mini">查詢</a>
+								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-xs">查詢</a>
 							<? if($usr_role==0 OR $usr_role==1): ?>
-								<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>" class="btn btn-warning btn-mini">維護</a>
+								<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							<? endif ?>
 							</td>
 							<td><?=$row->usr_num ?></td>

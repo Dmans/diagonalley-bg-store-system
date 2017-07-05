@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
 		<link  rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<style type="text/css">
 	      body {
@@ -38,12 +38,12 @@
 	      }
 
     </style>
-		<title>登入<?=$system_name ?>管理介面</title>
+		<title>登入<?php echo SYSTEM_NAME ?>管理介面</title>
 	</head>
 	<body>
 		<div class="container">
 			<?=form_open('login_action/login', array('class'=>'form-signin')); ?>
-			<h2 class="form-signin-heading">登入<?=$system_name ?>管理介面</h2>
+			<h2 class="form-signin-heading">登入<?php echo SYSTEM_NAME ?>管理介面</h2>
 					<input type="text" name="usr_id" maxlength="64"  class="input-block-level" placeholder="Account"/>
 					<input type="password" name="usr_passwd" maxlength="32"  class="input-block-level" placeholder="Password"/>
 				<?=validation_errors('<div class="text-error">','</div>') ?>
