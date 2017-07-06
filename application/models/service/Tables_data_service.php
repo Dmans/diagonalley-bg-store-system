@@ -12,7 +12,7 @@ class tables_data_service extends CI_Model {
 	}
 	
 	public function find_tables_list($input){
-		log_message("info","find_tables_list(input=".print_r($input,TRUE).") - start");
+		log_message("debug","find_tables_list(input=".print_r($input,TRUE).") - start");
 		
 		$result = $this->dia_tables_dao->query_by_condition($input);
 		
@@ -36,36 +36,23 @@ class tables_data_service extends CI_Model {
 	}
 	
 	private function __assemble_query_result($row){
-		$result=new stdClass();
-		$storts=array();
-		$stort=$this->dia_store_dao->query_by_sto_num($row->sto_num);
-		$storts=$stort->sto_name;
-		
-		$status=array();
-		$statu=$this->dia_booking_dao->query_by_dtb_num($row->dtb_num);
-		if(isset($statu)){
-		   $status=$statu->dbk_status;
+	    $result=$row;
+	    
+		$store=$this->dia_store_dao->query_by_sto_num($row->sto_num);
+		$result->sto_name=$store->sto_name;
+		$condition['start_dbk_date']=date('Y-m-d');
+		$condition['dtb_num']=$row->dtb_num;
+		$condition['dbk_status']=1;
+		$status=$this->dia_booking_dao->query_by_condition($condition);
+		log_message("info","__assemble_query_result(status=".print_r($status,TRUE).") - end");
+		if(count($status)>0){
+		    $result->dbk_status=1;
 		}
-		$result->dtb_num=$row->dtb_num;
-		$result->sto_name=$storts;
-		$result->dtb_name=$row->dtb_name;
-		$result->dtb_status=$row->dtb_status;
-		$result->dtb_max_cap=$row->dtb_max_cap;
-		$result->dbk_status=$status;
+		else {
+		    $result->dbk_status=NULL;
+		}
 		
 		
-		
-		// Assemble user store permission
-// 		$usps = $this->dia_user_store_permission_dao->query_by_usr_num($row->usr_num);
-// 		$tmpusps = array();
-// 		if(!empty($usps)) {
-// 			foreach ($usps as $key => $usp) {
-// 				$tmpusps[] = $usp->sto_num;
-// 			}
-// 		}
-		
-		
-// 		$result->user_store_permission = $tmpusps;
 		
 		log_message("info","__assemble_query_result(input=".print_r($result,TRUE).") - end");
 		return $result;
