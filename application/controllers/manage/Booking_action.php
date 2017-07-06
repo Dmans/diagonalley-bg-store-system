@@ -11,7 +11,8 @@ class Booking_action extends MY_Controller {
 		$this->load->library('form_validation');
 		$this->load->model("manage/booking_service");
 		$this->load->model("dao/dia_store_dao");
-;    }
+		$this->load->model("service/store_data_service");
+	}
 	
 	public function save_form(){
 
@@ -92,29 +93,41 @@ class Booking_action extends MY_Controller {
 		
 		log_message("info","Booking_action.update(".print_r($input,TRUE).") - end usr_num=".$user->usr_num);
 	}
-	
-	public function list_form($query_result=NULL){
+
+	public function list_form($data=array()){
 	    $user = $this->session->userdata('user');
-	 
-	    log_message("info","Tables_action.list_form - start usr_num=".$user->usr_num);
-    	$data= array();
+	    
+	    log_message("info","booking_action.list_form - start usr_num=".$user->usr_num);
 	    $data['stores'] = $this->store_data_service->get_real_stores_by_user_num($user->usr_num);
-	    log_message("info","Tables_action.lists_form(".print_r($data,TRUE).") - end usr_num=".$user->usr_num);
-	    if(!empty($query_result)){
-	       $data['query_result']=$query_result;
-	    }
-	    log_message("info","Tables_action.lists_form2(".print_r($data,TRUE).") - end2 usr_num=".$user->usr_num);
-	 
-	    $this->load->view("manage/tables_qform",$data);
+	    $data['month_options'] = $this->get_month_options();
+	    log_message("info","booking_action.lists_form2(".print_r($data,TRUE).") - end usr_num=".$user->usr_num);
+	    $this->load->view("manage/booking_qform",$data);
 	}
 	
 	public function lists(){
 	    $user = $this->session->userdata('user');
 	    $input=$this->input->post();
-	    log_message("info","Tables_action.lists(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-	    $data['bookings']=$this->booking_service->find_enabled_bookings($input);
-	    log_message("info","Tables_action.lists(".print_r($query_result,TRUE).") - end usr_num=".$user->usr_num);
-	    $this->list_form($query_result);
+	    log_message("info","booking_action.lists(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+	    $query_result=$this->booking_service->find_bookings_list($input);
+	    log_message("info","booking_action.lists(".print_r($query_result,TRUE).") - end usr_num=".$user->usr_num);
+	    $data = array();
+	    $data['query_result'] = $query_result;
+	    $this->list_form($data);
+	}
+	public function booking_historical_lists(){
+	    $user = $this->session->userdata('user');
+	    $input=$this->input->post();
+	    // 	    $this->__lists_booking_format_validate();
+	    // 	    if($this->form_validation->run() != TRUE){
+	    // 	     $this->list_form();
+	    // 	     return;
+	    // 	    }
+	    log_message("info","booking_action.lists(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+	    $query_result=$this->booking_service->find_historical_list($input);
+	    log_message("info","booking_action.lists(".print_r($query_result,TRUE).") - end usr_num=".$user->usr_num);
+	    $data = array();
+	    $data['query_result'] = $query_result;
+	    $this->list_form($data);
 	}
 
 	public function remove($dbk_num){
@@ -141,13 +154,13 @@ class Booking_action extends MY_Controller {
 		log_message("info","Booking_action.remove(dbk_num=$dbk_num) - end usr_num=".$user->usr_num);
 	}
 	
-	public function booking_page_list(){
+	public function booking_page_list($dbk_num){
 			
 		$user = $this->session->userdata('user');
 
 		log_message("info","Booking_action.booking_page_list - start usr_num=".$user->usr_num);
 		
-		$data['bookings']=$this->booking_service->find_enabled_bookings();
+		$data['bookings']=$this->booking_service->find_booking($dbk_num);
 
     	$this->load->view("manage/booking_page_list",$data);
 		
@@ -164,9 +177,16 @@ class Booking_action extends MY_Controller {
 	 
 	 $this->load->view("manage/booking_message_list",$data);
 	 
-	 log_message("info","Booking_action.booking_page_list - end usr_num=".$user->usr_num);
 	}
 	
+// 	public function phone_validate($dbk_phone){
+// 	    if(preg_match("/09[0-9]{2}[0-9]{6}/", $dbk_phone)){
+// 	        return TRUE;
+// 	    }else{
+// 	        $this->form_validation->set_message('phone_validate', ' %s 欄位輸入錯誤');
+// 	        return FALSE;
+// 	    }
+// 	}
 	
 	private function __save_booking_format_validate(){
 		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
@@ -179,6 +199,22 @@ class Booking_action extends MY_Controller {
 		$this->form_validation->set_rules('dbk_memo', '定位資訊', 'trim|required|max_length[2048]');
 		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
 	}
+	
+// 	private function __lists_booking_format_validate(){
+// 	 $this->form_validation->set_rules('dbk_phone', '客戶手機', 'callback_phone_validate');
+// 	}
+
+	private function get_month_options() {
+	    $first_day = date('Y-m-01');
+	    return [date('Y-m', strtotime($first_day)),
+	            date('Y-m', strtotime("$first_day -1 month")),
+	            date('Y-m', strtotime("$first_day -2 month")),
+	            date('Y-m', strtotime("$first_day -3 month")),
+	            date('Y-m', strtotime("$first_day -4 month")),
+	            date('Y-m', strtotime("$first_day -5 month"))
+	    ];
+	}
+	
 	
 }
 

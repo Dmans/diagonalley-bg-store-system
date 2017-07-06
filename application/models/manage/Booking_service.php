@@ -11,6 +11,8 @@
             $this->load->model('dao/dia_booking_table_dao');
             $this->load->model("dao/dia_store_dao");
             $this->load->model("constants/form_constants");
+            $this->load->model("dao/dia_user_dao");
+            $this->load->model("dao/dia_tables_dao");
         }
 
         public function save_booking($input,$usr_num){
@@ -29,7 +31,8 @@
         }
 
         public function find_booking($dbk_num){
-            return $this->dia_booking_dao->query_by_dbk_num($dbk_num);
+            $data=$this->dia_booking_dao->query_by_dbk_num($dbk_num);
+            return $this->__assemble_query_result($data);
         }
 
         public function find_enabled_bookings($end_dbk_date=NULL){
@@ -43,15 +46,35 @@
             }
             
             $data=$this->dia_booking_dao->query_by_condition($condition);
-            log_message("info","Booking_service.find_enabled_bookings(input=".print_r($data,TRUE).") - start");
             return $this->__assemble_query_result_list($data);
         }
         
-        public function find_bookings_by_list($input){
-         $condition=NULL;
-         $condition['dbk_status']=1;
-         $condition["order_dbk_date"]="ASC";
-         $condition["start_dbk_date"]=date('Y-m-d');
+        public function find_bookings_list($input){
+            $condition=$input;
+            $condition['dbk_status']=1;
+            $condition["order_dbk_date"]="ASC";
+            $condition["start_dbk_date"]=date('Y-m-d');
+           
+            if(!empty($condition['dbk_phone'])){
+                $condition['sto_num']=null;
+            }
+            
+            $data=$this->dia_booking_dao->query_by_condition($condition);
+            return $this->__assemble_query_result_list($data);
+        }
+        public function find_historical_list($input){
+            $condition=$input;
+            $condition["order_dbk_date"]="DESC";
+            $condition["start_dbk_date"]= date('Y-m-d', strtotime($condition['year_month'].'-01'));
+            $condition["end_dbk_date"]= date('Y-m-t', strtotime($condition['year_month'].'-01'));
+            
+            if(!empty($condition['dbk_phone'])){
+                $condition["start_dbk_date"]=NULL;
+                $condition["end_dbk_date"]=NULL;
+            }
+            
+            $data=$this->dia_booking_dao->query_by_condition($condition);
+            return $this->__assemble_query_result_list($data);
         }
 
         public function update_booking($input){
@@ -163,13 +186,11 @@
           foreach ($query_result as $row) {
            $output[]=$this->__assemble_query_result($row);
           }
-         }
-         
+         }         
          return $output;
         }
         
         private function __assemble_query_result($row){
-         log_message("info","Booking_service. __assemble_query_result(input=".print_r($row,TRUE).") - start");
          $result=new stdClass();
          $result->dbk_num=$row->dbk_num;
          $result->usr_num=$row->usr_num;
@@ -183,6 +204,10 @@
          $result->sto_num=$row->sto_num;
          $gsns = $this->dia_store_dao->query_by_sto_num($row->sto_num);
          $result->sto_name=$gsns->sto_name;
+         $guns = $this->dia_user_dao->query_by_usr_num($row->usr_num);
+         $result->usr_name=$guns->usr_name;
+         $gtns = $this->dia_tables_dao->query_by_dtb_num($row->dtb_num);
+         $result->dtb_name=$gtns->dtb_name;
          return $result;
          
         }
