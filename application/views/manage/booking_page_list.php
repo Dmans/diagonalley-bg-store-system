@@ -4,35 +4,35 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>客戶定位資料列表</title>
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css" />
-		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 			});
 		</script>
 	</head>
 	<body>
-		<h3>客戶定位資料</h3>
-		<div>訂位流水號:<?php echo $bookings->dbk_num ?></div>
-		<div>訂位紀錄者:<?php echo $bookings->usr_name ?></div>
-		<div>訂位店鋪:<?php echo $bookings->sto_name ?></div>
-		<div>訂位時間:<?php echo $bookings->dbk_date ?></div>
-		<div>客戶稱謂:<?php echo $bookings->dbk_name ?></div>
-		<div>客戶人數:<?php echo $bookings->dbk_count ?></div>
-		<div>客戶電話:<?php echo $bookings->dbk_phone ?></div>
-		<div>訂位桌名稱:<?php echo $bookings->dtb_name ?></div>
-		<div>訂位狀態:<?php if($bookings->dbk_status==0){
-		                      echo "隱藏";
-		                 }
-		                 if ($bookings->dbk_status==1){
-		                      echo "公開";
-		                 }
-		                 if ($bookings->dbk_status==2){
-		                     echo "取消";
-                         }?></div>
-		<div>客戶備註:<br/>
-			<?php echo (isset($bookings->dbk_memo))?nl2br($bookings->dbk_memo):"" ?>
-		</div>
+		<h3>客戶定位資料列表</h3>
+		<div><a href="<?=site_url("manage/booking_action/save_form") ?>">新增定位資料</a></div>
+		<div class="text-error">僅顯示查詢日以後的定位資料! 時間越接近的越上面</div>
+		<table class="list_table">
+			<tr>
+				<th width="100">定位日期</th>
+				<th width="50%">定位資訊</th>
+				<th>維護</th>
+				<th>刪除</th>
+			</tr>
+			<? foreach ($bookings as $key=>$row) : ?> 
+				<tr>
+					<td valign="top"><?=$row->dbk_date ?></td>
+					<td>
+						<div style="text-align: left"><?=nl2br($row->dbk_memo) ?></div>
+					</td>
+					<td><a href="<?=site_url("manage/booking_action/update_form/".$row->dbk_num) ?>">維護</a></td>
+					<td><a href="<?=site_url("manage/booking_action/remove/".$row->dbk_num) ?>">刪除</a></td>
+				</tr>
+			<? endforeach  ?>
+		</table>
 	</body>
 </html>
 

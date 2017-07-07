@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>使用者資料</title>
 	</head>
@@ -13,6 +13,9 @@
 			<div>使用者帳號:<?=$user->usr_id ?></div>
 			<div>使用者名稱:<?=$user->usr_name ?></div>
 			<div>使用者信箱:<?=$user->usr_mail ?></div>
+			<?php if($user->usr_role == 4): ?>
+				<div>使用者時薪:<?php echo $user->usr_hourly_salary ?></div>
+			<?php endif; ?>
 			<div>帳號類型:<?=$user->usr_role_desc ?></div>
 			<div>啟用狀態:<?=$user->usr_status_desc ?></div>
 			<div>使用者備註:<br/>

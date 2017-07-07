@@ -6,7 +6,7 @@
 		<title>銷售資料月報表(日曆)</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/fullcalendar.css" />
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/fullcalendar.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){

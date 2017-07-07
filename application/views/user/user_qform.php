@@ -18,8 +18,11 @@
 				    <input type="radio" name="usr_role"  value="0" <?=set_radio("usr_role","0")?>/>Root
 				    <input type="radio" name="usr_role"  value="1" <?=set_radio("usr_role","1")?>/>店長
 			    <? endif ?>
-				<? if($usr_role==0 OR $usr_role==1):  ?><input type="radio" name="usr_role" value="2" <?=set_radio("usr_role","2")?>/>員工<? endif ?>
-				<input type="radio" name="usr_role" value="3" <?=set_radio("usr_role","3", TRUE)?> />會員
+				<? if($usr_role==0 OR $usr_role==1):  ?>
+					<input type="radio" name="usr_role" value="2" <?=set_radio("usr_role","2")?>/>員工
+					<input type="radio" name="usr_role" value="4" <?=set_radio("usr_role","4", TRUE)?>/>工讀生
+				<? endif ?>
+				<input type="radio" name="usr_role" value="3" <?=set_radio("usr_role","3")?> />會員
 			</div>
 			<div>啟用狀態:
 				<input type="radio" name="usr_status"  value="0" <?=set_radio("usr_status","0")?> />停用
@@ -52,9 +55,9 @@
 					<? foreach ($query_result as $row) : ?>
 						<tr>
 							<td>
-								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-mini">查詢</a>
+								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-xs">查詢</a>
 							<? if($usr_role==0 OR $usr_role==1): ?>
-								<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>" class="btn btn-warning btn-mini">維護</a>
+								<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							<? endif ?>
 							</td>
 							<td><?=$row->usr_num ?></td>

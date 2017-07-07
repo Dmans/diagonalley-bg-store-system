@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<script>
     		$(document).ready(function(){
@@ -37,6 +37,7 @@
 					<input type="radio" name="usr_role"  value="1" />店長
 				<? endif ?>
 				<input type="radio" name="usr_role"  value="2" />員工
+				<input type="radio" name="usr_role"  value="4" />工讀生
 				<input type="radio" name="usr_role"  value="3" checked="checked" />會員
 			</div>
 			
@@ -46,8 +47,7 @@
 			<div id="storePermission">店舖權限:
                 <? foreach ($stores as $key=>$store): ?>
                     <input type="checkbox" id="store_<?=$key ?>"
-                            name="sto_nums[]" value="<?=$store->sto_num ?>"
-                    <label title="<?=$store->sto_name ?>" for="store_<?=$key ?>" ><?=$store->sto_name ?></label>
+                            name="sto_nums[]" value="<?=$store->sto_num ?>" /><?php echo $store->sto_name ?>
                 <? endforeach ?>
             </div>
 			<? endif ?>

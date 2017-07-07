@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>店內上架遊戲管理</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$('input[id^="unuseButton"]').each(function(index,element){

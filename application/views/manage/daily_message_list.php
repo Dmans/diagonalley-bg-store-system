@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>公告欄</title>
 		<link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" />
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 	</head>
 	<body>
 		<h1>店內公告欄</h1>

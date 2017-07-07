@@ -3,7 +3,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>快速銷售按鈕列表</title>
 	<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
-	<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 	<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 </head>
 	<h3>快速銷售按鈕列表</h3>
