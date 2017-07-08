@@ -4,9 +4,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" href="<?=base_url(); ?>images/Favicon.ico">
-		<title>斜角巷管理平台</title>
+		<title><?php echo SYSTEM_NAME ?>管理平台</title>
 	</head>
-		<frameset cols="15%,*">
+		<frameset cols="18%,*">
 			<frame src="<?=site_url("main_action/menu") ?>" />
 			<frame id="content" name="content" src="<?=site_url("manage/booking_action/booking_message_list") ?>" />
 		</frameset>

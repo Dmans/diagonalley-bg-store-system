@@ -14,8 +14,7 @@
         public function index(){
         	$this->load->library('form_validation');
 			$this->load->helper(array('form','url'));
-			$data['system_name']="古靈閣";
-        	$this->load->view("login_form", $data);
+        	$this->load->view("login_form");
         }
 
 
@@ -27,8 +26,7 @@
 
 			$this->__login_format_validation($usr_passwd);
 			if($this->form_validation->run() != TRUE){
-			    $data['system_name']="古靈閣";
-				$this->load->view("login_form", $data);
+				$this->load->view("login_form");
 				return;
 			}
 
