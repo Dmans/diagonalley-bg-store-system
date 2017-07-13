@@ -36,10 +36,10 @@
 				<input type="text" name="pfs_order" maxlength="10" size="10" value="<?=set_value('pfs_order', '999'); ?>" />
 				(請輸入數字)
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div>
 				<input type="submit" value="新增快速銷售按鈕" class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn" />
+				<input type="reset" value="重填" class="btn btn-default" />
 			</div>
 		</form>
 	</body>

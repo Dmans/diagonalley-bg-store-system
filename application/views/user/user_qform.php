@@ -29,7 +29,7 @@
 				<input type="radio" name="usr_status"  value="1" <?=set_radio("usr_status","1",TRUE)?>/>啟用
 				<input type="radio" name="usr_status"  value="-1" <?=set_radio("usr_status","-1")?> />全部
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 

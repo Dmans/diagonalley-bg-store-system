@@ -31,10 +31,10 @@
                 <input type="radio" name="dtb_status" value="0" <?php echo set_radio("dtb_status","0") ?> />隱藏
                 <input type="radio" name="dtb_status" value="1" <?php echo set_radio("dtb_status","1",TRUE) ?> />公開
             </div>
-            <?php echo validation_errors('<div class="text-error">','</div>') ?>
+            <?php echo validation_errors('<div class="text-danger">','</div>') ?>
             <div>
                 <input type="submit" value="維護遊戲桌資料"  class="btn btn-primary" />
-                <input type="reset" value="重填"  class="btn" />
+                <input type="reset" value="重填"  class="btn btn-default" />
             </div>
         </form>
     </body>

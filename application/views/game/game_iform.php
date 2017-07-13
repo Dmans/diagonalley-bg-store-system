@@ -27,8 +27,8 @@
 			<div>遊戲備註:<br/>
 				<textarea name="gam_memo" cols="50" rows="10"><?=set_value("gam_memo","") ?></textarea>
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
-			<div><input type="submit" value="新增遊戲" class="btn btn-primary" /><input type="reset" value="重填" class="btn" /></div>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
+			<div><input type="submit" value="新增遊戲" class="btn btn-primary" /><input type="reset" value="重填" class="btn btn-default" /></div>
 		</form>
 	</body>
 	

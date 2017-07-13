@@ -36,10 +36,10 @@
                 <input type="radio" name="dtb_status" value="0" <?=set_radio("dtb_status","0") ?> />隱藏
                 <input type="radio" name="dtb_status" value="1" <?=set_radio("dtb_status","1",TRUE) ?> />公開
             </div>
-            <?=validation_errors('<div class="text-error">','</div>') ?>
+            <?=validation_errors('<div class="text-danger">','</div>') ?>
             <div>
                 <input type="submit" value="新增遊戲桌資料"  class="btn btn-primary" />
-                <input type="reset" value="重填"  class="btn" />
+                <input type="reset" value="重填"  class="btn btn-default" />
             </div>
         </form>
     </body>

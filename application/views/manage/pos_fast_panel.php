@@ -104,7 +104,7 @@
 		<div id="fastButtonArea">
 			<? foreach ($query_result as $fastpos ) : ?>
 				<button id="fastButton_<?=$fastpos->pfs_num ?>" 
-						class="fastButton btn btn-large" 
+						class="fastButton btn btn-default btn-lg" 
 					    type="button" 
 					    value="<?=$fastpos->pfs_num ?>" 
 					    podSvalue="<?=$fastpos->pod_svalue ?>" 
@@ -120,8 +120,8 @@
 				<div id="displayArea" class="well"></div>
 				<div>目前總金額:<span id="totalSvalueArea">0</span>元</div>
 				<div>目前共選擇:<span id="totalSelectedCount">0</span>項</div>
-				<button id="submitPosButton" type="button" class="btn btn-primary btn-large">送出</button>
-				<button id="cleanUpButton" type="button" class="btn btn-large">清空</button>
+				<button id="submitPosButton" type="button" class="btn btn-primary btn-lg">送出</button>
+				<button id="cleanUpButton" type="button" class="btn btn-default btn-lg">清空</button>
 			</form>
 		</div>
 		<span id="loading" style="display: none;"><img src="<?=base_url(); ?>images/loading.gif" /></span>

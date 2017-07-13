@@ -22,7 +22,7 @@
 				<input type="radio" name="gid_rentable"  value="0" <?=set_radio("gid_rentable","0",($gid_rentable==0)?TRUE:FALSE) ?> />否
 				<input type="radio" name="gid_rentable"  value="1" <?=set_radio("gid_rentable","1",($gid_rentable==1)?TRUE:FALSE) ?> />是
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="維護上架遊戲" /><input type="reset" value="重填" /></div>
 		</form>
 	</body>

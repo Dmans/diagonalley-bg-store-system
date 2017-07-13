@@ -39,7 +39,7 @@
 			<? echo form_open('manage/pos_action/pos_list'); ?>
 				<div>查詢日期:<input type="text" id="podDate" name="pod_date" value="<?=date("Y-m-d") ?>"/>
 				</div>
-				<?=validation_errors('<div class="text-error">','</div>') ?>
+				<?=validation_errors('<div class="text-danger">','</div>') ?>
 				<div>
 					<input id="queryButton" type="button" value="查詢" class="btn btn-primary" />
 					<span id="loading" style="display: none;"><img src="<?=base_url(); ?>images/loading.gif" /></span>

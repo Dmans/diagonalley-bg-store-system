@@ -39,7 +39,7 @@
 				從<input type="text" id="dateFrom" name="start_gim_date"/>
 				到<input type="text" id="dateTo" name="end_gim_date"/>
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div>
 				<input type="submit" value="查詢遊戲入庫單"  class="btn btn-primary" />
 				<input type="reset" value="重填" class="btn" />

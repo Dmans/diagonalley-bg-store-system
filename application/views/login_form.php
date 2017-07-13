@@ -44,10 +44,10 @@
 		<div class="container">
 			<?=form_open('login_action/login', array('class'=>'form-signin')); ?>
 			<h2 class="form-signin-heading">登入<?php echo SYSTEM_NAME ?>管理介面</h2>
-					<input type="text" name="usr_id" maxlength="64"  class="input-block-level" placeholder="Account"/>
-					<input type="password" name="usr_passwd" maxlength="32"  class="input-block-level" placeholder="Password"/>
-				<?=validation_errors('<div class="text-error">','</div>') ?>
-				<input type="submit" value="Login" class="btn btn-large btn-primary" />
+					<input type="text" name="usr_id" maxlength="64"  class="form-control" placeholder="Account"/>
+					<input type="password" name="usr_passwd" maxlength="32"  class="form-control" placeholder="Password"/>
+				<?=validation_errors('<div class="text-danger">','</div>') ?>
+				<input type="submit" value="Login" class="btn btn-lg btn-primary" />
 			</form>
 		</div>
         <div class="container text-center">

@@ -41,7 +41,7 @@
 				<? endif ?>
 				<input type="radio" name="pod_status"  value="1" <?=set_radio("pod_status","1",($pod_status==1)?TRUE:FALSE) ?> />成立
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="維護銷售資料" /><input type="reset" value="重填" /></div>
 		</form>
 	</body>

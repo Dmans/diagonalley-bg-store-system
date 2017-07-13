@@ -19,8 +19,8 @@
                 </select>
             </div>
 			<div>客戶手機:<input type="text" name="dbk_phone" maxlength="32" /></div>
-			<?php //echo validation_errors('<div class="text-error">','</div>') ?>
-			<div><input type="submit" value="查詢" class="btn btn-default btn-primary" /></div>
+			<?php //echo validation_errors('<div class="text-danger">','</div>') ?>
+			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 		<h1>查詢歷史訂位資料</h1>
 		<?php echo form_open('manage/booking_action/booking_historical_lists');?>
@@ -32,8 +32,8 @@
 					</select>
 				</div>
 			<div>客戶手機:<input type="text" name="dbk_phone" maxlength="32" /></div>
-			<?php //echo validation_errors('<div class="text-error">','</div>') ?>
-			<div><input type="submit" value="查詢" class="btn btn-default btn-primary" /></div>
+			<?php //echo validation_errors('<div class="text-danger">','</div>') ?>
+			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>	
 		<div>
 			<? if(!empty($query_result)):  ?>
@@ -51,8 +51,8 @@
 						<tr>
 						
 							<td>
-								<a href="<?=site_url("manage/booking_action/booking_page_list/".$row->dbk_num) ?>" class="btn btn-default btn-info btn-xs">詳細</a>
-								<a href="<?=site_url("manage/booking_action/update_form/".$row->dbk_num) ?>" class="btn btn-default btn-warning btn-xs">維護</a>
+								<a href="<?=site_url("manage/booking_action/booking_page_list/".$row->dbk_num) ?>" class="btn btn-info btn-xs">詳細</a>
+								<a href="<?=site_url("manage/booking_action/update_form/".$row->dbk_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							</td>
 							<td><?php echo $row->sto_name ?></td>
 							<td><?php echo $row->dbk_date ?></td>

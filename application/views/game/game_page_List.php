@@ -45,8 +45,8 @@
 				<tr id="gameTr_<?=$row->gam_num ?>">
 					<? if($usr_role==0 OR $usr_role==1): ?>	
 						<td>
-							<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>" class="btn btn-info btn-small">查詢</a>
-							/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-small">維護</a>
+							<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>" class="btn btn-info btn-sm">查詢</a>
+							/<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-sm">維護</a>
 						</td>
 						<td>
 							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>">維護分類</a>

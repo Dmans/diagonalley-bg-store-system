@@ -26,7 +26,7 @@
                     <? endfor ?>
                </select>
             </div>
-			<?php echo validation_errors('<div class="text-error">','</div>') ?>
+			<?php echo validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 
@@ -45,9 +45,9 @@
 						
 							<td>
 							<?php if($row->dbk_status==1):?>
-								<a class="btn btn-warning btn-mini">已預約</a>
+								<a class="btn btn-warning btn-xs">已預約</a>
 							<?php else : ?>
-								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-mini">維護</a>
+								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							<?php endif; ?>
 							</td>
 							<td><?php echo $row->sto_name ?></td>

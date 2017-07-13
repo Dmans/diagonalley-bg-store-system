@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 </head>
 <? if(isset($query_result)):  ?>
-	<div class="span10">
+	<div class="col-md-10">
 		<table class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
 				<th>維護銷售紀錄</th>
@@ -19,12 +19,12 @@
 			</tr>
 			<? foreach($query_result->pos_list as $pos): ?>
 				<tr>
-					<td><a href="<?=site_url("manage/pos_action/update_form/".$pos->pod_num) ?>" class="btn btn-warning btn-mini" >維護</a></td>
+					<td><a href="<?=site_url("manage/pos_action/update_form/".$pos->pod_num) ?>" class="btn btn-warning btn-xs" >維護</a></td>
 					<td><?=$pos->pod_date ?></td>
 					<td><?=$pos->tag->tag_name ?></td>
 					<td><?=$pos->pod_desc ?></td>
 					<td><?=$pos->pod_svalue ?></td>
-					<td><a href="<?=site_url("manage/pos_action/remove/".$pos->pod_num) ?>" class="btn btn-danger btn-mini" >刪除</a></td>
+					<td><a href="<?=site_url("manage/pos_action/remove/".$pos->pod_num) ?>" class="btn btn-danger btn-xs" >刪除</a></td>
 				</tr>
 			<? endforeach ?>
 			<tr>

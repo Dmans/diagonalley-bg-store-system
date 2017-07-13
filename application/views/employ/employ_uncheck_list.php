@@ -58,7 +58,7 @@
 	<body>
 		<h3>未審核打卡資料</h3>
 		<div class="row">
-			<div class="span10">
+			<div class="col-md-10">
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>序號</th>

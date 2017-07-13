@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 </head>
 	<h3>快速銷售按鈕列表</h3>
-	<div class="span10">
+	<div class="col-md-10">
 		<table class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
 				<th>維護</th>
@@ -19,12 +19,12 @@
 			</tr>
 			<? foreach($pfs_list as $pfs): ?>
 				<tr>
-					<td><a href="<?=site_url("manage/pos_action/pos_fast_button_update_form/".$pfs->pfs_num) ?>" class="btn btn-warning btn-mini" >維護</a></td>
+					<td><a href="<?=site_url("manage/pos_action/pos_fast_button_update_form/".$pfs->pfs_num) ?>" class="btn btn-warning btn-xs" >維護</a></td>
 					<td><?=$pfs->tag->tag_name ?></td>
 					<td><?=$pfs->pod_desc ?></td>
 					<td><?=$pfs->pod_svalue ?></td>
 					<td><?=$pfs->pfs_order ?></td>
-					<td><a href="<?=site_url("manage/pos_action/pos_fast_button_remove/".$pfs->pfs_num) ?>" class="btn btn-danger btn-mini" >刪除</a></td>
+					<td><a href="<?=site_url("manage/pos_action/pos_fast_button_remove/".$pfs->pfs_num) ?>" class="btn btn-danger btn-xs" >刪除</a></td>
 				</tr>
 			<? endforeach ?>
 		</table>

@@ -15,7 +15,7 @@
 		<h2>銷售類型列表</h2>
 		<div class="row">
 			<? if(isset($tags)):  ?>
-				<div class="span10">
+				<div class="col-md-10">
 					<table  class="table table-striped table-hover table-bordered table-condensed">
 						<tr>
 							<th>維護</th>
@@ -26,14 +26,14 @@
 						<? foreach($tags as $tag): ?>
 							<tr>
 								<td>
-									<a target="content" href="<?=site_url("manage/pos_tag_action/update_form/".$tag->tag_num) ?>" class="btn btn-warning btn-mini">
+									<a target="content" href="<?=site_url("manage/pos_tag_action/update_form/".$tag->tag_num) ?>" class="btn btn-warning btn-xs">
 										維護
 									</a>
 								</td>
 								<td><?=$tag->tag_name ?></td>
 								<td><?=$tag->tag_desc ?></td>
 								<td>
-									<a target="content" href="<?=site_url("manage/pos_tag_action/remove/".$tag->tag_num) ?>" class="btn btn-danger btn-mini">
+									<a target="content" href="<?=site_url("manage/pos_tag_action/remove/".$tag->tag_num) ?>" class="btn btn-danger btn-xs">
 										刪除
 									</a>
 								</td>

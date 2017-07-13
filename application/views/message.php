@@ -14,7 +14,7 @@
 		<? if(isset($extend_url)): ?>
 		<div>
 			<? foreach ($extend_url as $key => $url_data) : ?>
-				<div><a href="<?=$url_data->url ?>" class="btn" ><?=$url_data->title ?></a></div>
+				<div><a href="<?=$url_data->url ?>" class="btn btn-default" ><?=$url_data->title ?></a></div>
 			<? endforeach ?>
 		</div>
 		<? endif ?>

@@ -39,7 +39,7 @@
 				<input type="text" id="dateFrom" name="date_from" />~
 				<input type="text" id="dateTo" name="date_to" />
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="查詢" /></div>
 		</form>
 		

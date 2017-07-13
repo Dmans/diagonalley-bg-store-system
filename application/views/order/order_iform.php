@@ -161,10 +161,10 @@
 			<div>訂購時間:
 				<input type="text" id="ordDate" name="ord_date" value="<?=set_value('ord_date', $ord_date); ?>" />
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div>
 				<input type="button" id="submitButton" value="送出訂單" onclick="formSubmit();" class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn" />
+				<input type="reset" value="重填" class="btn btn-default" />
 			</div>
 		</form>
 	</body>

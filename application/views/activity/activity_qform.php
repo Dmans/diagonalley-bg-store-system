@@ -23,7 +23,7 @@
 				<input type="radio" name="act_status"  value="2" <?=set_radio("act_status","2")?>/>停用
 				<input type="radio" name="act_status"  value="-1" <?=set_radio("act_status","-1")?> />全部
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="查詢" /></div>
 		</form>
 		

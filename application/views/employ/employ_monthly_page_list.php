@@ -34,7 +34,7 @@
 		<div class="row">
 			<? if(isset($query_result)):  ?>
 				<? foreach($query_result as $chk_user): ?>
-					<div class="span10">
+					<div class="col-md-10">
 						<table class="table table-striped table-hover table-bordered table-condensed">
 							<tr>
 								<td colspan="4" style="text-align: left">員工:<?=$chk_user->usr_name ?></td>

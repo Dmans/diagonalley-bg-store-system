@@ -24,7 +24,7 @@
 				<input type="radio" name="act_status"  value="1" <?=set_radio("act_status","1") ?> />啟用
 				<input type="radio" name="act_status"  value="2" <?=set_radio("act_status","2") ?> />停用
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="新增活動" /><input type="reset" value="重填" /></div>
 		</form>
 	</body>

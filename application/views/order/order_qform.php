@@ -47,7 +47,7 @@
 				<input type="radio" name="ord_status" value="2" />取消
 				<input type="radio" name="ord_status" value="-1" />全部
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 		
@@ -70,7 +70,7 @@
 					<? foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
-								<a href="<?=site_url("order/order_action/page_detail/".$row->ord_num) ?>" class="btn btn-info btn-mini">查詢</a>
+								<a href="<?=site_url("order/order_action/page_detail/".$row->ord_num) ?>" class="btn btn-info btn-xs">查詢</a>
 							<? if($usr_role==0 OR $usr_role==1): ?>
 <!-- 								<a href="<?=site_url("order/order_action/update_form/".$row->ord_num) ?>">維護</a> -->
 							<? endif ?>
@@ -83,7 +83,7 @@
 							<td><?=$row->ord_status_desc ?></td>
 							<td><?=$row->ord_date ?></td>
 							<td><?=$row->ord_usr_name ?></td>
-							<td><a href="<?=site_url("order/order_action/cancel/".$row->ord_num) ?>" class="btn btn-danger btn-mini" >取消</a></td>
+							<td><a href="<?=site_url("order/order_action/cancel/".$row->ord_num) ?>" class="btn btn-danger btn-xs" >取消</a></td>
 						</tr>
 					<? endforeach  ?>
 				</table>

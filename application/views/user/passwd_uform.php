@@ -14,10 +14,10 @@
 			<div>舊密碼:<input type="password" name="old_usr_passwd" maxlength="32" /></div>
 			<div>新密碼:<input type="password" name="usr_passwd" maxlength="32" /></div>
 			<div>確認密碼:<input type="password" name="confirm_usr_passwd" maxlength="32" /></div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div>
 				<input type="submit" value="維護密碼" class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn" />
+				<input type="reset" value="重填" class="btn btn-default" />
 			</div>
 		</form>
 	</body>

@@ -73,7 +73,7 @@
 			<input type="button" id="checkinButton" value="上班打卡" class="btn btn-primary"/>
 		</div>
 		<div class="row">
-			<div class="span9">本月打卡紀錄
+			<div class="col-md-9">本月打卡紀錄
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>序號</th>
@@ -119,7 +119,7 @@
 					<? endif ?>
 				</table>
 			</div>
-			<div class="span9">上月打卡紀錄
+			<div class="col-md-9">上月打卡紀錄
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
 						<th>序號</th>

@@ -17,7 +17,7 @@
 		<? echo form_open('game/game_tag_action/tag_save'); ?>
 			<div>標籤名稱:<input type="text" name="tag_name" maxlength="32" value="<?=set_value("tag_name","") ?>" /></div>
 			<div>標籤說明:<input type="text" name="tag_desc" maxlength="128" value="<?=set_value("gam_ename","") ?>" /></div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="新增遊戲類型" class="btn btn-primary" /></div>
 		</form>
 	</body>

@@ -55,10 +55,10 @@
 			<div>使用者備註:<br/>
 				<textarea name="usr_memo" cols="50" rows="10"></textarea>
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div>
 				<input type="submit" value="新增使用者" class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn" />
+				<input type="reset" value="重填" class="btn btn-default" />
 			</div>
 		</form>
 	</body>

@@ -13,9 +13,9 @@
 			<div>遊戲流水號:<?=$game->gam_num ?><input type="hidden" name="gam_num" value="<?=set_value("gam_num",$game->gam_num) ?>" /></div>
 			<div>遊戲中文名稱:<?=$game->gam_cname ?></div>
 			<div>遊戲英文名稱:<?=$game->gam_ename ?></div>
-			<div class="row-fluid">
-				<div class="span1">遊戲分類:</div>
-				<div class="span4">
+			<div class="row">
+				<div class="col-md-1">遊戲分類:</div>
+				<div class="col-md-4">
 					<table class="table table-striped table-hover table-bordered table-condensed">
 						<? $index=1; ?>
 						<? foreach ($tags as $key => $tag) : ?>
@@ -38,10 +38,10 @@
 			</div>
 			<div>
 				<input type="submit" value="確認維護遊戲類型" class="btn btn-primary" />
-				<input type="reset" value="重填" class="btn" />
+				<input type="reset" value="重填" class="btn btn-default" />
 			</div>
 		</form>
-		<?=validation_errors('<div class="text-error">','</div>') ?>
+		<?=validation_errors('<div class="text-danger">','</div>') ?>
 	</body>
 </html>
 

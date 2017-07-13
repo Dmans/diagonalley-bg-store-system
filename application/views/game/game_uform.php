@@ -24,7 +24,7 @@
 				<? if($barcode != NULL) : ?>
 					<a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>" ><?=$barcode->bar_code ?></a>
 				<? else : ?>
-					尚未連結對應條碼 <a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>"class="btn btn-primary btn-mini">新增條碼</a>
+					尚未連結對應條碼 <a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>"class="btn btn-primary btn-xs">新增條碼</a>
 				<? endif ?>
 			</div>
 			<div>遊戲是否為庫存商品(可出售):
@@ -51,7 +51,7 @@
 				<div><input type="submit" value="異動庫存" /><input type="reset" value="重填" /></div>
 			</form>
 		</div> -->
-		<?=validation_errors('<div class="text-error">','</div>') ?>
+		<?=validation_errors('<div class="text-danger">','</div>') ?>
 	</body>
 	
 </html>

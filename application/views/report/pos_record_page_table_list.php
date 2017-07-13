@@ -88,7 +88,7 @@
 					<? endfor ?>	
 				</select>
 			</div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>
 		</div>

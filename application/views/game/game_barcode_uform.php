@@ -56,8 +56,8 @@
 		<? echo form_open('game/game_action/game_barcode_update'); ?>
 			<input type="hidden" id="gamNum" name="bar_value" value="<?=$game->gam_num ?>" />
 			<div>條碼值:<input type="text" id="barCode" name="bar_code" value="<?=set_value("bar_code", $bar_code) ?>" /></div>
-			<?=validation_errors('<div class="text-error">','</div>') ?>
-			<div><input type="submit" value="更新遊戲對應條碼" class="btn btn-primary" /><input type="reset" value="重填" class="btn" /></div>
+			<?=validation_errors('<div class="text-danger">','</div>') ?>
+			<div><input type="submit" value="更新遊戲對應條碼" class="btn btn-primary" /><input type="reset" value="重填" class="btn btn-default" /></div>
 		</form>
 	</body>
 	

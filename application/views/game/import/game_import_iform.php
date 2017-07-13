@@ -219,7 +219,7 @@
 					<td class="tdGiiIvalue"></td>
 					<td class="tdGiiImportValue"></td>
 					<td class="tdGiiSource"></td>
-					<td class="tdDelete"><input class="deleteButton" type="button" value="刪除" class="btn btn-danger btn-mini" /></td>
+					<td class="tdDelete"><input class="deleteButton" type="button" value="刪除" class="btn btn-danger btn-xs" /></td>
 				</tr>
 			</table>
 			<button id="submitImportData" class="btn btn-primary" >送出入庫單</button>
