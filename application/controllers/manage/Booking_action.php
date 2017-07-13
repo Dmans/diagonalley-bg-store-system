@@ -14,13 +14,15 @@ class Booking_action extends MY_Controller {
 		$this->load->model("service/store_data_service");
 	}
 	
-	public function save_form(){
+	public function save_form($sto_num){
 
 		$user = $this->session->userdata('user');
 
 		log_message("info","Booking_action.save_form - start usr_num=".$user->usr_num);
+		$data['stores']=$this->dia_store_dao->query_by_sto_num($sto_num);
+		log_message("info","Booking_action.save11111111111111(input=".print_r($data,TRUE).") - start usr_num=".$user->usr_num);
 		
-    	$this->load->view("manage/booking_iform");
+    	$this->load->view("manage/booking_iform",$data);
 		
 		log_message("info","Booking_action.save_form - end usr_num=".$user->usr_num);
 	}
@@ -169,13 +171,17 @@ class Booking_action extends MY_Controller {
 	
 	public function booking_message_list(){
 	 
-	 $user = $this->session->userdata('user');
+	    $user = $this->session->userdata('user');
 	 
-	 log_message("info","Booking_action.booking_page_list - start usr_num=".$user->usr_num);
-	 $data['bookings']=$this->booking_service->find_enabled_bookings(date('Y-m-d H:i:s',strtotime("now +1 week")));
-	 log_message("info","Booking_action.booking_message_list(".print_r($data['bookings'],TRUE).") - end");
-	 
-	 $this->load->view("manage/booking_message_list",$data);
+	    log_message("info","Booking_action.booking_page_list - start usr_num=".$user->usr_num);
+	
+	    $data['bookings']=$this->booking_service->find_enabled_bookings(date('Y-m-d H:i:s',strtotime("now +1 week")));
+	    
+	    log_message("info","Booking_action.booking_message_list(".print_r($data['bookings'],TRUE).") - end");
+	   
+	    $data['stores']=$this->store_data_service->get_real_stores();
+	   
+	    $this->load->view("manage/booking_message_list",$data);
 	 
 	}
 	
