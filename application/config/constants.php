@@ -37,5 +37,10 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('SYSTEM_NAME',                            "古靈閣");
+
+define('BASE_HOURS',                                   8);
+define('EXTRA_SALARY_RATE',                         1.33);
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

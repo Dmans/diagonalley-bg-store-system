@@ -11,6 +11,7 @@
             $this->load->model('dao/dia_user_dao');
             $this->load->model('dao/dia_user_store_permission_dao');
             $this->load->model('service/store_data_service');
+            $this->load->model('service/Mail_service');
             $this->load->model("constants/form_constants");
             $this->load->library('email');
         }
@@ -84,7 +85,7 @@
                     }
                 }
                 
-                $this->send_automail($receiver, $this->load->view("automail/afternoon", $data, TRUE), '本日店鋪無人打卡警示');
+                $this->Mail_service->send_automail($receiver, $this->load->view("automail/afternoon", $data, TRUE), '本日店鋪無人打卡警示');
             }
         }
         
@@ -97,7 +98,7 @@
                 $message = $this->load->view("automail/uncheckout", $uncheckout, TRUE);
                 if ($is_send) {
                     if(!empty($uncheckout->usr_mail)) {
-                        $this->send_automail($receiver, $message, $subject);
+                        $this->Mail_service->send_automail($receiver, $message, $subject);
                     }
                 } else {
                     echo $message;
@@ -105,15 +106,15 @@
             }
         }
         
-        private function send_automail($receiver, $message, $subject) {
+//         private function send_automail($receiver, $message, $subject) {
             
-            $this->email->from('Auto-Mail@bogamon.com', '古靈閣Auto-mail');
-            $this->email->to($receiver);
-            $this->email->subject($subject);
-            $this->email->message($message);
+//             $this->email->from('Auto-Mail@bogamon.com', '古靈閣Auto-mail');
+//             $this->email->to($receiver);
+//             $this->email->subject($subject);
+//             $this->email->message($message);
             
-            $this->email->send();
-        }
+//             $this->email->send();
+//         }
 
         private function __assemble_user_checkin($user,$chk, $store){
 
