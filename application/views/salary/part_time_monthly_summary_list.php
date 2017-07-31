@@ -17,7 +17,7 @@
 
 		</script>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h3>每月工讀生薪資總表</h3>
 		<div>
 			<? echo form_open('salary/salary_action/part_time_monthly_summary_list'); ?>
@@ -52,25 +52,25 @@
 					<?php foreach ($stores as $store) :?>
 						<?php if(empty($salary->stores[$store->sto_num])):?>
 							<td>0</td>
-							<td>0</td>
+							<td>$0</td>
 						<?php else :?>
 							<td><?php echo $salary->stores[$store->sto_num]->dss_hours?></td>
-							<td><?php echo $salary->stores[$store->sto_num]->dss_salary?></td>
+							<td>$<?php echo $salary->stores[$store->sto_num]->dss_salary?></td>
 						<?php endif; ?>
 					<?php endforeach; ?>
 					<td><?php echo $salary->say_extra_hours?></td>
 					<td><?php echo $salary->say_extra_salary?></td>
 					<td>
 						<?php foreach ($salary->options->positive as $option) : ?>
-							<div>+<?php echo $option->dso_value ?><?php echo $option->dso_desc ?></div>
+							<div><?php echo $option->dso_desc ?>: +$<?php echo $option->dso_value ?></div>
 						<?php endforeach;?>
 					</td>
 					<td>
 						<?php foreach ($salary->options->negative as $option) : ?>
-							<div>-<?php echo $option->dso_value ?><?php echo $option->dso_desc ?></div>
+							<div><?php echo $option->dso_desc ?>: -$<?php echo $option->dso_value ?></div>
 						<?php endforeach;?>
 					</td>
-					<td><?php echo $salary->summary?></td>
+					<td>$<?php echo $salary->summary?></td>
 				</tr>
 				<?php endforeach;?>
 			</table>

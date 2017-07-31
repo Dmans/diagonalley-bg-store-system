@@ -29,7 +29,7 @@
 					recalculateSummary(usrNum, stoNum);
 				});
 
-				$('input[id^=dsoValue_]').numeric();
+				$('input[id^=dsoValue_]').numeric({ negative : false });
 
 				$('input[id^=addExtraOptionBtn_]').click(function(e) {
 					var usrNum = $(this).attr('usrnum');
@@ -163,7 +163,7 @@
 
 		</script>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h3>每月工讀生薪資審核</h3>
 		<div>
 			<? echo form_open('salary/salary_action/part_time_monthly_list'); ?>
@@ -177,17 +177,17 @@
 				</div>
 			</form>
 		</div>
-		<div class="row">
+		<div>
 			<? if(isset($query_result)):  ?>
 				<? echo form_open('salary/salary_action/part_time_salary_confirm', 'id="mainForm"'); ?>
-				<div class="col-md-12">
+				<div>
 					<h3><?php echo $year_month?> 工讀生薪資審核</h3>
 				<? foreach($query_result as $chk_user): ?>
 					<div>
 						<table id="table_<?php echo $chk_user->usr_num ?>" class="table table-striped table-hover table-bordered table-condensed">
 							<tr>
 								<td colspan="8" style="text-align: left">
-									員工:<?php echo $chk_user->usr_name ?> 
+									<h3>員工:<?php echo $chk_user->usr_name ?> </h3>
 								</td>
 							</tr>
 							<tr>
@@ -246,7 +246,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td>時薪:<?php echo $chk_user->usr_hourly_salary ?><input type="hidden" id="usrHourlySalary" value="<?php echo $chk_user->usr_hourly_salary ?>"/></td>
+								<td>時薪:<?php echo $chk_user->usr_salary ?><input type="hidden" id="usrHourlySalary" value="<?php echo $chk_user->usr_salary ?>"/></td>
 								<td align="right">薪資計算</td>
 								<td>$<span id="totalBaseSalary_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $chk_user->base_salary?></span></td>
 								<td>$<span id="totalExtraSalary_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $chk_user->extra_salary?></span></td>
@@ -256,7 +256,7 @@
 							
 						</div>
 						<div>
-							新增項目:
+							新增項目到<?php echo $chk_user->usr_name ?>:
 							<select id="dsoType_<?php echo $chk_user->usr_num ?>">
             					<option value="0"><?php echo $form_constants->transfer_dso_type(0)?></option>
             					<option value="1"><?php echo $form_constants->transfer_dso_type(1)?></option>
@@ -268,6 +268,7 @@
             				<input id="addExtraOptionBtn_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>" type="button" value="新增項目" class="btn btn-default btn-primary" style="margin-bottom:10px;"/>
 						</div>
 					</div>
+					<hr />
 				<? endforeach ?>
 					<div>
 						<input type="hidden"  name="year_month" value="<?php echo $year_month?>" />

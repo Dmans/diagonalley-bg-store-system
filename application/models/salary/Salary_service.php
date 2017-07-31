@@ -159,7 +159,7 @@
             foreach ($check_result_list as $check_user) {
                 $total_hours = 0;
                 $total_extra_hours = 0;
-                $hourly_salary = $check_user->usr_hourly_salary;
+                $hourly_salary = $check_user->usr_salary;
                 foreach ($check_user->stores as $store) {
                     $base_hour_summary = 0;
                     $extra_hour_summary = 0;

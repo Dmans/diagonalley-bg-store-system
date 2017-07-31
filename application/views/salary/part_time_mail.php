@@ -10,11 +10,11 @@
 		</style>
 	</head>
 	<body>
-		<h1><?php echo $year_month ?> <?php echo $user_salary->usr_name ?>薪資單</h1>
+		<h1><?php echo $year_month ?> <?php echo SYSTEM_NAME; ?>薪資單</h1>
 		<div>
 			<table border="1" cellpadding="0" cellspacing="0" height="100%" width="100%" style="border:2px #000000 solid;">
 				<tr>
-					<td colspan="6">姓名：<?php echo $user_salary->usr_name ?></td>
+					<td colspan="6">姓名：<b><?php echo $user_salary->usr_name ?></b></td>
 				</tr>
 				<tr>
 					<td>固定支付項目(A)</td>
