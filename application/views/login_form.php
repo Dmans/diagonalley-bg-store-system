@@ -14,7 +14,7 @@
 	      }
 
 	      .form-signin {
-	        max-width: 300px;
+	        max-width: 330px;
 	        padding: 19px 29px 29px;
 	        margin: 0 auto 20px;
 	        background-color: #fff;
@@ -47,7 +47,7 @@
 					<input type="text" name="usr_id" maxlength="64"  class="form-control" placeholder="Account"/>
 					<input type="password" name="usr_passwd" maxlength="32"  class="form-control" placeholder="Password"/>
 				<?=validation_errors('<div class="text-danger">','</div>') ?>
-				<input type="submit" value="Login" class="btn btn-lg btn-primary" />
+				<input type="submit" value="Login" class="btn btn-lg btn-primary btn-block" />
 			</form>
 		</div>
         <div class="container text-center">
