@@ -47,15 +47,15 @@
 
         }
 
-        public function confirm($input,$usr_num){
+        public function confirm($input, $usr_num){
 
             $chk = $this->dia_checkin_dao->query_by_chk_num($input['chk_num']);
 
             if(isset($chk)){
-                if($chk->confirm_date==NULL){
+//                 if($chk->confirm_date==NULL){
                     $this->dia_checkin_dao->update($this->__assemble_update_confirm($input,$usr_num));
                     return TRUE;
-                }
+//                 }
             }
 
             return FALSE;
@@ -111,7 +111,8 @@
 
             return $this->dia_checkin_dao->query_by_condition($condition);
         }
-
+        
+        // FIXME: This function not work!
         public function find_user_check_list_by_month($usr_num, $month){
 
             $condition=array();
@@ -124,7 +125,7 @@
             return $this->dia_checkin_dao->query_by_condition($condition);
         }
 
-        public function find_employ_monthly_record($year_month, $usr_num){
+        public function find_employ_monthly_record($year_month, $usr_num, $usr_role=NULL){
 
             // step1. 取得所選區間打卡紀錄
             // Find search user store permission
@@ -160,6 +161,7 @@
             $stores = $this->get_stores();
             $checked_users=array();
             if(!empty($chks)){
+                
                 foreach ($chks as $chk) {
                     if(!array_key_exists($chk->usr_num, $checked_users)){
                         $checked_users[$chk->usr_num]=$this->dia_user_dao->query_by_usr_num($chk->usr_num);
@@ -171,7 +173,15 @@
             }
 
             // step4. 計算總時數
-            foreach($checked_users as $chk_user){
+            foreach($checked_users as $key=>$chk_user){
+                
+                // Remove check user who isn't required usr_type
+                if($usr_role != NULL and $chk_user->usr_role != $usr_role) {
+                    unset($checked_users[$key]);
+                    continue;
+                }
+                
+                
                 $total_hours=0;
                 $total_confirm_hours=0;
                 foreach ($chk_user->stores as $store) {
@@ -188,6 +198,11 @@
             }
 
             return $checked_users;
+        }
+        
+        public function find_part_time_employ_monthly_record($year_month, $usr_num) {
+            $usr_role = 4;
+            return $this->find_employ_monthly_record($year_month, $usr_num, $usr_role);
         }
 
         public function get_stores() {

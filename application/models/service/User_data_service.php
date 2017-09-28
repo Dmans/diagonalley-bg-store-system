@@ -109,8 +109,8 @@ class user_data_service extends CI_Model {
 			$user->usr_mail = $input['usr_mail'];
 		}
 		
-		if(isset($input['usr_hourly_salary']) and $session_user->usr_role <= 1){
-		    $user->usr_hourly_salary= $input['usr_hourly_salary'];
+		if(isset($input['usr_salary']) and $session_user->usr_role <= 1){
+		    $user->usr_salary= $input['usr_salary'];
 		}
 		
 		

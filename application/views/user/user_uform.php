@@ -39,7 +39,7 @@
 			<div>使用者名稱:<input type="text" name="usr_name" maxlength="32" value="<?php echo $update_user->usr_name ?>" /></div>
 			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" value="<?php echo$update_user->usr_mail?>" /></div>
 			<?php if($usr_role <=1 and $update_user->usr_role == 4): ?>
-			<div>使用者時薪:<input type="text" name="usr_hourly_salary" maxlength="12" value="<?php echo $update_user->usr_hourly_salary ?>" /></div>
+			<div>使用者時薪:<input type="text" name="usr_salary" maxlength="12" value="<?php echo $update_user->usr_salary ?>" /></div>
 			<?php endif; ?>
 			
 			<div>帳號類型:

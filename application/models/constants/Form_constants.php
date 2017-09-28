@@ -168,6 +168,21 @@
 			
 			return NULL;
 		}
+		
+		public function transfer_dso_type($dso_type){
+		    switch ($dso_type) {
+		        case '0':
+		            return '加給';
+		        case '1':
+		            return '獎金';
+		        case '2':
+		            return '預支';
+		        case '3':
+		            return '扣薪';
+		    }
+		    
+		    return NULL;
+		}
     }
     
 ?>
