@@ -28,7 +28,10 @@
 		                      echo "公開";
 		                 }
 		                 if ($bookings->dbk_status==2){
-		                     echo "取消";
+		                     echo "到店";
+                         }
+                         if ($bookings->dbk_status==3){
+                             echo "取消";
                          }?></div>
 		<div>客戶備註:<br/>
 			<?php echo (isset($bookings->dbk_memo))?nl2br($bookings->dbk_memo):"" ?>

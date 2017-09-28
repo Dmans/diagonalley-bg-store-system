@@ -13,6 +13,7 @@
             $this->load->model("constants/form_constants");
             $this->load->model("dao/dia_user_dao");
             $this->load->model("dao/dia_tables_dao");
+            $this->load->model("dao/dia_booking_tables_dao");
         }
 
         public function save_booking($input,$usr_num){
@@ -20,12 +21,8 @@
             // 1. Insert booking data
             $data=$this->__assemble_save_booking($input, $usr_num);
             $new_dbk_num = $this->dia_booking_dao->insert($data);
-
-            //2. Insert booking and table relation data
-            foreach ($$input['dtb_nums'] as $key => $dtb_num) {
-                $table_data=$this->__assemble_save_booking_table($dtb_num, $new_dbk_num);
-                $this->dia_booking_table_dao->insert($table_data);
-            }
+            $this->seve_booking_tables($new_dbk_num, $input['dtb_num']);
+            
 
             return $new_dbk_num;
         }
@@ -79,6 +76,7 @@
 
         public function update_booking($input){
             $data=$this->__assemble_update_booking($input);
+            $this->seve_booking_tables($input['dbk_num'], $input['dtb_num']);
             $this->dia_booking_dao->update($data);
         }
         
@@ -128,36 +126,103 @@
 
             return $dailys;
         }
-
-
-
+        
+        public function find_unbooking_tables($input){
+            $condition_for_table= array();
+            $condition_for_table['sto_num']=$input['sto_num']; 
+            $table_keyset=array();
+            $table_list = $this->dia_tables_dao->query_by_condition($condition_for_table);
+            foreach ($table_list as $table){
+                $table_keyset[]=$table->dtb_num;
+            }
+            // dia_booking_dao
+            $condition_for_booking=array();
+            $condition_for_booking['dbk_date']=$input['dbk_date'];
+            if(strtotime($condition_for_booking["dbk_date"]) <= strtotime(date('Y-m-d 17:00:00',strtotime($condition_for_booking["dbk_date"])))){
+                $condition_for_booking["start_dbk_date"]=date('Y-m-d ',strtotime($condition_for_booking["dbk_date"]));
+                $condition_for_booking["end_dbk_date"]=date('Y-m-d 17:00:00',strtotime($condition_for_booking["dbk_date"]));
+            }
+            else {
+                $condition_for_booking["start_dbk_date"]=date('Y-m-d 17:00:00',strtotime($condition_for_booking["dbk_date"]));
+                $condition_for_booking["end_dbk_date"]=date('Y-m-d',strtotime($condition_for_booking["dbk_date"]));
+            }
+            $booking_list = $this->dia_booking_dao->query_by_condition($condition_for_booking);
+            
+            // dis_booking_tables_dao
+            $booking_table_keysets=array();
+            foreach ($booking_list as $row){
+                $condition_by_booking_tables=array();
+                $condition_by_booking_tables['dbk_num']=$row->dbk_num;
+                $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
+                foreach ($booking_tables_list as $booking_table){
+                    $booking_table_keysets[]=$booking_table->dtb_num;
+                }
+                
+            }
+            
+            $not_booking_table_keysets= array_filter($table_keyset, function ($v) use ($booking_table_keysets)
+                {
+                    foreach ($booking_table_keysets as $booking_table_keyset){
+                        if($v == $booking_table_keyset){
+                        return  false;
+                        }
+                    }
+                    return true;
+                }
+            );
+            $not_booking_tables=array();
+            foreach($not_booking_table_keysets as $not_booking_tables_keyset){
+                $not_booking_tables[] = $this->dia_tables_dao->query_by_dtb_num($not_booking_tables_keyset);
+            }
+            
+            return $not_booking_tables;
+        }
+        
+        public function update_checkin($input){
+            $this->dia_booking_dao->update($this->__assemble_update_booking($input));
+        }
+//         public function update_cancel($input){
+//             $dbk = new stdClass();
+//             $dbk->dbK_num=$input['dbk_num'];
+//             $dbk->dbk_status="3";
+//             $this->dia_booking_dao->update($dbk);
+//         }
+        
+        public function seve_booking_tables($dbk_num,$dtb_nums){
+            $this->dia_booking_tables_dao->delete_by_dbk_num($dbk_num);
+            
+            foreach ($dtb_nums as $dtb_num) {
+                $dbt = array();
+                $dbt['dbk_num'] = $dbk_num;
+                $dbt['dtb_num'] = $dtb_num;
+                $this->dia_booking_tables_dao->insert($dbt);
+            }
+        }
 
         private function __assemble_save_booking($input,$usr_num){
+            $dbk = new stdClass();
             $dbk->usr_num=$usr_num;
             $dbk->dbk_date=$input['dbk_date'];
-            $dbk->dbk_cus_name=$input['dbk_cus_name'];
-            $dbk->dbk_cus_phone=$input['dbk_cus_phone'];
-            $dbk->dbk_content=$input['dbk_content'];
+            $dbk->dbk_name=$input['dbk_name'];
+            $dbk->dbk_count=$input['dbk_count'];
+            $dbk->dbk_phone=$input['dbk_phone'];
+            $dbk->dbk_memo=$input['dbk_memo'];
             $dbk->dbk_status=$input['dbk_status'];
+            //$dbk->dtb_num=$input['dtb_num'];
+            $dbk->sto_num=$input['sto_num'];
             $dbk->register_date=date('Y-m-d H:i:s');
 
             return $dbk;
         }
 
-        private function __assemble_save_booking_table($dtb_num, $new_dbk_num){
-            $dbt->dbk_num=$new_dbk_num;
-            $dbt->dtb_num=$dtb_num;
-            $dbt->dbk_num=$dtb_num;
-
-            return $dbt;
-        }
-
         private function __assemble_update_booking($input){
 
+            $dbk=new stdClass();
+            $dbk->sto_num=$input['sto_num'];
             $dbk->dbk_num=$input['dbk_num'];
 
-            if(isset($input['dbk_content'])){
-                $dbk->dbk_content=$input['dbk_content'];
+            if(isset($input['dbk_memo'])){
+                $dbk->dbk_memo=$input['dbk_memo'];
             }
 
             if(isset($input['dbk_status'])){
@@ -167,7 +232,18 @@
             if(isset($input['dbk_date'])){
                 $dbk->dbk_date=$input['dbk_date'];
             }
-
+            
+            if(isset($input['dbk_count'])){
+                $dbk->dbk_count=$input['dbk_count'];
+            }
+            
+            if(isset($input['dbk_name'])){
+                $dbk->dbk_name=$input['dbk_name'];
+            }
+            
+            if(isset($input['dbk_phone'])){
+                $dbk->dbk_phone=$input['dbk_phone'];
+            }
             return $dbk;
         }
 
@@ -200,17 +276,29 @@
          $result->dbk_phone=$row->dbk_phone;
          $result->dbk_memo=$row->dbk_memo;
          $result->dbk_status=$row->dbk_status;
-         $result->dtb_num=$row->dtb_num;
+         //$result->dtb_num=$row->dtb_num;
          $result->sto_num=$row->sto_num;
          $gsns = $this->dia_store_dao->query_by_sto_num($row->sto_num);
          $result->sto_name=$gsns->sto_name;
          $guns = $this->dia_user_dao->query_by_usr_num($row->usr_num);
          $result->usr_name=$guns->usr_name;
-         $gtns = $this->dia_tables_dao->query_by_dtb_num($row->dtb_num);
-         $result->dtb_name=$gtns->dtb_name;
+         $get_tables_nums=$this->dia_booking_tables_dao->query_by_dbk_num($row->dbk_num);
+         $result->dtb_name=null;
+         $result->dtb_num=null;
+         foreach ($get_tables_nums as $get_tables_num){
+             $result->dtb_num="$result->dtb_num"."$get_tables_num->dtb_num";
+             $gtns = $this->dia_tables_dao->query_by_dtb_num($get_tables_num->dtb_num);
+             $result->dtb_name="$result->dtb_name".","."$gtns->dtb_name";
+         }
+         log_message("debug","Booking_service.__assemble_query_result(".print_r($get_tables_nums,TRUE).") - end");
+         
+         log_message("debug","Booking_service.__assemble_query_result(".print_r($result,TRUE).") - end");
+         
+         //$gtns = $this->dia_tables_dao->query_by_dtb_num($row->dtb_num);
+         //$result->dtb_name=$gtns->dtb_name;
          return $result;
          
-        }
+        } 
 
     }
 

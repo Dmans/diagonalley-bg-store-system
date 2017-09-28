@@ -11,6 +11,39 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 
+				$('input[id^="checkInBooking"]').each(function(){
+					$(this).click(function(){
+						var dbkNum=$('input#checkIndbkNum').val();
+						var stoNum=$('input#checkInstoNum').val();
+						$.getJSON("<?=site_url("manage/booking_ajax_action/checkin_booking") ?>",{
+							sto_num : stoNum,
+							dbk_num : dbkNum,
+						    dbk_status : 2,
+						    },
+						function(data){
+						    alert("客人到店");
+							parent.location.reload();
+							return;
+						});
+						
+					});
+				});
+				
+				$('input[id^="cancelBooking"]').each(function(){
+					$(this).click(function(){
+						var dbkNum=$('input#canceldbkNum').val();
+						var stoNum=$('input#cancelstoNum').val();
+						$.getJSON("<?=site_url("manage/booking_ajax_action/checkin_booking") ?>",{
+						    sto_num : stoNum,
+							dbk_num : dbkNum,
+							dbk_status : 3,
+							},
+						function(data){
+						    alert("客人取消");
+						});
+					});
+				});
+
 			    (function () {
 			        var target = "__current_datetime__";
 			        var padLeft = function(str) {
@@ -44,6 +77,7 @@
 					$(this).tab("show");
 				});
 			});
+			
 		</script>
 	</head>
 	<body>
@@ -63,16 +97,23 @@
     				<table class="table table-hover table-bordered table-condensed">
     					<tr>
     <!-- 				店舖 定位時間 定位人數 稱謂 電話 備註 -->
+    						<th width="5%">到店</th>
     						<th width="10%">店鋪</th>
     						<th width="18%">訂位日期</th>
-    						<th width="10%">訂位人數</th>
+    						<th width="7%">訂位人數</th>
     						<th width="10%">訂位人稱謂</th>
     						<th width="10%">電話</th>
-    						<th text-center width="70%">定位資訊</th>
+    						<th text-center width="30%">定位資訊</th>
+    						<th width="5%">取消</th>
     					</tr>
     					<? foreach ($bookings as $key=>$row) : ?> 
     					<?php if($rows->sto_num==$row->sto_num):?>
     					<tr>
+    						<td id="checkInBooking_<?=$row->dbk_num ?>">
+    							<input type="button" id="checkInBooking_<?=$row->dbk_num ?>" value="到店" class="btn btn-primary btn-xs"/>
+    							<input type="hidden" id="checkIndbkNum" value="<?=$row->dbk_num ?>" />
+    							<input type="hidden" id="checkInstoNum" value="<?=$row->sto_num ?>" />
+    						</td>
     						<td valign="top"><?php echo $row->sto_name ?></td>
     						<td valign="top"><?php echo $row->dbk_date ?></td>
     						<td valign="top"><?php echo $row->dbk_count ?>位</td>
@@ -80,6 +121,11 @@
     						<td valign="top"><?php echo $row->dbk_phone ?></td>
     						<td >
     							<div style="text-align: left"><?php echo nl2br($row->dbk_memo) ?></div>
+    						</td>
+    						<td id="cancelBooking_<?=$row->dbk_num ?>">
+    							<input type="button" id="cancelBooking_<?=$row->dbk_num ?>" value="取消" class="btn btn-danger btn-xs"/>
+    							<input type="hidden" id="canceldbkNum" value="<?=$row->dbk_num ?>" />
+    							<input type="hidden" id="cancelstoNum" value="<?=$row->sto_num ?>" />
     						</td>
     					</tr>
     					<?php endif ;?>

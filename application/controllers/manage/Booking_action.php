@@ -19,9 +19,7 @@ class Booking_action extends MY_Controller {
 		$user = $this->session->userdata('user');
 
 		log_message("info","Booking_action.save_form - start usr_num=".$user->usr_num);
-		$data['stores']=$this->dia_store_dao->query_by_sto_num($sto_num);
-		log_message("info","Booking_action.save11111111111111(input=".print_r($data,TRUE).") - start usr_num=".$user->usr_num);
-		
+		$data['stores']=$this->dia_store_dao->query_by_sto_num($sto_num);		
     	$this->load->view("manage/booking_iform",$data);
 		
 		log_message("info","Booking_action.save_form - end usr_num=".$user->usr_num);
@@ -33,20 +31,20 @@ class Booking_action extends MY_Controller {
 		$input=$this->input->post();
 		
 		log_message("info","Booking_action.save(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-			
+		$sto_num=$input["sto_num"];
 		//step1. 驗證輸入資料格式	
 		$this->__save_booking_format_validate();
 		if($this->form_validation->run() != TRUE){
-			$this->save_form();
+		    $this->save_form($sto_num);
 			return;
 		}
 		
-		$dbk_num = $this->booking_service->save_booking($input,$user->usr_num);
+		$dbk_num = $this->booking_service->save_booking($this->date_time_merge($input),$user->usr_num);
 		
 		$data['message']="新增定位資料成功";
 		
 		$extend_url=array();
-		$extend_url[]=$this->__generate_url_data("新增其他定位資料", "manage/booking_action/save_form/");
+		$extend_url[]=$this->__generate_url_data("新增其他定位資料", "manage/booking_action/save_form/",$sto_num);
 		$extend_url[]=$this->__generate_url_data("維護定位資料", "manage/booking_action/update_form/",$dbk_num);
 		$extend_url[]=$this->__generate_url_data("定位資料列表", "manage/booking_action/booking_page_list/");
 		$extend_url[]=$this->__generate_url_data("回公告欄", "manage/manage_action/daily_message_list/");
@@ -63,7 +61,7 @@ class Booking_action extends MY_Controller {
 
 		log_message("info","Booking_action.update_form(dbk_num=$dbk_num) - start usr_num=".$user->usr_num);
 		
-		$dbk = $this->booking_service->find_booking($dbk_num);
+		$dbk =$this->date_time_separate($this->booking_service->find_booking($dbk_num));
 		
     	$this->load->view("manage/booking_uform",$dbk);
 		
@@ -83,11 +81,11 @@ class Booking_action extends MY_Controller {
 			$this->update_form();
 			return;
 		}
-		$this->booking_service->update_booking($input);
+		$this->booking_service->update_booking($this->date_time_merge($input));
 		$data['message']="維護定位資料成功";		
 		$extend_url=array();
 		$extend_url[]=$this->__generate_url_data("繼續維護定位資料", "manage/booking_action/update_form/",$input['dbk_num']);
-		$extend_url[]=$this->__generate_url_data("定位資料列表", "manage/booking_action/booking_page_list/");
+		$extend_url[]=$this->__generate_url_data("定位資料列表", "manage/booking_action/booking_page_list/",$input['dbk_num']);
 		$extend_url[]=$this->__generate_url_data("回公告欄", "manage/manage_action/daily_message_list/");
 		$data['extend_url']=$extend_url;
 		
@@ -185,23 +183,32 @@ class Booking_action extends MY_Controller {
 	 
 	}
 	
-// 	public function phone_validate($dbk_phone){
-// 	    if(preg_match("/09[0-9]{2}[0-9]{6}/", $dbk_phone)){
-// 	        return TRUE;
-// 	    }else{
-// 	        $this->form_validation->set_message('phone_validate', ' %s 欄位輸入錯誤');
-// 	        return FALSE;
-// 	    }
-// 	}
+	public function phone_validate($dbk_phone){
+	    if(preg_match("/09[0-9]{2}[0-9]{6}/", $dbk_phone)){
+	        return TRUE;
+	    }else{
+	        $this->form_validation->set_message('phone_validate', ' %s 欄位輸入錯誤');
+	        return FALSE;
+	    }
+	}
+	public function date_validate($dbk_date){
+	    if(date('H:i:s',strtotime($dbk_date)) < date('22:00:00') && date('H:i:s',strtotime($dbk_date)) > date('13:00:00')){
+	        return TRUE;
+	    }else{
+	        $this->form_validation->set_message('date_validate', ' %s 非營業時間');
+	        return FALSE;
+	    }
+	}
 	
 	private function __save_booking_format_validate(){
-		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
-		$this->form_validation->set_rules('dbk_memo', '定位資訊', 'trim|required|max_length[2048]');
-		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
+	    //$this->form_validation->set_rules('dbk_date', '訂位時間', 'trim|required|callback_date_validate');
+		$this->form_validation->set_rules('dbk_name', '訂位大名', 'trim|required');
+		$this->form_validation->set_rules('dbk_phone', '訂位電話', 'trim|required|callback_phone_validate');
+		$this->form_validation->set_rules('dbk_status', '訂位狀態', 'trim|required');
 	}
 	
 	private function __update_booking_format_validate(){
-		$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
+		//$this->form_validation->set_rules('dbk_date', '定位時間', 'trim|required');
 		$this->form_validation->set_rules('dbk_memo', '定位資訊', 'trim|required|max_length[2048]');
 		$this->form_validation->set_rules('dbk_status', '定位狀態', 'trim|required');
 	}
@@ -221,7 +228,26 @@ class Booking_action extends MY_Controller {
 	    ];
 	}
 	
+	private function date_time_merge($input){
+	    
+	    $date = new DateTime($input["dbk_date"]);
+	    $time = new DateTime($input["dbk_time"]);
+	    $merge= new DateTime($date->format('Y-m-d') .' ' .$time->format('H:i:s'));
+	    $input["dbk_date"]= $merge->format('Y-m-d H:i:s');
+	    log_message("debug","Booking_ajax_action.date_time_merge(".print_r($input,TRUE).") - end");
+	    return $input;
+	}
 	
+	private function date_time_separate($input){
+	    log_message("debug","Booking_ajax_action.date_time_separate(".print_r($input,TRUE).") - end");
+	    $datetime =$input->dbk_date;
+	    $date_time = explode(' ', $datetime);
+	    $input->dbk_date = $date_time[0];
+	    $input->dbk_time = $date_time[1];
+	    log_message("debug","Booking_ajax_action.date_time_separate(".print_r($input,TRUE).") - end");
+	    return $input;
+	    
+	}
 }
 
 ?>
