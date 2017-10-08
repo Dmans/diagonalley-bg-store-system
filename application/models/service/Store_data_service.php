@@ -2,7 +2,7 @@
     /**
      *
      */
-    class store_data_service extends CI_Model {
+    class store_data_service extends MY_Model {
 
         function __construct()
 	    {
@@ -28,7 +28,7 @@
         	$stores = array();
         	foreach ($usr_permission as $row){
         		// 取得store
-        		$store = $this->dia_store_dao->query_by_sto_num($row->sto_num);
+        		$store = $this->dia_store_dao->query_by_pk($row->sto_num);
         		if($store->sto_type==0){
         		$stores[]=$store;
         		}

@@ -35,7 +35,7 @@
 
                 $stores = $this->get_stores();
                 foreach ($chks as $key => $chk) {
-                    $user = $this->dia_user_dao->query_by_usr_num($chk->usr_num);
+                    $user = $this->dia_user_dao->query_by_pk($chk->usr_num);
                     $result_set[]=$this->__assemble_user_checkin($user, $chk, $stores[$chk->sto_num]);
                 }
             }
@@ -78,7 +78,7 @@
                 
                 $receiver = array();
                 foreach ($user_nums as $usr_num) {
-                    $user = $this->dia_user_dao->query_by_usr_num($usr_num);
+                    $user = $this->dia_user_dao->query_by_pk($usr_num);
                     
                     if(!empty($user->usr_mail)) {
                         $receiver[] = $user->usr_mail;

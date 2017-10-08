@@ -33,7 +33,7 @@ class user_data_service extends CI_Model {
 		//Update user session if update data have the same usr_num
 		$user = $this->session->user;
 		if (!empty($user) and $user->usr_num == $input['usr_num']) {
-			$this->session->user = $this->dia_user_dao->query_by_usr_num($user->usr_num);
+			$this->session->user = $this->dia_user_dao->query_by_pk($user->usr_num);
 		}
 	}
 	
@@ -42,7 +42,7 @@ class user_data_service extends CI_Model {
 	}
 	
 	public function find_user($usr_num){
-		return $this->__assemble_query_result($this->dia_user_dao->query_by_usr_num($usr_num));
+		return $this->__assemble_query_result($this->dia_user_dao->query_by_pk($usr_num));
 	}
 	
 	public function save_user_store_permission($usr_num, $sto_nums) {
@@ -66,9 +66,17 @@ class user_data_service extends CI_Model {
 		$user->usr_error_login=0; //預設:登入錯誤0次
 		$user->register_date = date('Y-m-d H:i:s');
 		$user->usr_mail = $input['usr_mail'];
+		$user->usr_salary = $input['usr_salary'];
+		$user->usr_monthly_salary = $input['usr_monthly_salary'];
+		
 		
 		if(isset($input['usr_memo'])){
 			$user->usr_memo = $input['usr_memo'];
+		}
+		
+		if(in_array($input['usr_role'], [0, 1, 2])) {
+		    $user->usr_base_hours = $input['usr_base_hours'];
+		    $user->usr_monthly_salary = $input['usr_monthly_salary'];
 		}
 		
 		
@@ -86,7 +94,7 @@ class user_data_service extends CI_Model {
 			$user->usr_name = $input['usr_name'];
 		}
 		
-		if(isset($input['usr_role']) and $session_user->usr_role == 0){
+		if(isset($input['usr_role']) and $session_user->is_root){
 			$user->usr_role = $input['usr_role'];
 		}
 		
@@ -109,10 +117,17 @@ class user_data_service extends CI_Model {
 			$user->usr_mail = $input['usr_mail'];
 		}
 		
-		if(isset($input['usr_salary']) and $session_user->usr_role <= 1){
+		if(isset($input['usr_salary']) and $session_user->is_root){
 		    $user->usr_salary= $input['usr_salary'];
 		}
 		
+		if(isset($input['usr_base_hours']) and $session_user->is_root){
+		    $user->usr_base_hours = $input['usr_base_hours'];
+		}
+		
+		if(isset($input['usr_monthly_salary']) and $session_user->is_root){
+		    $user->usr_monthly_salary = $input['usr_monthly_salary'];
+		}
 		
 		return $user;
 	}
