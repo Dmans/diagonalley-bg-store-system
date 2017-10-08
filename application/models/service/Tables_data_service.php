@@ -38,10 +38,17 @@ class tables_data_service extends CI_Model {
 	private function __assemble_query_result($row){
 	    $result=$row;
 	    
-		$store=$this->dia_store_dao->query_by_sto_num($row->sto_num);
+		$store=$this->dia_store_dao->query_by_pk($row->sto_num);
 		$result->sto_name=$store->sto_name;
+		
+		
+		
+		
+		
+		
+		
 		$condition['start_dbk_date']=date('Y-m-d');
-		$condition['dtb_num']=$row->dtb_num;
+// 		$condition['dtb_num']=$row->dtb_num;
 		$condition['dbk_status']=1;
 		$status=$this->dia_booking_dao->query_by_condition($condition);
 		log_message("info","__assemble_query_result(status=".print_r($status,TRUE).") - end");
