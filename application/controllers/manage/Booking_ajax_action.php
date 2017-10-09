@@ -52,7 +52,8 @@ class Booking_ajax_action extends MY_AjaxController {
 	
 	public function checkin_booking(){
 	    $input=$this->input->get();
-	    $this->booking_service->update_checkin($input);
+	    $data = $this->booking_service->update_checkin($input);
+	    echo json_encode($data);
 	}
 // 	public function cancel_booking(){
 // 	    $input=$this->input->get();

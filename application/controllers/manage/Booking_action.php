@@ -46,8 +46,8 @@ class Booking_action extends MY_Controller {
 		$extend_url=array();
 		$extend_url[]=$this->__generate_url_data("新增其他定位資料", "manage/booking_action/save_form/",$sto_num);
 		$extend_url[]=$this->__generate_url_data("維護定位資料", "manage/booking_action/update_form/",$dbk_num);
-		$extend_url[]=$this->__generate_url_data("定位資料列表", "manage/booking_action/booking_page_list/");
-		$extend_url[]=$this->__generate_url_data("回公告欄", "manage/manage_action/daily_message_list/");
+		$extend_url[]=$this->__generate_url_data("定位資料", "manage/booking_action/booking_page_list/",$dbk_num);
+		$extend_url[]=$this->__generate_url_data("回公告欄", "manage/booking_action/booking_message_list");
 		$data['extend_url']=$extend_url;
 		
 		$this->load->view("message",$data);
@@ -85,8 +85,8 @@ class Booking_action extends MY_Controller {
 		$data['message']="維護定位資料成功";		
 		$extend_url=array();
 		$extend_url[]=$this->__generate_url_data("繼續維護定位資料", "manage/booking_action/update_form/",$input['dbk_num']);
-		$extend_url[]=$this->__generate_url_data("定位資料列表", "manage/booking_action/booking_page_list/",$input['dbk_num']);
-		$extend_url[]=$this->__generate_url_data("回公告欄", "manage/manage_action/daily_message_list/");
+		$extend_url[]=$this->__generate_url_data("定位資料", "manage/booking_action/booking_page_list/",$input['dbk_num']);
+		$extend_url[]=$this->__generate_url_data("回公告欄", "manage/booking_action/booking_message_list");
 		$data['extend_url']=$extend_url;
 		
 		$this->load->view("message",$data);

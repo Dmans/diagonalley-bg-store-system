@@ -218,8 +218,12 @@
         private function __assemble_update_booking($input){
 
             $dbk=new stdClass();
-            $dbk->sto_num=$input['sto_num'];
+            //$dbk->sto_num=$input['sto_num'];
             $dbk->dbk_num=$input['dbk_num'];
+            
+            if(isset($input['sto_num'])){
+                $dbk->sto_num=$input['sto_num'];
+            }
 
             if(isset($input['dbk_memo'])){
                 $dbk->dbk_memo=$input['dbk_memo'];
