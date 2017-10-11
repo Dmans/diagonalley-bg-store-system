@@ -33,11 +33,9 @@
 						<?php endforeach;?>
 					</td>
 					<td valign="top">
-						<?php foreach ($user_salary->stores as $store): ?>
-							<div class="item">
-								 <?php echo $store->dss_salary?>
-							</div>
-						<?php endforeach;?>
+						<div class="item">
+							 <?php echo $user_salary->usr_monthly_salary?>
+						</div>
 					</td>
 					<td valign="top">
 						<?php if ($user_salary->say_extra_hours != 0): ?>
@@ -85,6 +83,9 @@
 					</td>
 				</tr>
 			</table>
+			<div>
+				備註: 本月總工時 <?php echo $user_salary->total_confirm_hours?> 小時, 上月積假 <?php echo $user_salary->previous_say_leave_balance?> 小時, 本月積假結算 <?php echo $user_salary->say_leave_balance?> 小時
+			</div>
 		</div>
 	</body>
 </html>

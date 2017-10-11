@@ -24,6 +24,8 @@ class Salary_action extends MY_Controller {
         
         $data['month_options'] = $this->get_month_options();
         $data['form_constants'] = $this->form_constants;
+        $data['salary_default_options'] = $this->salary_service->get_salary_default_options();
+        
         $this->load->view("salary/part_time_monthly_page_list",$data);
         
         log_message("info","Salary_action.part_time_monthly_list_form - end usr_num=".$user->usr_num);
@@ -57,19 +59,14 @@ class Salary_action extends MY_Controller {
 //         print_r($input);
         $confirm_hours = $input['confirm_hours'];
         
-        $extra_options = array();
-        if(isset($input['dso_desc'])) {
-            $extra_options['dso_desc'] = $input['dso_desc'];
-            $extra_options['dso_type'] = $input['dso_type'];
-            $extra_options['dso_value'] = $input['dso_value'];
-        }
+        $extra_options = $this->__assemble_extra_options($input);
         
         $this->salary_service->confirm_part_time_checkin_data($input['confirm_hours'], $extra_options, $input['year_month'], $user->usr_num);
         $data= array();
         $data['message'] = "確認工讀生薪資成功";
         
         $extend_url=array();
-        $extend_url[]=$this->__generate_url_data("前往每月工讀生總表", "salary/salary_action/part_time_monthly_summary_list_form/");
+        $extend_url[]=$this->__generate_url_data("前往每月工讀生薪資總表", "salary/salary_action/part_time_monthly_summary_list_form/");
         $data['extend_url']=$extend_url;
         
         $this->load->view("message",$data);
@@ -100,8 +97,6 @@ class Salary_action extends MY_Controller {
         
         log_message("info","Salary_action.part_time_monthly_summary_list(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
         
-        $query_result=$this->salary_service->get_part_time_checkin_data($input['year_month'], $user->usr_num);
-        
         $data = array();
         $data['query_result'] = $this->salary_service->get_part_time_summary_data($input['year_month']);
         $data['year_month'] = $input['year_month'];
@@ -128,37 +123,123 @@ class Salary_action extends MY_Controller {
         log_message("info","Salary_action.part_time_sendmail - end usr_num=".$user->usr_num);
     }
     
-    public function employ_monthly_list_form($data = array()){
+    public function employee_monthly_list_form($data = array()){
         
         $user = $this->session->userdata('user');
         
         $input=$this->input->post();
         
-        log_message("info","Salary_action.employ_monthly_list_form - start usr_num=".$user->usr_num);
+        log_message("info","Salary_action.employee_monthly_list_form - start usr_num=".$user->usr_num);
         
         $data['month_options'] = $this->get_month_options();
-        $this->load->view("salary/test",$data);
+        $data['form_constants'] = $this->form_constants;
+        $data['salary_default_options'] = $this->salary_service->get_salary_default_options();
+        $this->load->view("salary/employee_monthly_page_list",$data);
         
-        log_message("info","Salary_action.employ_monthly_list_form - end usr_num=".$user->usr_num);
+        log_message("info","Salary_action.employee_monthly_list_form - end usr_num=".$user->usr_num);
     }
     
-    public function employ_monthly_list(){
+    public function employee_monthly_list(){
         
         $user = $this->session->userdata('user');
         
         $input=$this->input->post();
         
-        log_message("info","Salary_action.employ_monthly_list(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
-        
-        $query_result=$this->salary_service->get_part_time_checkin_data($input['year_month'], $user->usr_num);
+        log_message("info","Salary_action.employee_monthly_list(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
         
         $data = array();
-        $data['query_result'] = $this->salary_service->get_part_time_checkin_data($input['year_month'], $user->usr_num);
+        $data['query_result'] = $this->salary_service->get_employee_checkin_data($input['year_month'], $user->usr_num);
         $data['year_month'] = $input['year_month'];
         
-        $this->employ_monthly_list_form($data);
+        $this->employee_monthly_list_form($data);
         
-        log_message("info","Salary_action.employ_monthly_list - end usr_num=".$user->usr_num);
+        log_message("info","Salary_action.employee_monthly_list - end usr_num=".$user->usr_num);
+    }
+    
+    public function employee_salary_confirm(){
+        
+        $user = $this->session->userdata('user');
+        
+        $input=$this->input->post();
+        
+        log_message("info","Salary_action.employee_salary_confirm(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+        
+        //         print_r($input);
+        $confirm_hours = $input['confirm_hours'];
+        
+        $extra_options = $this->__assemble_extra_options($input);
+        
+        $this->salary_service->confirm_employee_checkin_data($input['confirm_hours'], $extra_options, $input['year_month'], $user->usr_num);
+        $data= array();
+        $data['message'] = "確認正職人員薪資成功";
+        
+        $extend_url=array();
+        $extend_url[]=$this->__generate_url_data("前往每月正職人員薪資總表", "salary/salary_action/employee_monthly_summary_list_form/");
+        $data['extend_url']=$extend_url;
+        
+        $this->load->view("message",$data);
+        
+        log_message("info","Salary_action.employee_salary_confirm - end usr_num=".$user->usr_num);
+    }
+    
+    public function employee_monthly_summary_list_form($data = array()){
+        
+        $user = $this->session->userdata('user');
+        
+        $input=$this->input->post();
+        
+        log_message("info","Salary_action.employee_monthly_summary_list_form - start usr_num=".$user->usr_num);
+        
+        $data['month_options'] = $this->get_month_options();
+        $data['form_constants'] = $this->form_constants;
+        $this->load->view("salary/employee_monthly_summary_list",$data);
+        
+        log_message("info","Salary_action.employee_monthly_summary_list_form - end usr_num=".$user->usr_num);
+    }
+    
+    public function employee_monthly_summary_list(){
+        
+        $user = $this->session->userdata('user');
+        
+        $input=$this->input->post();
+        
+        log_message("info","Salary_action.employee_monthly_summary_list_form(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+        
+        $data = array();
+        $data['query_result'] = $this->salary_service->get_employee_summary_data($input['year_month']);
+        $data['year_month'] = $input['year_month'];
+        $data['stores'] = $this->store_data_service->get_stores();
+        
+        $this->employee_monthly_summary_list_form($data);
+        log_message("info","Salary_action.employee_monthly_summary_list_form - end usr_num=".$user->usr_num);
+    }
+    
+    public function employee_sendmail() {
+        $user = $this->session->userdata('user');
+        
+        $input=$this->input->post();
+        
+        log_message("info","Salary_action.employee_sendmail(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
+        $is_send = ($input['is_send']=="true")? TRUE:FALSE;
+        $query_result=$this->salary_service->send_employee_mail($input['year_month'], $is_send);
+        
+        if($is_send) {
+            $data['message'] = "每月正職員工薪資單已經寄出";
+            $this->load->view("message",$data);
+        }
+        
+        log_message("info","Salary_action.employee_sendmail - end usr_num=".$user->usr_num);
+    }
+    
+    private function __assemble_extra_options($input) {
+        $extra_options = array();
+        if(isset($input['dso_desc'])) {
+            $extra_options['dso_desc'] = $input['dso_desc'];
+            $extra_options['dso_type'] = $input['dso_type'];
+            $extra_options['dso_value'] = $input['dso_value'];
+        }
+        
+        return $extra_options;
     }
     
     private function get_month_options() {
