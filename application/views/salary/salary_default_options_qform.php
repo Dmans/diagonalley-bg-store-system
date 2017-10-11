@@ -35,6 +35,7 @@
 						<th>項目類型</th>
 						<th>項目說明</th>
 						<th>項目金額</th>
+						<th>刪除</th>
 					</tr>
 					<? foreach ($query_result as $row) : ?> 
 						<tr>
@@ -44,6 +45,9 @@
 							<td><?php echo $form_constants->transfer_dso_type($row->dsdo_type)?></td>
 							<td><?php echo $row->dsdo_desc ?></td>
 							<td><?php echo $row->dsdo_value ?></td>
+							<td>
+								<a href="<?=site_url("salary/salary_default_options_action/remove/".$row->dsdo_num) ?>" class="btn btn-danger btn-xs">刪除</a>
+							</td>
 						</tr>
 					<? endforeach  ?>
 				</table>

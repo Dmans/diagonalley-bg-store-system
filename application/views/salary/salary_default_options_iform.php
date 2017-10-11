@@ -29,7 +29,7 @@
 		</script>
 		<title>新增常用薪資附加項目</title>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h1>新增常用薪資附加項目</h1>
 		<? echo form_open('salary/salary_default_options_action/save'); ?>
 			<div>項目類型:

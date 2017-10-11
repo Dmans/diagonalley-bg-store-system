@@ -35,6 +35,12 @@ class MY_Model extends CI_Model {
         $this->db->update($this->table_name,$update_object);
     }
     
+    public function delete_by_pk($pk){
+        $condition = array();
+        $condition[$this->pk] = $pk;
+        return $query = $this->db->delete($this->table_name, $condition);
+    }
+    
     public function query_by_condition($condition){
         
         //step1.加入where條件
