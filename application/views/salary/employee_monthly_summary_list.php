@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>每月工讀生薪資總表</title>
+		<title>每月正職人員薪資總表</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css" />
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/jquery-ui.min.css" />
 		<link rel="stylesheet" media="screen" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.min.css">
@@ -18,9 +18,9 @@
 		</script>
 	</head>
 	<body class="container-fluid">
-		<h3>每月工讀生薪資總表</h3>
+		<h3>每月正職人員薪資總表</h3>
 		<div>
-			<? echo form_open('salary/salary_action/part_time_monthly_summary_list'); ?>
+			<? echo form_open('salary/salary_action/employee_monthly_summary_list'); ?>
 				<div>審核月份:
 					<select name="year_month">
 						<?php foreach ($month_options as $option): ?>
@@ -38,10 +38,11 @@
 					<th>名稱</th>
 				<?php foreach ($stores as $store) :?>
 					<th><?php echo $store->sto_name?>工時</th>
-					<th><?php echo $store->sto_name?>薪資</th>
 				<?php endforeach;?>
-					<th>加班工時</th>
-					<th>加班薪資</th>
+					<th>本月合計工時</th>
+					<th>前期累計積假</th>
+					<th>本月積假結算</th>
+					<th>底薪</th>
 					<th>加給與獎金</th>
 					<th>預支與扣薪</th>
 					<th>合計薪資</th>
@@ -52,14 +53,14 @@
 					<?php foreach ($stores as $store) :?>
 						<?php if(empty($salary->stores[$store->sto_num])):?>
 							<td>0</td>
-							<td>$0</td>
 						<?php else :?>
 							<td><?php echo $salary->stores[$store->sto_num]->dss_hours?></td>
-							<td>$<?php echo $salary->stores[$store->sto_num]->dss_salary?></td>
 						<?php endif; ?>
 					<?php endforeach; ?>
-					<td><?php echo $salary->say_extra_hours?></td>
-					<td>$<?php echo $salary->say_extra_salary?></td>
+					<td><?php echo $salary->total_confirm_hours?></td>
+					<td><?php echo $salary->previous_say_leave_balance ?></td>
+					<td><?php echo $salary->say_leave_balance ?></td>
+					<td><?php echo $salary->usr_monthly_salary ?></td>
 					<td>
 						<?php foreach ($salary->options->positive as $option) : ?>
 							<div><?php echo $option->dso_desc ?>: +$<?php echo $option->dso_value ?></div>
@@ -70,7 +71,7 @@
 							<div><?php echo $option->dso_desc ?>: -$<?php echo $option->dso_value ?></div>
 						<?php endforeach;?>
 					</td>
-					<td>$<?php echo $salary->summary?></td>
+					<td>$<?php echo $salary->say_total_salary?></td>
 				</tr>
 				<?php endforeach;?>
 			</table>
@@ -79,17 +80,17 @@
 			<table border="0">
 				<tr>
 					<td>
-						<? echo form_open('salary/salary_action/part_time_sendmail'); ?>
+						<? echo form_open('salary/salary_action/employee_sendmail'); ?>
             				<input type="hidden" value="<?php echo $year_month?>" name="year_month"/>
             				<input type="hidden" value="true" name="is_send"/>
-            				<input type="submit" value="寄送所有工讀生薪資單" class="btn btn-primary" />
+            				<input type="submit" value="寄送所有正職人員薪資單" class="btn btn-primary" />
             			</form>
 					</td>
 					<td>
-						<? echo form_open('salary/salary_action/part_time_sendmail'); ?>
+						<? echo form_open('salary/salary_action/employee_sendmail'); ?>
             				<input type="hidden" value="<?php echo $year_month?>" name="year_month"/>
             				<input type="hidden" value="false" name="is_send"/>
-            				<input type="submit" value="預覽所有工讀生薪資單" class="btn btn-primary" />
+            				<input type="submit" value="預覽所有正職人員薪資單" class="btn btn-primary" />
             			</form>
 					</td>
 				</tr>

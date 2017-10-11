@@ -8,25 +8,48 @@
 		<script type="text/javascript" src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function(){
-                var $storePermission = $('div#storePermission');
-                var usrRole = $("input[name='usr_role']:checked").val();
-                if(usrRole!='1' && usrRole!='0'){
-                    $storePermission.hide();
-                }
 
-                if(usrRole=='0') {
+                $("input[name='usr_role']").change(function (e){
+                    onUsrRoleChange($(this).val());
+                });
+
+                var usrRole = $("input[name='usr_role']:checked").val()
+	
+                onUsrRoleChange(usrRole);
+
+                if (usrRole == "0") {
                     $("input[name='usr_role']").attr('disabled',true);
                 }
-
-                $("input[name='usr_role']").change(function(e){
-                    if($(this).val() == '1' || $(this).val() == '0') {
-                        $storePermission.show();
-                    } else {
-                        $storePermission.hide();
-                    }
-
-                });
             });
+
+            function onUsrRoleChange(usrRole) {
+                
+                if(usrRole == "1" || usrRole == "0") {
+                    $('div#storePermission').show();
+                } else {
+                	$('div#storePermission').hide();
+                }
+
+                if(usrRole == "3" || usrRole == "0") {
+                	$("div#usrSalaryDiv").hide();
+                } else {
+                	$("div#usrSalaryDiv").show();
+                }
+
+                $('span.salary_wording').hide();
+                if(usrRole == "4") {
+                    
+                    $('span#salaryPartTime').show();
+                }
+
+				if(usrRole == "1" || usrRole == "2") {
+                    
+                    $('span#salaryEmp').show();
+                    $('div#divBaseHours').show();
+                } else {
+                	$('div#divBaseHours').hide();
+                }
+            }
 
         </script>
 		<title>維護使用者</title>
@@ -37,11 +60,12 @@
 			<div>使用者流水號:<?php echo $update_user->usr_num ?><input type="hidden" name="usr_num" value="<?php echo $update_user->usr_num ?>" /></div>
 			<div>使用者帳號:<?php echo $update_user->usr_id ?></div>
 			<div>使用者名稱:<input type="text" name="usr_name" maxlength="32" value="<?php echo $update_user->usr_name ?>" /></div>
-			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" value="<?php echo$update_user->usr_mail?>" /></div>
-			<?php if($usr_role <=1 and $update_user->usr_role == 4): ?>
-			<div>使用者時薪:<input type="text" name="usr_salary" maxlength="12" value="<?php echo $update_user->usr_salary ?>" /></div>
-			<?php endif; ?>
-			
+			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" value="<?php echo $update_user->usr_mail?>" /></div>
+			<div>
+				<span class="salary_wording" id="salaryPartTime">使用者時薪<input type="text" id="usrSalary" name="usr_salary" maxlength="8" value="<?php echo $update_user->usr_salary ?>" /></span>
+				<span class="salary_wording" id="salaryEmp">使用者每月底薪<input type="text" id="usrMonthlySalary" name="usr_monthly_salary" maxlength="8" value="<?php echo $update_user->usr_monthly_salary ?>" /></span>
+			</div>
+				<div id="divBaseHours">使用者每月基本工時:<input type="text" name="usr_base_hours" maxlength="4" value="<?php echo $update_user->usr_base_hours ?>" />小時</div>
 			<div>帳號類型:
 				<?php if($usr_role==0):  ?>
     		        <input type="radio" name="usr_role"  value="0" <?php echo ($update_user->usr_role==0)?'checked="checked"':'' ?> /><?php echo $form_constants->transfer_usr_role(0); ?>
