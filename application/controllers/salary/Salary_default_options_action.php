@@ -134,6 +134,27 @@ class Salary_default_options_action extends MY_Controller {
         log_message("info","Salary_default_options_action.list - end usr_num=".$user->usr_num);
     }
     
+    public function remove($dsdo_num) {
+        $user = $this->session->userdata('user');
+        
+        
+        log_message("info","Salary_default_options_action.remove(dsdo_num=".$dsdo_num.") - start usr_num=".$user->usr_num);
+        
+        $this->Salary_default_options_service->remove_default_option($dsdo_num);
+        
+        $data['message']="刪除常用薪資附加項目成功";
+        
+        $extend_url=array();
+        $extend_url[]=$this->__generate_url_data("新增常用薪資附加項目", "salary/Salary_default_options_action/save_form/");
+        $extend_url[]=$this->__generate_url_data("查詢常用薪資附加項目", "salary/Salary_default_options_action/list_form/");
+        $data['extend_url']=$extend_url;
+        
+        $this->load->view("message",$data);
+        
+        log_message("info","Salary_default_options_action.remove(dsdo_num=".$dsdo_num.") - end usr_num=".$user->usr_num);
+        
+    }
+    
     private function __default_options_format_validate(){
         $this->form_validation->set_rules('dsdo_desc', '項目說明', 'trim|required|max_length[32]');
         $this->form_validation->set_rules('dsdo_value', '項目金額', 'trim|required|integer');
