@@ -324,10 +324,6 @@
                 
                 $check_user->say_leave_balance = 
                     $total_hours + $total_extra_hours + $check_user->previous_say_leave_balance - $check_user->usr_base_hours;
-                    echo $total_hours." ";
-                    echo $total_extra_hours." ";
-                    echo $check_user->previous_say_leave_balance." ";
-                    echo $check_user->usr_base_hours." ";
                 $check_user->total_base_hours = $total_hours;
                 $check_user->total_extra_hours = $total_extra_hours;
                 

@@ -12,7 +12,7 @@
 	</head>
 	<body  class="container-fluid">
 		<h1>查詢維護常用薪資附加項目</h1>
-		<? echo form_open('salary/salary_default_options_action/list'); ?>
+		<? echo form_open('salary/salary_default_options_action/lists'); ?>
 			<div>項目說明:<input type="text" name="dsdo_desc" maxlength="128" /></div>
 			<div>項目類型:
 				<select id="dsdoType" name="dsdo_type">
