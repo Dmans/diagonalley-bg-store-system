@@ -151,11 +151,14 @@
             // dis_booking_tables_dao
             $booking_table_keysets=array();
             foreach ($booking_list as $row){
-                $condition_by_booking_tables=array();
-                $condition_by_booking_tables['dbk_num']=$row->dbk_num;
-                $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
-                foreach ($booking_tables_list as $booking_table){
-                    $booking_table_keysets[]=$booking_table->dtb_num;
+                log_message("debug","Booking_service.find_unbooking_tables(".print_r($row,TRUE).") - end");
+                if($row->dbk_status == 1){
+                    $condition_by_booking_tables=array();
+                    $condition_by_booking_tables['dbk_num']=$row->dbk_num;
+                    $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
+                    foreach ($booking_tables_list as $booking_table){
+                        $booking_table_keysets[]=$booking_table->dtb_num;
+                    }
                 }
                 
             }
@@ -218,8 +221,12 @@
         private function __assemble_update_booking($input){
 
             $dbk=new stdClass();
-            $dbk->sto_num=$input['sto_num'];
+            //$dbk->sto_num=$input['sto_num'];
             $dbk->dbk_num=$input['dbk_num'];
+            
+            if(isset($input['sto_num'])){
+                $dbk->sto_num=$input['sto_num'];
+            }
 
             if(isset($input['dbk_memo'])){
                 $dbk->dbk_memo=$input['dbk_memo'];
@@ -284,18 +291,12 @@
          $result->usr_name=$guns->usr_name;
          $get_tables_nums=$this->dia_booking_tables_dao->query_by_dbk_num($row->dbk_num);
          $result->dtb_name=null;
-         $result->dtb_num=null;
          foreach ($get_tables_nums as $get_tables_num){
-             $result->dtb_num="$result->dtb_num"."$get_tables_num->dtb_num";
+             $get_dtb_num[] = $get_tables_num->dtb_num;
              $gtns = $this->dia_tables_dao->query_by_dtb_num($get_tables_num->dtb_num);
              $result->dtb_name="$result->dtb_name".","."$gtns->dtb_name";
          }
-         log_message("debug","Booking_service.__assemble_query_result(".print_r($get_tables_nums,TRUE).") - end");
-         
-         log_message("debug","Booking_service.__assemble_query_result(".print_r($result,TRUE).") - end");
-         
-         //$gtns = $this->dia_tables_dao->query_by_dtb_num($row->dtb_num);
-         //$result->dtb_name=$gtns->dtb_name;
+         $result->dtb_num=$get_dtb_num;
          return $result;
          
         } 

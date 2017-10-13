@@ -16,7 +16,6 @@
 						var dbkNum=$('input#checkIndbkNum').val();
 						var stoNum=$('input#checkInstoNum').val();
 						$.getJSON("<?=site_url("manage/booking_ajax_action/checkin_booking") ?>",{
-							sto_num : stoNum,
 							dbk_num : dbkNum,
 						    dbk_status : 2,
 						    },
@@ -34,12 +33,12 @@
 						var dbkNum=$('input#canceldbkNum').val();
 						var stoNum=$('input#cancelstoNum').val();
 						$.getJSON("<?=site_url("manage/booking_ajax_action/checkin_booking") ?>",{
-						    sto_num : stoNum,
 							dbk_num : dbkNum,
 							dbk_status : 3,
 							},
 						function(data){
 						    alert("客人取消");
+						    parent.location.reload();
 						});
 					});
 				});
@@ -112,7 +111,6 @@
     						<td id="checkInBooking_<?=$row->dbk_num ?>">
     							<input type="button" id="checkInBooking_<?=$row->dbk_num ?>" value="到店" class="btn btn-primary btn-xs"/>
     							<input type="hidden" id="checkIndbkNum" value="<?=$row->dbk_num ?>" />
-    							<input type="hidden" id="checkInstoNum" value="<?=$row->sto_num ?>" />
     						</td>
     						<td valign="top"><?php echo $row->sto_name ?></td>
     						<td valign="top"><?php echo $row->dbk_date ?></td>
@@ -125,7 +123,6 @@
     						<td id="cancelBooking_<?=$row->dbk_num ?>">
     							<input type="button" id="cancelBooking_<?=$row->dbk_num ?>" value="取消" class="btn btn-danger btn-xs"/>
     							<input type="hidden" id="canceldbkNum" value="<?=$row->dbk_num ?>" />
-    							<input type="hidden" id="cancelstoNum" value="<?=$row->sto_num ?>" />
     						</td>
     					</tr>
     					<?php endif ;?>
