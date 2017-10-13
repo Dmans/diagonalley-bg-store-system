@@ -18,15 +18,13 @@
 					dateFormat:'yy-mm-dd',
 				});
 
-
-				$('select#dbkCount').change(function(){
+				//日期.change部分
+				$('input#dbkDate').change(function(){
 					$('span#dtbNumspan').text(" ");
 					var dbkstore = $("input#stoNum ").val();
-					var dbkcount = $("select#dbkCount option:selected").val();
 					var dbkdate = $("input#dbkDate").val();
 					var dbktime = $("select#dbkTime option:selected").val();
 					$.getJSON("<?php echo site_url("manage/booking_ajax_action/get_count_tables") ?>",{
-						dbk_count : dbkcount,
 						sto_num : dbkstore,
 						dbk_date : dbkdate,
 						dbk_time : dbktime
@@ -34,20 +32,52 @@
 						function(data){
 							var i;
 							for(i=0;i<data.length; i++ ){
-    							$('span#dtbNumspan').append(
-    								$("<input></input>").attr({
-    									type : "checkbox",//radio
-    									id : "dtbNum",
-    									name : "dtb_num[]",
-    									value : data[i].dtb_num
-    								})
-    							)
-    							.append(" 桌子名稱:")
-    							.append(data[i].dtb_name)
-    							.append(" 可容納人數:")
-    							.append(data[i].dtb_max_cap)
-    							.append("<br>");
-    						}
+     							$('span#dtbNumspan').append(
+     								$("<input></input>").attr({
+     									type : "checkbox",//radio
+     									id : "dtbNum",
+     									name : "dtb_num[]",
+     									value : data[i].dtb_num
+     								})
+     							)
+     							.append(" 桌子名稱:")
+     							.append(data[i].dtb_name)
+     							.append(" 可容納人數:")
+     							.append(data[i].dtb_max_cap)
+     							.append("<br>");
+     						}
+//									console.log("data:" + data);
+						});
+				});
+
+				//時間.change部分
+				$('select#dbkTime').change(function(){
+					$('span#dtbNumspan').text(" ");
+					var dbkstore = $("input#stoNum ").val();
+					var dbkdate = $("input#dbkDate").val();
+					var dbktime = $("select#dbkTime option:selected").val();
+					$.getJSON("<?php echo site_url("manage/booking_ajax_action/get_count_tables") ?>",{
+						sto_num : dbkstore,
+						dbk_date : dbkdate,
+						dbk_time : dbktime
+						},
+						function(data){
+							var i;
+							for(i=0;i<data.length; i++ ){
+     							$('span#dtbNumspan').append(
+     								$("<input></input>").attr({
+     									type : "checkbox",//radio
+     									id : "dtbNum",
+     									name : "dtb_num[]",
+     									value : data[i].dtb_num
+     								})
+     							)
+     							.append(" 桌子名稱:")
+     							.append(data[i].dtb_name)
+     							.append(" 可容納人數:")
+     							.append(data[i].dtb_max_cap)
+     							.append("<br>");
+     						}
 //									console.log("data:" + data);
 						});
 				});
@@ -89,13 +119,7 @@
 							<option value="19:30" title="07:30" >07:30</option>
                 		</select>
             </div>
-            <div>訂位人數:
-                <select id="dbkCount" name="dbk_count">
-                    <? for ($i=1; $i <= 10; $i++): ?>
-                        <option value="<?=$i ?>" title="<?=$i ?>" ><?=$i ?></option>
-                    <? endfor ?>
-                </select>
-            </div>
+            <div>訂位人數:<input type="text" name="dbk_count" /></div>
             <div>可訂位桌號:<br><span id="dtbNumspan" ></span></div>
             <div>訂位大名:<input type="text" name="dbk_name" /></div>
             <div>訂位電話:<input type="text" id="dbkPhone" name="dbk_phone" /></div>
