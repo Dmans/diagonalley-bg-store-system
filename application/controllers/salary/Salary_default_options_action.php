@@ -118,7 +118,7 @@ class Salary_default_options_action extends MY_Controller {
         log_message("info","Salary_default_options_action.list_form - end usr_num=".$user->usr_num);
     }
     
-    public function list(){
+    public function lists(){
         
         $user = $this->session->userdata('user');
         
