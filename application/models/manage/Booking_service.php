@@ -285,9 +285,9 @@
          $result->dbk_status=$row->dbk_status;
          //$result->dtb_num=$row->dtb_num;
          $result->sto_num=$row->sto_num;
-         $gsns = $this->dia_store_dao->query_by_sto_num($row->sto_num);
+         $gsns = $this->dia_store_dao->query_by_pk($row->sto_num);
          $result->sto_name=$gsns->sto_name;
-         $guns = $this->dia_user_dao->query_by_usr_num($row->usr_num);
+         $guns = $this->dia_user_dao->query_by_pk($row->usr_num);
          $result->usr_name=$guns->usr_name;
          $get_tables_nums=$this->dia_booking_tables_dao->query_by_dbk_num($row->dbk_num);
          $result->dtb_name=null;

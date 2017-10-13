@@ -13,7 +13,11 @@
 			<div>使用者帳號:<?=$user->usr_id ?></div>
 			<div>使用者名稱:<?=$user->usr_name ?></div>
 			<div>使用者信箱:<?=$user->usr_mail ?></div>
-			<?php if($user->usr_role == 4): ?>
+			<?php if(in_array($user->usr_role, [1, 2]) AND ($current_user->is_root OR $current_user->usr_num == $user->usr_num)): ?>
+				<div>使用者每月底薪:<?php echo $user->usr_monthly_salary ?></div>
+				<div>使用者每月基本工時:<?php echo $user->usr_base_hours ?>小時</div>
+			<?php endif; ?>
+			<?php if(in_array($user->usr_role, [4])): ?>
 				<div>使用者時薪:<?php echo $user->usr_salary ?></div>
 			<?php endif; ?>
 			<div>帳號類型:<?=$user->usr_role_desc ?></div>

@@ -6,20 +6,72 @@
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery.numeric.js"></script>
+		
 		<script>
     		$(document).ready(function(){
-    		    var $storePermission = $('div#storePermission');
-    		    $storePermission.hide();
                 $("input[name='usr_role']").change(function(e){
-                    if($(this).val() == '1') {
+//                     if($(this).val() == '1') {
 
-                        $storePermission.show();
-                    } else {
-                        $storePermission.hide();
-                    }
+//                         $storePermission.show();
+//                     } else {
+//                         $storePermission.hide();
+//                     }
+
+//                     $('span.salary_wording').hide();
+//                     if($(this).val() == '4') {
+                        
+//                         $('span#salaryPartTime').show();
+//                     }
+
+// 					if($(this).val() == '1' || $(this).val() == '2') {
+                        
+//                         $('span#salaryEmp').show();
+//                         $('div#divBaseHours').show();
+//                     } else {
+//                     	$('div#divBaseHours').hide();
+//                     }
+
+					onUsrRoleChange($(this).val());
 
                 });
+
+                var usrRole = $("input[name='usr_role']:checked").val()
+            	
+                onUsrRoleChange(usrRole);
+                
+                $('input#usrSalary').numeric({ negative : false });
+                $('div#divBaseHours').hide();
     		});
+
+			function onUsrRoleChange(usrRole) {
+                
+                if(usrRole == "1" || usrRole == "0") {
+                    $('div#storePermission').show();
+                } else {
+                	$('div#storePermission').hide();
+                }
+
+                if(usrRole == "3" || usrRole == "0") {
+                	$("div#usrSalaryDiv").hide();
+                } else {
+                	$("div#usrSalaryDiv").show();
+                }
+
+                $('span.salary_wording').hide();
+                if(usrRole == "4") {
+                    
+                    $('span#salaryPartTime').show();
+                }
+
+				if(usrRole == "1" || usrRole == "2") {
+                    
+                    $('span#salaryEmp').show();
+                    $('div#divBaseHours').show();
+                } else {
+                	$('div#divBaseHours').hide();
+                }
+            }
 
 		</script>
 		<title>新增使用者</title>
@@ -37,11 +89,15 @@
 					<input type="radio" name="usr_role"  value="1" />店長
 				<? endif ?>
 				<input type="radio" name="usr_role"  value="2" />員工
-				<input type="radio" name="usr_role"  value="4" />工讀生
-				<input type="radio" name="usr_role"  value="3" checked="checked" />會員
+				<input type="radio" name="usr_role"  value="4"  checked="checked" />工讀生
+<!-- 				<input type="radio" name="usr_role"  value="3"/>會員 -->
 			</div>
-			
-
+			<div>
+				<span class="salary_wording" id="salaryPartTime">使用者時薪<input type="text" id="usrSalary" name="usr_salary" maxlength="8" /></span>
+				<span class="salary_wording" id="salaryEmp" style="display: none;">使用者每月底薪<input type="text" id="usrMonthlySalary" name="usr_monthly_salary" maxlength="8" /></span>
+			</div>
+			<!-- Only Employee need base hours -->
+			<div id="divBaseHours">使用者每月基本工時:<input type="text" name="usr_base_hours" maxlength="4" />小時</div>
 			
 			<? if($usr_role==0):  ?>
 			<div id="storePermission">店舖權限:

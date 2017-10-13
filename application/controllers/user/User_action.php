@@ -182,6 +182,7 @@ class User_action extends MY_Controller {
 		
 		log_message("info","User_action.page_detail(detail_usr_num=".$usr_num.") - start usr_num=".$user->usr_num);
 		
+		$data['current_user'] = $user;
 		$data['user'] =$this->user_service->find_user_for_update($usr_num);
 		
 		$this->load->view("user/user_page_detail",$data);

@@ -84,7 +84,7 @@
                 $stores = $this->get_stores();
 
                 foreach ($chks as $key => $chk) {
-                    $user = $this->dia_user_dao->query_by_usr_num($chk->usr_num);
+                    $user = $this->dia_user_dao->query_by_pk($chk->usr_num);
                     $result_set[]=$this->__assemble_user_checkin($user, $chk, $stores[$chk->sto_num]);
                 }
             }
@@ -164,7 +164,7 @@
                 
                 foreach ($chks as $chk) {
                     if(!array_key_exists($chk->usr_num, $checked_users)){
-                        $checked_users[$chk->usr_num]=$this->dia_user_dao->query_by_usr_num($chk->usr_num);
+                        $checked_users[$chk->usr_num]=$this->dia_user_dao->query_by_pk($chk->usr_num);
                     }
 
                     $checked_users[$chk->usr_num]->stores[$chk->sto_num]->chks[]=$chk;
@@ -203,6 +203,15 @@
         public function find_part_time_employ_monthly_record($year_month, $usr_num) {
             $usr_role = 4;
             return $this->find_employ_monthly_record($year_month, $usr_num, $usr_role);
+        }
+        
+        public function find_employee_monthly_record($year_month, $usr_num) {
+            $usr_role = 1;
+            $result = $this->find_employ_monthly_record($year_month, $usr_num, $usr_role);
+            $usr_role = 2;
+            $result = array_merge($result, $this->find_employ_monthly_record($year_month, $usr_num, $usr_role));
+            
+            return $result;
         }
 
         public function get_stores() {

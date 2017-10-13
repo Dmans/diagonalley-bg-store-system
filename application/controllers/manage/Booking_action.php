@@ -19,7 +19,7 @@ class Booking_action extends MY_Controller {
 		$user = $this->session->userdata('user');
 
 		log_message("info","Booking_action.save_form - start usr_num=".$user->usr_num);
-		$data['stores']=$this->dia_store_dao->query_by_sto_num($sto_num);		
+		$data['stores']=$this->dia_store_dao->query_by_pk($sto_num);		
     	$this->load->view("manage/booking_iform",$data);
 		
 		log_message("info","Booking_action.save_form - end usr_num=".$user->usr_num);

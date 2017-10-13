@@ -56,7 +56,10 @@
 		}
 
 		public function find_user_by_usr_id($usr_id){
-			return $this->dia_user_dao->query_by_usr_id($usr_id);
+		    $user = $this->dia_user_dao->query_by_usr_id($usr_id);
+		    $user->is_root = ($user->usr_role == 0);
+		    
+		    return $user;
 		}
 
 		private function __record_real_user_login_error($user){
