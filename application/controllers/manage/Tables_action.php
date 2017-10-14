@@ -81,7 +81,7 @@ class Tables_action extends MY_Controller {
     	log_message("info","Tables_action. update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
     	$datas=new stdClass();
     	$sto_num=array();
-    	$datas = $this->dia_tables_dao->query_by_dtb_num($input['dtb_num']);
+    	$datas = $this->dia_tables_dao->query_by_pk($input['dtb_num']);
     	$sto_num =$datas->sto_num;
     	$this->__update_table_format_validate($sto_num);
     	if($this->form_validation->run() != TRUE){

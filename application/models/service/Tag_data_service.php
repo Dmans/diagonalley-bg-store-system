@@ -20,7 +20,7 @@
 		}
 
 		public function find_tag($tag_num){
-			return $this->__assemble_tag_query_result($this->dia_tag_dao->query_by_tag_num($tag_num));
+			return $this->__assemble_tag_query_result($this->dia_tag_dao->query_by_pk($tag_num));
 		}
 
 		public function find_tags_list($input){
