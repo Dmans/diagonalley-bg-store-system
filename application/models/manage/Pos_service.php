@@ -90,7 +90,7 @@
 		}
 
 		public function find_pos_fast($pfs_num){
-			$fast_pos = $this->dia_fast_pos_dao->query_by_pfs_num($pfs_num);
+			$fast_pos = $this->dia_fast_pos_dao->query_by_pk($pfs_num);
 
 			return  $this->__assemble_view_fast_pos($fast_pos, $this->find_pod_type_tags());
 		}

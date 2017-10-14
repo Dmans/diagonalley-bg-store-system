@@ -8,7 +8,6 @@
         {
             parent::__construct();
             $this->load->model('dao/dia_booking_dao');
-            $this->load->model('dao/dia_booking_table_dao');
             $this->load->model("dao/dia_store_dao");
             $this->load->model("constants/form_constants");
             $this->load->model("dao/dia_user_dao");
@@ -28,7 +27,7 @@
         }
 
         public function find_booking($dbk_num){
-            $data=$this->dia_booking_dao->query_by_dbk_num($dbk_num);
+            $data=$this->dia_booking_dao->query_by_pk($dbk_num);
             return $this->__assemble_query_result($data);
         }
 
@@ -175,7 +174,7 @@
             );
             $not_booking_tables=array();
             foreach($not_booking_table_keysets as $not_booking_tables_keyset){
-                $not_booking_tables[] = $this->dia_tables_dao->query_by_dtb_num($not_booking_tables_keyset);
+                $not_booking_tables[] = $this->dia_tables_dao->query_by_pk($not_booking_tables_keyset);
             }
             
             return $not_booking_tables;
@@ -293,7 +292,7 @@
          $result->dtb_name=null;
          foreach ($get_tables_nums as $get_tables_num){
              $get_dtb_num[] = $get_tables_num->dtb_num;
-             $gtns = $this->dia_tables_dao->query_by_dtb_num($get_tables_num->dtb_num);
+             $gtns = $this->dia_tables_dao->query_by_pk($get_tables_num->dtb_num);
              $result->dtb_name="$result->dtb_name".","."$gtns->dtb_name";
          }
          $result->dtb_num=$get_dtb_num;

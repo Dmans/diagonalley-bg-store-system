@@ -129,7 +129,7 @@
 		}
 
 		public function find_daily_record($ddr_num){
-			return $this->dia_daily_record_dao->query_by_ddr_num($ddr_num);
+			return $this->dia_daily_record_dao->query_by_pk($ddr_num);
 		}
 
 		public function save_daily_record($input,$usr_num){
