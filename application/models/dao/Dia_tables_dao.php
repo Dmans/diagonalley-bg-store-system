@@ -14,9 +14,8 @@
         }
         
         public function query_by_sto_num($sto_num){
-            $this->db->where('dbk_num',$sto_num);
-            $query = $this->db->get($this->table_name);
-            return generate_single_result($query);
+            $condition['sto_num']=$sto_num;
+            return $this->query_by_condition($condition);
         }
     }
 
