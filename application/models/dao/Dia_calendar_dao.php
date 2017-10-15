@@ -13,7 +13,7 @@ class Dia_calendar_dao extends MY_Model {
         $this->custom_value_conditions= array("cal_type"); // Field for full text criteria
     }
         
-    protected function spespecial_query_conditions($condition) {
+    protected function special_query_conditions($condition) {
         if(isset($condition["start_cal_date"])){
             $this->db->where("cal_date >= ",$condition["start_cal_date"]);
         }
