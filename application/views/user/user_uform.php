@@ -54,7 +54,7 @@
         </script>
 		<title>維護使用者</title>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h1>維護使用者</h1>
 		<?php echo form_open('user/user_action/update'); ?>
 			<div>使用者流水號:<?php echo $update_user->usr_num ?><input type="hidden" name="usr_num" value="<?php echo $update_user->usr_num ?>" /></div>

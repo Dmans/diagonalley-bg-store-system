@@ -7,8 +7,8 @@
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>使用者資料</title>
 	</head>
-	<body>
-		<h1>使用者資料</h1>
+	<body class="container-fluid">
+		<h3>使用者資料</h3>
 			<div>使用者流水號:<?=$user->usr_num ?></div>
 			<div>使用者帳號:<?=$user->usr_id ?></div>
 			<div>使用者名稱:<?=$user->usr_name ?></div>
