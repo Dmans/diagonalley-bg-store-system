@@ -4,7 +4,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>每月工讀生薪資審核</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css" />
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/jquery-ui.min.css" />
 		<link rel="stylesheet" media="screen" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery-ui.min.js"></script>

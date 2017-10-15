@@ -63,7 +63,7 @@
 
 		</script>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h3>個人打卡鐘</h3>
 		<div>
 			<div>打卡使用者:<span style="font-weight: bold;"><?=$usr_name ?></span></div>
