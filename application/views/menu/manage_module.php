@@ -31,9 +31,9 @@
 	</div>
 -->
 	<div>
-		<h5>特殊日期設定</h5>
-		<div><a target="content" href="<?php echo site_url("manage/calendar_action/save_form") ?>">新增特殊日期</a></div>
-		<div><a target="content" href="<?php echo site_url("manage/calendar_action/list_form") ?>">查詢維護特殊日期</a></div>
+		<h5>行事曆設定</h5>
+		<div><a target="content" href="<?php echo site_url("manage/calendar_action/save_form") ?>">新增行事曆</a></div>
+		<div><a target="content" href="<?php echo site_url("manage/calendar_action/list_form") ?>">查詢維護行事曆</a></div>
 	</div>
 </div>
 
