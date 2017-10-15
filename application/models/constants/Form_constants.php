@@ -183,6 +183,17 @@
 		    
 		    return NULL;
 		}
+		
+		public function transfer_cal_type($cal_type){
+		    switch ($cal_type) {
+		        case CAL_TYPE_NORMAL:
+		            return '國定假日';
+		        case CAL_TYPE_SPECIAL:
+		            return '特殊假日';
+		    }
+		    
+		    return NULL;
+		}
     }
     
 ?>
