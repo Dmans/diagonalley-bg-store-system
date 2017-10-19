@@ -20,6 +20,7 @@
 
 				//日期.change部分
 				$('input#dbkDate').change(function(){
+					$('span#dtbNumWarning').text("");
 					$('span#dtbNumspan').text(" ");
 					var dbkstore = $("input#stoNum ").val();
 					var dbkdate = $("input#dbkDate").val();
@@ -30,28 +31,33 @@
 						dbk_time : dbktime
 						},
 						function(data){
-							var i;
-							for(i=0;i<data.length; i++ ){
-     							$('span#dtbNumspan').append(
-     								$("<input></input>").attr({
-     									type : "checkbox",//radio
-     									id : "dtbNum",
-     									name : "dtb_num[]",
-     									value : data[i].dtb_num
-     								})
-     							)
-     							.append(" 桌子名稱:")
-     							.append(data[i].dtb_name)
-     							.append(" 可容納人數:")
-     							.append(data[i].dtb_max_cap)
-     							.append("<br>");
-     						}
-//									console.log("data:" + data);
+							if(data==false){
+							    alert("已無可訂位桌子!");
+							}else{
+    							var i;
+    							for(i=0;i<data.length; i++ ){
+         							$('span#dtbNumspan').append(
+         								$("<input></input>").attr({
+         									type : "checkbox",//radio
+         									id : "dtbNum",
+         									name : "dtb_num[]",
+         									value : data[i].dtb_num
+         								})
+         							)
+         							.append(" 桌子名稱:")
+         							.append(data[i].dtb_name)
+         							.append(" 可容納人數:")
+         							.append(data[i].dtb_max_cap)
+         							.append("<br>");
+         						}
+							}
+//							console.log("data:" + data);
 						});
 				});
 
 				//時間.change部分
 				$('select#dbkTime').change(function(){
+				    $('span#dtbNumWarning').text("");
 					$('span#dtbNumspan').text(" ");
 					var dbkstore = $("input#stoNum ").val();
 					var dbkdate = $("input#dbkDate").val();
@@ -62,23 +68,27 @@
 						dbk_time : dbktime
 						},
 						function(data){
-							var i;
-							for(i=0;i<data.length; i++ ){
-     							$('span#dtbNumspan').append(
-     								$("<input></input>").attr({
-     									type : "checkbox",//radio
-     									id : "dtbNum",
-     									name : "dtb_num[]",
-     									value : data[i].dtb_num
-     								})
-     							)
-     							.append(" 桌子名稱:")
-     							.append(data[i].dtb_name)
-     							.append(" 可容納人數:")
-     							.append(data[i].dtb_max_cap)
-     							.append("<br>");
-     						}
-//									console.log("data:" + data);
+							if(data==false){
+							    alert("已無可訂位桌子!");
+							}else{
+    							var i;
+    							for(i=0;i<data.length; i++ ){
+         							$('span#dtbNumspan').append(
+         								$("<input></input>").attr({
+         									type : "checkbox",//radio
+         									id : "dtbNum",
+         									name : "dtb_num[]",
+         									value : data[i].dtb_num
+         								})
+         							)
+         							.append(" 桌子名稱:")
+         							.append(data[i].dtb_name)
+         							.append(" 可容納人數:")
+         							.append(data[i].dtb_max_cap)
+         							.append("<br>");
+         						}
+							}
+//							console.log("data:" + data);
 						});
 				});
 
@@ -120,7 +130,8 @@
                 		</select>
             </div>
             <div>訂位人數:<input type="text" name="dbk_count" /></div>
-            <div>可訂位桌號:<br><span id="dtbNumspan" ></span></div>
+            <div>可訂位桌號:<span id="dtbNumWarning"class="bg-primary">請先選擇訂位時間</span>
+            <br><span id="dtbNumspan" ></span></div>
             <div>訂位大名:<input type="text" name="dbk_name" /></div>
             <div>訂位電話:<input type="text" id="dbkPhone" name="dbk_phone" /></div>
 			<div>備註:<br/>
