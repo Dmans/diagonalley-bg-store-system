@@ -2,9 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/flick/jquery-ui-1.8.22.custom.css" />
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
-		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+		<script>
+			$(document).ready(function(){
+
+
+				$('button.detailButton').click(function(){
+				    var usrNum = $(this).attr("usr_num");
+				    showDetailContent(usrNum);
+					
+				});
+			});
+
+
+			function showDetailContent(usrNum) {
+				$.get("<?php echo site_url("user/user_action/page_detail/") ?>/" + usrNum, function(data){
+				    $('.modal-body').html(data);
+
+				    $('#myModal').modal('show');
+				});
+			}
+		</script>
 		<title>查詢使用者</title>
 	</head>
 	<body>
@@ -55,10 +77,11 @@
 					<? foreach ($query_result as $row) : ?>
 						<tr>
 							<td>
-								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>" class="btn btn-info btn-xs">查詢</a>
+								<button class="btn btn-info btn-xs detailButton" usr_num=<?php echo $row->usr_num?>>查詢</button>
 							<? if($usr_role==0 OR $usr_role==1): ?>
 								<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							<? endif ?>
+							
 							</td>
 							<td><?=$row->usr_num ?></td>
 							<td><?=$row->usr_id ?></td>
@@ -77,6 +100,14 @@
 			<? else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
 			<? endif ?>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+    				<div class="modal-body">
+    				</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

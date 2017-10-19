@@ -32,9 +32,9 @@
 					$gid=$already_gids[$grd->gid_num];
 					$game=$already_games[$gid->gam_num];
 				}else{
-					$gid = $this->dia_game_id_dao->query_by_gid_num($grd->gid_num);
+					$gid = $this->dia_game_id_dao->query_by_pk($grd->gid_num);
 					$already_gids[$grd->gid_num]=$gid;
-					$game = $this->dia_game_dao->query_by_gam_num($gid->gam_num);
+					$game = $this->dia_game_dao->query_by_pk($gid->gam_num);
 					$already_games[$gid->gam_num]=$game;
 				}
 				

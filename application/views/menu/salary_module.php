@@ -16,4 +16,4 @@
 		<div><a target="content" href="<?php echo site_url("salary/salary_default_options_action/list_form") ?>">查詢維護常用薪資附加項目</a></div>
 	</div>
 </div>
-
+<hr/>

@@ -13,5 +13,5 @@
 		<div><a target="content" href="<?=site_url("employ/employ_action/employ_monthly_list_form") ?>">打卡紀錄查詢</a></div>
 	<? endif ?>
 </div>
-
+<hr/>
 

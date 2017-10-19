@@ -13,9 +13,10 @@
 	<body  class="container-fluid">
 		<h1>查詢維護常用薪資附加項目</h1>
 		<? echo form_open('salary/salary_default_options_action/lists'); ?>
-			<div>項目說明:<input type="text" name="dsdo_desc" maxlength="128" /></div>
+			<div>項目說明:<input type="text" name="dsdo_desc" maxlength="128" value="<?php echo set_value("dsdo_desc", "")?>"/></div>
 			<div>項目類型:
 				<select id="dsdoType" name="dsdo_type">
+					<option value="-1" <?php echo set_select('dsdo_type', -1)?>>全部</option>
 					<option value="0" <?php echo set_select('dsdo_type', 0)?>><?php echo $form_constants->transfer_dso_type(0)?></option>
 					<option value="1" <?php echo set_select('dsdo_type', 1)?>><?php echo $form_constants->transfer_dso_type(1)?></option>
 					<option value="2" <?php echo set_select('dsdo_type', 2)?>><?php echo $form_constants->transfer_dso_type(2)?></option>
@@ -27,7 +28,7 @@
 		</form>
 		
 		<div>
-			<? if(isset($query_result)):  ?>
+			<? if(isset($query_result) AND !empty($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>

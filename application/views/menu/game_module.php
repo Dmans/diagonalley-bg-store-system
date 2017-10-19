@@ -9,4 +9,4 @@
 	<div><span class="label label-success">New</span><a target="content" href="<?=site_url("game/game_import_action/game_import_save_form") ?>">新增遊戲入庫單</a></div>
 	<div><span class="label label-success">New</span><a target="content" href="<?=site_url("game/game_import_action/game_import_list_form") ?>">查詢遊戲入庫單</a></div>
 </div>
-
+<hr/>

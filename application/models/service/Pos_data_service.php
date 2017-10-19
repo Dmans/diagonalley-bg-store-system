@@ -37,7 +37,7 @@
 		}
 		
 		public function find_pos($pod_num){
-			$pos=$this->dia_pos_order_dao->query_by_pod_num($pod_num);
+			$pos=$this->dia_pos_order_dao->query_by_pk($pod_num);
 			$tag=$this->tag_data_service->find_tag($pos->tag_num);
 			
 			return $this->__assemble_view_update_pod($pos,$tag);

@@ -83,7 +83,7 @@
 		public function find_game_import_detail($gim_num){
 			
 			//step1. 找出主單	
-			$gim = $this->dia_game_import_dao->query_by_gim_num($gim_num);
+			$gim = $this->dia_game_import_dao->query_by_pk($gim_num);
 			
 			
 			//step2. 找出使用者資料
