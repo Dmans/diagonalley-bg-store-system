@@ -177,6 +177,9 @@
             foreach($not_booking_table_keysets as $not_booking_tables_keyset){
                 $not_booking_tables[] = $this->dia_tables_dao->query_by_dtb_num($not_booking_tables_keyset);
             }
+            if(empty($not_booking_tables)){
+                return FALSE;
+            }
             
             return $not_booking_tables;
         }
@@ -294,7 +297,12 @@
          foreach ($get_tables_nums as $get_tables_num){
              $get_dtb_num[] = $get_tables_num->dtb_num;
              $gtns = $this->dia_tables_dao->query_by_dtb_num($get_tables_num->dtb_num);
-             $result->dtb_name="$result->dtb_name".","."$gtns->dtb_name";
+             if($result->dtb_name==null){
+                 $result->dtb_name=$gtns->dtb_name;
+             }
+             else{
+                 $result->dtb_name="$result->dtb_name".","."$gtns->dtb_name";
+             }
          }
          $result->dtb_num=$get_dtb_num;
          return $result;

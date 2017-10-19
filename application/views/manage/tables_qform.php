@@ -45,7 +45,7 @@
 						
 							<td>
 							<?php if($row->dbk_status==1):?>
-								<a class="btn btn-warning btn-xs">已預約</a>
+								<b class="bg-primary img-thumbnail">已預約</b>
 							<?php else : ?>
 								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							<?php endif; ?>
