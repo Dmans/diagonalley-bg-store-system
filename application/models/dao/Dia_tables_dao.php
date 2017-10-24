@@ -61,12 +61,16 @@
 			}
 
 			//step3.加入選用where條件
-			$custom_value_conditions=array("dtb_max_cap","sto_num");
+			$custom_value_conditions=array("sto_num");
 			foreach ($custom_value_conditions as $field_name) {
 				if(isset($condition[$field_name]) && $condition[$field_name]!=-1){
 					$this->db->where($field_name,$condition[$field_name]);
 				}
 			}
+			if(isset($condition["dtb_max_cap"])){
+			        $this->db->where("dtb_max_cap <= ",$condition["dtb_max_cap"]);
+			}
+			
 
 			$query = $this->db->get($this->table_name);
 			return generate_result_list($query);

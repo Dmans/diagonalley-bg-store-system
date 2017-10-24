@@ -80,13 +80,15 @@ class Tables_action extends MY_Controller {
     	
     	log_message("info","Tables_action. update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
     	$datas=new stdClass();
-    	$sto_num=array();
+    	//$sto_num=array();
     	$datas = $this->dia_tables_dao->query_by_dtb_num($input['dtb_num']);
     	$sto_num =$datas->sto_num;
-    	$this->__update_table_format_validate($sto_num);
-    	if($this->form_validation->run() != TRUE){
-    		$this->update_form($input['dtb_num']);
-    		return;
+    	if($input['dtb_name']!=$datas->dtb_name){
+        	$this->__update_table_format_validate($sto_num);
+        	if($this->form_validation->run() != TRUE){
+        		$this->update_form($input['dtb_num']);
+        		return;
+        	}
     	}
     	$this->tables_service->update_table($input);
     	$data['message']="維護店舖遊戲桌資料成功";
@@ -185,7 +187,6 @@ class Tables_action extends MY_Controller {
     }
 
     public function dtb_name_validate($dtb_name,$sto_num){
-     
         $condition=array();
         $condition['sto_num']=$sto_num;
         $condition['dtb_name']=$dtb_name;
@@ -194,8 +195,8 @@ class Tables_action extends MY_Controller {
     	if(empty($query_result)){
     		return TRUE;
     	}else{
-    		$this->form_validation->set_message('dtb_name_validate', ' %s 欄位輸入重複');
-    		return FALSE;
+    		  $this->form_validation->set_message('dtb_name_validate', ' %s 欄位輸入重複');
+    		  return FALSE;
     	}
     }
     private function __save_table_format_validate($sto_num){

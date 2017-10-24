@@ -58,6 +58,9 @@
             if(isset($input['dtb_status'])){
                 $dtb->dtb_status=$input['dtb_status'];
             }
+            if(isset($input['dtb_max_cap'])){
+                $dtb->dtb_max_cap=$input['dtb_max_cap'];
+            }
 
             return $dtb;
         }
