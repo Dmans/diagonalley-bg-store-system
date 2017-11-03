@@ -20,7 +20,6 @@
 			<div>桌子名稱:<input type="text" name="dtb_name" maxlength="32" /></div>
 			<div>桌子可容納人數:
 				<select name="dtb_max_cap">
-						<option value="-1" title="全部" >全部</option>
                     <?for ($i=1; $i <= 10; $i++): ?>
                         <option value="<?php echo $i ?>" title="<?php echo $i ?>" ><?php echo $i ?></option>
                     <? endfor ?>
@@ -45,7 +44,7 @@
 						
 							<td>
 							<?php if($row->dbk_status==1):?>
-								<a class="btn btn-warning btn-xs">已預約</a>
+								<b class="bg-primary img-thumbnail">已預約</b>
 							<?php else : ?>
 								<a href="<?=site_url("manage/tables_action/update_form/".$row->dtb_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							<?php endif; ?>

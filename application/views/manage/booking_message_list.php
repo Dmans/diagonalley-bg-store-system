@@ -102,6 +102,7 @@
     						<th width="7%">訂位人數</th>
     						<th width="10%">訂位人稱謂</th>
     						<th width="10%">電話</th>
+    						<th width="10%">訂位桌號</th>
     						<th text-center width="30%">定位資訊</th>
     						<th width="5%">取消</th>
     					</tr>
@@ -117,6 +118,7 @@
     						<td valign="top"><?php echo $row->dbk_count ?>位</td>
     						<td valign="top"><?php echo $row->dbk_name ?></td>
     						<td valign="top"><?php echo $row->dbk_phone ?></td>
+    						<td valign="top"><?php echo $row->dtb_name ?></td>
     						<td >
     							<div style="text-align: left"><?php echo nl2br($row->dbk_memo) ?></div>
     						</td>
