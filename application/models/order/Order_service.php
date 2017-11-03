@@ -97,7 +97,7 @@
 		}
 
 		public function find_order_for_update($ord_num){
-			$order=$this->dia_order_dao->query_by_ord_num($ord_num);
+			$order=$this->dia_order_dao->query_by_pk($ord_num);
 			$user=$this->user_data_service->find_user($order->usr_num);
 			$ord_user=$this->user_data_service->find_user($order->ord_usr_num);
 			$game=$this->game_data_service->find_game($order->gam_num);

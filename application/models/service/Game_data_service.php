@@ -32,7 +32,7 @@
 		}
 
 		public function modify_game_storage($gam_num, $modify_value, $new_gam_cvalue=NULL){
-			$game = $this->dia_game_dao->query_by_gam_num($gam_num);
+			$game = $this->dia_game_dao->query_by_pk($gam_num);
 			$input['gam_num']=$gam_num;
 			$input['gam_storage']=($game->gam_storage+$modify_value);
 
@@ -51,7 +51,7 @@
 
 		public function find_game($gam_num){
 
-			$game=$this->dia_game_dao->query_by_gam_num($gam_num);
+			$game=$this->dia_game_dao->query_by_pk($gam_num);
 			$game_tags=$this->dia_game_tag_dao->query_by_gam_num($gam_num);
 
 			$condition['bar_type']=0;
@@ -63,7 +63,7 @@
 		}
 
 		public function find_game_id($gid_num){
-			return $this->__assemble_gid_query_result($this->dia_game_id_dao->query_by_gid_num($gid_num));
+			return $this->__assemble_gid_query_result($this->dia_game_id_dao->query_by_pk($gid_num));
 		}
 
 		public function find_games_list($input){

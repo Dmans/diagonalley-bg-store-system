@@ -11,29 +11,7 @@
 		<script>
     		$(document).ready(function(){
                 $("input[name='usr_role']").change(function(e){
-//                     if($(this).val() == '1') {
-
-//                         $storePermission.show();
-//                     } else {
-//                         $storePermission.hide();
-//                     }
-
-//                     $('span.salary_wording').hide();
-//                     if($(this).val() == '4') {
-                        
-//                         $('span#salaryPartTime').show();
-//                     }
-
-// 					if($(this).val() == '1' || $(this).val() == '2') {
-                        
-//                         $('span#salaryEmp').show();
-//                         $('div#divBaseHours').show();
-//                     } else {
-//                     	$('div#divBaseHours').hide();
-//                     }
-
 					onUsrRoleChange($(this).val());
-
                 });
 
                 var usrRole = $("input[name='usr_role']:checked").val()

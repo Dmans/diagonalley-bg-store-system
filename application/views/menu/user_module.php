@@ -5,4 +5,4 @@
 		<div><a target="content" href="<?php echo site_url("user/user_action/list_form") ?>">查詢/維護使用者</a></div>
 	<?php endif; ?>
 </div>
-
+<hr/>

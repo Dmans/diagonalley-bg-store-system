@@ -55,7 +55,7 @@
 		</script>
 
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h3>未審核打卡資料</h3>
 		<div class="row">
 			<div class="col-md-10">

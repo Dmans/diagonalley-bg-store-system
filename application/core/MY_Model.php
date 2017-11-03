@@ -9,8 +9,9 @@ class MY_Model extends CI_Model {
         $this->load->helper("dao");
         $this->table_name="";
         $this->pk="";
+        $this->value_conditions = array();
         $this->string_conditions = array();
-        $this->custom_value_conditions= array();
+        $this->custom_value_conditions = array();
     }
     
     public function query_by_pk($pk){
@@ -44,8 +45,8 @@ class MY_Model extends CI_Model {
     public function query_by_condition($condition){
         
         //step1.加入where條件
-        $value_conditions=array($this->pk);
-        foreach ($value_conditions as $field_name) {
+        array_push($this->value_conditions, $this->pk);
+        foreach ($this->value_conditions as $field_name) {
             if(!empty($condition[$field_name])){
                 $this->db->where($field_name,$condition[$field_name]);
             }
@@ -65,8 +66,16 @@ class MY_Model extends CI_Model {
             }
         }
         
+        // Handle special case query condition
+        $this->special_query_conditions($condition);
+        
         $query = $this->db->get($this->table_name);
         return generate_result_list($query);
+    }
+    
+    
+    protected function special_query_conditions($condition) {
+        //do nothing, override this function if need add special query condition
     }
     
     

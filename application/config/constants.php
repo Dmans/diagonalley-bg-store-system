@@ -44,6 +44,12 @@ define('EXTRA_SALARY_RATE',                         1.33);
 define('SAY_TYPE_PART_TIME',                            0);
 define('SAY_TYPE_EMPLOYEE',                             1);
 
+define('CAL_TYPE_NORMAL',                            0);
+define('CAL_TYPE_SPECIAL',                             1);
+
+define('STO_TYPE_PHYSICAL',                            0);
+define('STO_TYPE_VIRTUAL',                             1);
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

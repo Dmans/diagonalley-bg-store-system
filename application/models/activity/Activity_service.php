@@ -20,7 +20,7 @@
 		}
 		
 		public function find_activity_for_update($act_num){
-			return $this->__assemble_activity_query_result($this->dia_activity_dao->query_by_act_num($act_num));
+			return $this->__assemble_activity_query_result($this->dia_activity_dao->query_by_pk($act_num));
 		}
 		
 		public function find_activitys_for_list($input){
@@ -34,7 +34,7 @@
 			
 			$result_set=array();
 			foreach ($gids as $gid) {
-				$game = $this->dia_game_dao->query_by_gam_num($gid->gam_num);
+				$game = $this->dia_game_dao->query_by_pk($gid->gam_num);
 				$result_set[]=$this->__assemble_view_gid($gid, $game);
 			}
 			
@@ -47,8 +47,8 @@
 		
 		
 		public function find_game_id_for_update($gid_num){
-			$gid = $this->dia_game_id_dao->query_by_gid_num($gid_num);
-			$game = $this->dia_game_dao->query_by_gam_num($gid->gam_num);
+			$gid = $this->dia_game_id_dao->query_by_pk($gid_num);
+			$game = $this->dia_game_dao->query_by_pk($gid->gam_num);
 			return $this->__assemble_view_gid($gid, $game);
 		}
 		

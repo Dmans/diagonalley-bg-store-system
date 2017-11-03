@@ -21,7 +21,7 @@ class Salary_default_options_service extends CI_Model {
     }
     
     public function find_default_options($input) {
-        return $this->dia_salary_default_options_dao->query_by_condition($input);
+        return object_sorter($this->dia_salary_default_options_dao->query_by_condition($input), "dsdo_type");
     }
     
     public function remove_default_option($dsdo_num) {

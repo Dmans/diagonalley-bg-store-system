@@ -17,7 +17,7 @@
 
 		</script>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h3>員工打卡紀錄查詢</h3>
 		<div>
 			<? echo form_open('employ/employ_action/employ_monthly_list'); ?>

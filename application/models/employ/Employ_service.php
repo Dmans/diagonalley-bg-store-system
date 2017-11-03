@@ -18,7 +18,7 @@
         public function check_in($usr_num, $sto_num){
             $chk_num = $this->dia_checkin_dao->insert($this->__assemble_save_checkin($usr_num, $sto_num));
 
-            return $this->dia_checkin_dao->query_by_chk_num($chk_num);
+            return $this->dia_checkin_dao->query_by_pk($chk_num);
         }
 
         public function check_unfinished_checkin($usr_num){
@@ -34,7 +34,7 @@
         }
 
         public function check_out($chk_num,$usr_num, $chk_note){
-            $chk = $this->dia_checkin_dao->query_by_chk_num($chk_num);
+            $chk = $this->dia_checkin_dao->query_by_pk($chk_num);
 
             if(isset($chk)){
                 if($chk->usr_num == $usr_num){
@@ -49,7 +49,7 @@
 
         public function confirm($input, $usr_num){
 
-            $chk = $this->dia_checkin_dao->query_by_chk_num($input['chk_num']);
+            $chk = $this->dia_checkin_dao->query_by_pk($input['chk_num']);
 
             if(isset($chk)){
 //                 if($chk->confirm_date==NULL){

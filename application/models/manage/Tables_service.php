@@ -42,7 +42,7 @@
         }
 
         public function find_table($dtb_num){
-            $table = $this->dia_tables_dao->query_by_dtb_num($dtb_num);
+            $table = $this->dia_tables_dao->query_by_pk($dtb_num);
             $table->store = $this->dia_store_dao->query_by_pk($table->sto_num);
             return $table;
         }
