@@ -17,6 +17,4 @@
             $condition['sto_num']=$sto_num;
             return $this->query_by_condition($condition);
         }
-    }
-
 ?>
