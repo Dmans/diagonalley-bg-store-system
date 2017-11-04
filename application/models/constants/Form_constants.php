@@ -11,15 +11,15 @@
 		
 		public function transfer_usr_role($usr_role){
 			switch ($usr_role) {
-				case '0':
+			    case USR_ROLE_ROOT:
 					return 'root'; 
-				case '1':
+			    case USR_ROLE_MANAGER:
 					return '店長';
-				case '2':
+			    case USR_ROLE_EMPLOYEE:
 					return '員工';
-				case '3':
+			    case USR_ROLE_MEMBER:
 					return '會員';
-				case '4':
+			    case USR_ROLE_PART_TIME:
 				    return '工讀生';
 			}
 			

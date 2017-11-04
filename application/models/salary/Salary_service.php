@@ -320,6 +320,8 @@
                     $total_extra_hours += $extra_hour_summary;
                 }
                 
+                
+                // For employee
                 $check_user->previous_say_leave_balance = $this->__get_previous_leave_balance($year_month, $check_user->usr_num);
                 
                 $check_user->say_leave_balance = 
@@ -361,7 +363,6 @@
             $type_c_summary += $options->negative_total_value;
             
             $summary_stores = $this->__assemble_summary_stores($say_store_list, $store_data_list);
-            
             
             if ($salary->say_type == SAY_TYPE_PART_TIME) {
                 $type_a_summary += $summary_stores->store_total_value;

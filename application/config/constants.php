@@ -41,6 +41,13 @@ define('SYSTEM_NAME',                            "古靈閣");
 define('BASE_HOURS',                                   8);
 define('EXTRA_SALARY_RATE',                         1.33);
 
+
+define('USR_ROLE_ROOT',                                 0);
+define('USR_ROLE_MANAGER',                              1);
+define('USR_ROLE_EMPLOYEE',                             2);
+define('USR_ROLE_MEMBER',                               3);
+define('USR_ROLE_PART_TIME',                            4);
+
 define('SAY_TYPE_PART_TIME',                            0);
 define('SAY_TYPE_EMPLOYEE',                             1);
 

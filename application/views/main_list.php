@@ -8,7 +8,7 @@
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 		<title>管理介面</title>
 	</head>
-	<body>
+	<body class="container-fluid">
 		<h2>管理介面</h2>
 		<div>使用者:<?=$usr_name?></div>
 		<? if($usr_role==0 OR $usr_role==1): ?>

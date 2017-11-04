@@ -68,6 +68,8 @@ class User_action extends MY_Controller {
 		
 		$user = $this->session->userdata('user');
 		
+		$input=$this->input->get();
+		
 		if ($user->usr_num != $usr_num and $this->__user_role_check($user->usr_role)) {
 			return;
 		}
@@ -81,7 +83,13 @@ class User_action extends MY_Controller {
 		$data['stores'] = $this->store_data_service->get_stores();
 		$data['form_constants'] = $this->form_constants;
 		
-		$this->load->view("user/user_uform",$data);
+		if(isset($input['isEmbed']) AND $input['isEmbed'] == 1) {
+		    $this->load->view("user/user_ajax_uform",$data);
+		} else {
+		    $this->load->view("user/user_uform",$data);
+		}
+		
+		
 		
 		log_message("info","User_action.update_form(update_usr_num=".$usr_num.") - end usr_num=".$user->usr_num);
 	}
@@ -128,7 +136,7 @@ class User_action extends MY_Controller {
 		
 	}
 	
-	public function list_form($query_result=NULL){
+	public function list_form($data=array()){
 		
 		$user = $this->session->userdata('user');
 		
@@ -136,11 +144,8 @@ class User_action extends MY_Controller {
 		
 		log_message("info","User_action.list_form - start usr_num=".$user->usr_num);
 		
-		$data['usr_role'] =$user->usr_role ;
-		
-		if(!empty($query_result)){
-			$data['query_result']=$query_result;
-		}
+		$data['user_usr_role'] =$user->usr_role ;
+// 		$data['query_result']=$query_result;
 		
 		$this->load->view("user/user_qform",$data);
 		
@@ -163,10 +168,10 @@ class User_action extends MY_Controller {
 			$this->list_form();
 			return;
 		}
+		$data = $input;
+		$data["query_result"]=$this->user_service->find_users_for_list($input);
 		
-		$query_result=$this->user_service->find_users_for_list($input);
-		
-		$this->list_form($query_result);
+		$this->list_form($data);
 		
 		log_message("info","User_action.lists() - end usr_num=".$user->usr_num);
 		
