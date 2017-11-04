@@ -12,7 +12,6 @@
 
 
         public function index(){
-        	$this->load->library('form_validation');
 			$this->load->helper(array('form','url'));
         	$this->load->view("login_form");
         }

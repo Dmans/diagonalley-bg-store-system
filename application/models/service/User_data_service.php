@@ -33,7 +33,7 @@ class user_data_service extends CI_Model {
 		//Update user session if update data have the same usr_num
 		$user = $this->session->user;
 		if (!empty($user) and $user->usr_num == $input['usr_num']) {
-			$this->session->user = $this->dia_user_dao->query_by_pk($user->usr_num);
+		    $this->session->user = $this->find_user_by_id($user->usr_id);
 		}
 	}
 	
@@ -43,6 +43,10 @@ class user_data_service extends CI_Model {
 	
 	public function find_user($usr_num){
 		return $this->__assemble_query_result($this->dia_user_dao->query_by_pk($usr_num));
+	}
+	
+	public function find_user_by_id($usr_id){
+	    return $this->__assemble_query_result($this->dia_user_dao->query_by_usr_id($usr_id));
 	}
 	
 	public function save_user_store_permission($usr_num, $sto_nums) {
@@ -163,6 +167,7 @@ class user_data_service extends CI_Model {
 		}
 		
 		$new_result->user_store_permission = $tmpusps;
+		$new_result->is_root = ($new_result->usr_role == USR_ROLE_ROOT);
 		
 		return $new_result;
 	}
