@@ -51,7 +51,7 @@ $query_builder = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'diagonalley';
-$db['default']['password'] = 'hVWkHzfHOSc8FGcF';
+$db['default']['password'] = '';
 $db['default']['database'] = 'diagonalley';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
