@@ -14,6 +14,10 @@ class tables_data_service extends CI_Model {
 	}
 	
 	public function find_tables_list($input){
+	   if(isset($input['dtb_max_cap'])){
+    	    $input['dtb_cap']=$input['dtb_max_cap'];
+    	    unset($input['dtb_max_cap']);
+	    }
 		$result = $this->dia_tables_dao->query_by_condition($input);
 		return $this->__assemble_query_result_list($result);
 	}

@@ -17,4 +17,10 @@
             $condition['sto_num']=$sto_num;
             return $this->query_by_condition($condition);
         }
+        protected function special_query_conditions($condition) {
+            if(isset($condition["dtb_cap"])){
+                $this->db->where("dtb_max_cap <= ",$condition["dtb_cap"]);
+            }
+        }
+    }
 ?>

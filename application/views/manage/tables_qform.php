@@ -20,7 +20,7 @@
 			<div>桌子名稱:<input type="text" name="dtb_name" maxlength="32" /></div>
 			<div>桌子可容納人數:
 				<select name="dtb_max_cap">
-                    <?for ($i=1; $i <= 10; $i++): ?>
+                    <?for ($i=10; $i >= 5; $i--): ?>
                         <option value="<?php echo $i ?>" title="<?php echo $i ?>" ><?php echo $i ?></option>
                     <? endfor ?>
                </select>
