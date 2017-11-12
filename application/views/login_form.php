@@ -3,6 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<!-- <link rel="stylesheet" type="text/css" href="<?=base_url(); ?>css/main.css" /> -->
+    	<link rel="apple-touch-icon" href="<?=base_url(); ?>images/icon60.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="<?=base_url(); ?>images/icon76.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="<?=base_url(); ?>images/icon120.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="<?=base_url(); ?>images/icon152.png" />
 		<link  rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
