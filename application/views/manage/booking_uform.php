@@ -92,9 +92,9 @@
 	<body>
 		<h3>維護定位資料</h3>
 		<? echo form_open('manage/booking_action/update'); ?>
-			<div>訂位店鋪:<?php echo $sto_name?><input type="hidden" id="stoNum" name="sto_num" value="<?php echo $sto_num ?>" /></div>
-			<input type="hidden" name="dbk_num" value="<?=$dbk_num ?>" />
-			<div>定位日期:<input type="text" id="dbkDate" name="dbk_date" value="<?=set_value('dbk_date', $dbk_date); ?>" /></div>
+			<div>訂位店鋪:<?php echo $dbk->sto_name?><input type="hidden" id="stoNum" name="sto_num" value="<?php echo $dbk->sto_num ?>" /></div>
+			<input type="hidden" name="dbk_num" value="<?=$dbk->dbk_num ?>" />
+			<div>定位日期:<input type="text" id="dbkDate" name="dbk_date" value="<?=set_value('dbk_date', $dbk->dbk_date); ?>" /></div>
 			<div>訂位時間:<select id="dbkTime" name="dbk_time">
 							<option value="13:00" title="01:00" >01:00</option>
 							<option value="13:30" title="01:30" >01:30</option>
@@ -107,12 +107,19 @@
 							<option value="19:30" title="07:30" >07:30</option>
                 		</select>
             </div>
-            <div>訂位人數:<input type="text" name="dbk_count" value="<?=$dbk_count?>"/></div>
-            <div>可訂位桌號:<br><span id="dtbNumspan" ></span></div>
-            <div>訂位大名:<input type="text" name="dbk_name" value="<?=$dbk_name ?>"/></div>
-            <div>訂位電話:<input type="text" id="dbkPhone" name="dbk_phone" value="<?=$dbk_phone ?>"/></div>
+            <div>訂位人數:<input type="text" name="dbk_count" value="<?=$dbk->dbk_count?>"/></div>
+            <div>可訂位桌號:<br><span id="dtbNumspan" >
+            	<? foreach ($dtb_nums as $key => $row) : ?>
+            		<input type="checkbox" id="store_<?php echo $key ?>"
+                    name="dtb_nums[]" value="<?php echo $row->dtb_num?>"
+                    <?php echo (in_array($row->dtb_num, $dbk->dtb_num))?'checked="checked"':'' ?> />桌子名稱:<?php echo $row->dtb_name ?> 可容納人數:<?php echo $row->dtb_max_cap ?></br>
+            	<? endforeach ?>
+            
+            </span></div>
+            <div>訂位大名:<input type="text" name="dbk_name" value="<?=$dbk->dbk_name ?>"/></div>
+            <div>訂位電話:<input type="text" id="dbkPhone" name="dbk_phone" value="<?=$dbk->dbk_phone ?>"/></div>
 			<div>備註:<br/>
-				<textarea name="dbk_memo" cols="50" rows="10"><?=set_value('dbk_memo', $dbk_memo); ?></textarea>
+				<textarea name="dbk_memo" cols="50" rows="10"><?=set_value('dbk_memo', $dbk->dbk_memo); ?></textarea>
 			</div>
 			<div>定位狀態:
 				<input type="radio" name="dbk_status"  value="0" <?=set_radio("dbk_status","0") ?> />隱藏

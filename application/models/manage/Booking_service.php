@@ -75,7 +75,7 @@
 
         public function update_booking($input){
             $data=$this->__assemble_update_booking($input);
-            $this->seve_booking_tables($input['dbk_num'], $input['dtb_num']);
+            $this->seve_booking_tables($input['dbk_num'], $input['dtb_nums']);
             $this->dia_booking_dao->update($data);
         }
         
@@ -127,6 +127,8 @@
         }
         
         public function find_unbooking_tables($input){
+            log_message("debug","Booking_service.find_unbooking_tables(".print_r($input,TRUE).") - end");
+            
             $condition_for_table= array();
             $condition_for_table['sto_num']=$input['sto_num']; 
             $table_keyset=array();
@@ -149,18 +151,35 @@
             
             // dis_booking_tables_dao
             $booking_table_keysets=array();
-            foreach ($booking_list as $row){
-                log_message("debug","Booking_service.find_unbooking_tables(".print_r($row,TRUE).") - end");
-                if($row->dbk_status == 1){
-                    $condition_by_booking_tables=array();
-                    $condition_by_booking_tables['dbk_num']=$row->dbk_num;
-                    $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
-                    foreach ($booking_tables_list as $booking_table){
-                        $booking_table_keysets[]=$booking_table->dtb_num;
+//             if(isset($input->dbk_num)){
+//                 foreach ($booking_list as $row){
+//                     log_message("debug","Booking_service.find_unbooking_tables(".print_r($row,TRUE).") - end");
+//                     if($row->dbk_status == 1 && $row->dbk_num !=$input->dbk_num){
+//                         $condition_by_booking_tables=array();
+//                         $condition_by_booking_tables['dbk_num']=$row->dbk_num;
+//                         $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
+//                         foreach ($booking_tables_list as $booking_table){
+//                             $booking_table_keysets[]=$booking_table->dtb_num;
+//                         }
+//                     }
+                    
+//                 }
+//             }
+//             else{
+                foreach ($booking_list as $row){
+                    log_message("debug","Booking_service.find_unbooking_tables(".print_r($row,TRUE).") - end");
+                    if($row->dbk_status == 1){
+                        $condition_by_booking_tables=array();
+                        $condition_by_booking_tables['dbk_num']=$row->dbk_num;
+                        $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
+                        foreach ($booking_tables_list as $booking_table){
+                            $booking_table_keysets[]=$booking_table->dtb_num;
+                        }
                     }
+                    
                 }
                 
-            }
+//             } 
             
             $not_booking_table_keysets= array_filter($table_keyset, function ($v) use ($booking_table_keysets)
                 {
@@ -183,6 +202,65 @@
             return $not_booking_tables;
         }
         
+        
+        public function updata_find_unbooking_tables($input){
+            $condition_for_table= array();
+            $condition_for_table['sto_num']=$input->sto_num;
+            $table_keyset=array();
+            $table_list = $this->dia_tables_dao->query_by_condition($condition_for_table);
+            foreach ($table_list as $table){
+                $table_keyset[]=$table->dtb_num;
+            }
+            // dia_booking_dao
+            $condition_for_booking=array();
+            $condition_for_booking['dbk_date']=$input->dbk_date;
+            if(strtotime($condition_for_booking["dbk_date"]) <= strtotime(date('Y-m-d 17:00:00',strtotime($condition_for_booking["dbk_date"])))){
+                $condition_for_booking["start_dbk_date"]=date('Y-m-d ',strtotime($condition_for_booking["dbk_date"]));
+                $condition_for_booking["end_dbk_date"]=date('Y-m-d 17:00:00',strtotime($condition_for_booking["dbk_date"]));
+            }
+            else {
+                $condition_for_booking["start_dbk_date"]=date('Y-m-d 17:00:00',strtotime($condition_for_booking["dbk_date"]));
+                $condition_for_booking["end_dbk_date"]=date('Y-m-d',strtotime($condition_for_booking["dbk_date"]));
+            }
+            $booking_list = $this->dia_booking_dao->query_by_condition($condition_for_booking);
+            
+            // dis_booking_tables_dao
+            $booking_table_keysets=array();
+            foreach ($booking_list as $row){
+                log_message("debug","Booking_service.find_unbooking_tables(".print_r($row,TRUE).") - end");
+                if($row->dbk_status == 1 && $row->dbk_num !=$input->dbk_num){
+                    $condition_by_booking_tables=array();
+                    $condition_by_booking_tables['dbk_num']=$row->dbk_num;
+                    $booking_tables_list=$this->dia_booking_tables_dao->query_by_condition($condition_by_booking_tables);
+                    foreach ($booking_tables_list as $booking_table){
+                        $booking_table_keysets[]=$booking_table->dtb_num;
+                    }
+                }
+                
+            }
+            
+            $not_booking_table_keysets= array_filter($table_keyset, function ($v) use ($booking_table_keysets)
+            {
+                foreach ($booking_table_keysets as $booking_table_keyset){
+                    if($v == $booking_table_keyset){
+                        return  false;
+                    }
+                }
+                return true;
+            }
+            );
+            $not_booking_tables=array();
+            foreach($not_booking_table_keysets as $not_booking_tables_keyset){
+                $not_booking_tables[] = $this->dia_tables_dao->query_by_pk($not_booking_tables_keyset);
+            }
+            if(empty($not_booking_tables)){
+                return FALSE;
+            }
+            
+            return $not_booking_tables;
+        }
+        
+
         public function update_checkin($input){
             $this->dia_booking_dao->update($this->__assemble_update_booking($input));
         }
