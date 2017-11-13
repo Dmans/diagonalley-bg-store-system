@@ -78,5 +78,21 @@
 			return $url_data;
 		}
     }
+    
+    /**
+     * controller for ajax that need authentication
+     */
+    class MY_AuthAjaxController extends MY_AjaxController {
+        
+        function __construct() {
+            parent::__construct();
+            
+            if(!$this->__user_login_validate()){
+                $data->redirect=TRUE;
+                echo json_encode($data);
+                return;
+            }
+        }
+    }
 
 ?>
