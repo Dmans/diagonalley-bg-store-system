@@ -60,8 +60,10 @@ class Booking_action extends MY_Controller {
 		$user = $this->session->userdata('user');
 
 		log_message("info","Booking_action.update_form(dbk_num=$dbk_num) - start usr_num=".$user->usr_num);
-		$dbk =$this->date_time_separate($this->booking_service->find_booking($dbk_num));
-    	$this->load->view("manage/booking_uform",$dbk);
+		$dbk_data=array();
+		$dbk_data['dbk'] =$this->date_time_separate($this->booking_service->find_booking($dbk_num));
+		$dbk_data['dtb_nums']=$this->booking_service->updata_find_unbooking_tables($dbk_data['dbk']);
+		$this->load->view("manage/booking_uform",$dbk_data);
 		
 		log_message("info","Booking_action.update_form(dbk_num=$dbk_num)  - end usr_num=".$user->usr_num);
 	}
