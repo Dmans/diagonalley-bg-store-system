@@ -13,7 +13,7 @@ class Automail_action extends CI_Controller {
         if($valid == 'fmweeije45gEEFGerr') {
             
             if ($send) {
-                $this->automail_service->send_mail();
+                $this->automail_service->send_afternoon_mail();
                 echo 'done';
             } else {
                 $this->load->view("automail/afternoon", $this->automail_service->get_automail_data());
