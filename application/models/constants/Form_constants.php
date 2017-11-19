@@ -194,6 +194,17 @@
 		    
 		    return NULL;
 		}
+		
+		public function transfer_sto_type($sto_type){
+		    switch ($sto_type) {
+		        case '0':
+		            return '實體店鋪';
+		        case '1':
+		            return '虛擬店舖';
+		    }
+		    
+		    return NULL;
+		}
     }
     
 ?>

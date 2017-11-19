@@ -11,6 +11,10 @@
 			$this->load->model("constants/form_constants");
 			$this->load->model("dao/dia_user_store_permission_dao");
 	    }
+	    
+	    public function save_store($store){
+	        return $this->dia_store_dao->insert($store);
+	    }
 
         public function get_stores() {
             $stores = $this->dia_store_dao->query_all();

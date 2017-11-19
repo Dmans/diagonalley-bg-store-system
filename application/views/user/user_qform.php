@@ -6,6 +6,7 @@
 		<link rel="stylesheet" media="screen" href="<?=base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?=base_url(); ?>scripts/common/ajaxForm.js"></script>
 		<script>
 			$(document).ready(function(){
 
@@ -23,15 +24,6 @@
 					
 				});
 			});
-
-
-			function showDetailContent(usrNum, url) {
-				$.get(url + usrNum, {isEmbed: 1}, function(data){
-				    $('.modal-body').html(data);
-
-				    $('#myModal').modal('show');
-				});
-			}
 		</script>
 		<title>查詢使用者</title>
 	</head>

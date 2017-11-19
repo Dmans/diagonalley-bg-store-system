@@ -6,6 +6,7 @@
 		<link rel="stylesheet" media="screen" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.min.css">
 		<script type="text/javascript" src="<?php echo base_url(); ?>scripts/jquery.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?=base_url(); ?>scripts/common/ajaxForm.js"></script>
         <script>
             $(document).ready(function(){
 
@@ -20,31 +21,8 @@
                 if (usrRole == "0") {
                     $("input[name='usr_role']").attr('disabled',true);
                 }
-
-                $("#updateForm").submit(function(e) {
-
-                    var url = $(this).attr("action"); // the script where you handle the form input.
-
-                    $.ajax({
-                           type: "POST",
-                           url: url,
-                           data: $(this).serialize(), // serializes the form's elements.
-                           dataType: 'json',
-                           success: function(data)
-                           {
-                               console.log(data); // show response from the php script.
-						       if(!data.isSuccess) {
-							       $('#validationError').html(data.errorMessage);
-							       return;
-						       }
-                               $('#listForm').submit();
-                           }
-                         });
-
-                    e.preventDefault(); // avoid to execute the actual submit of the form.
-                });
-
                 
+                initAjaxForm();
             });
 
             function onUsrRoleChange(usrRole) {

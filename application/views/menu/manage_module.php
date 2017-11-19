@@ -39,6 +39,11 @@
 	</div>
 -->
 	<div>
+		<h5>店舖資料</h5>
+		<div><a target="content" href="<?php echo site_url("manage/store_action/save_form") ?>">新增店舖資料</a></div>
+		<div><a target="content" href="<?php echo site_url("manage/store_action/list_form") ?>">查詢/維護店舖資料</a></div>
+	</div>
+	<div>
 		<h5>行事曆設定</h5>
 		<div><a target="content" href="<?php echo site_url("manage/calendar_action/save_form") ?>">新增行事曆</a></div>
 		<div><a target="content" href="<?php echo site_url("manage/calendar_action/list_form") ?>">查詢維護行事曆</a></div>
