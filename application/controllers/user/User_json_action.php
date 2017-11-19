@@ -8,7 +8,6 @@ class User_json_action extends MY_AuthAjaxController{
 	        parent::__construct();
 	        $this->load->library('form_validation');
 	        $this->load->model("user/user_service");
-	        $this->load->model('service/store_data_service');
 	        $this->load->model('constants/form_constants');
 
 	    }
@@ -25,7 +24,6 @@ class User_json_action extends MY_AuthAjaxController{
 	        
 	        log_message("info","User_json_action.update(input=".print_r($input,TRUE).") - start usr_num=".$user->usr_num);
 	        $data = new stdClass();
-	        //step1. 驗證輸入資料格式
 	        //step1. 驗證輸入資料格式
 	        $this->__update_user_format_validate();
 	        if($this->form_validation->run() != TRUE){
