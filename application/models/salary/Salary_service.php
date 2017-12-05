@@ -184,7 +184,10 @@
         }
         
         private function __remove_salary_data($year_month, $say_type) {
-            $salarys = $this->dia_salary_dao->query_by_say_month($year_month);
+            $condition = array();
+            $condition['say_month'] = $year_month;
+            $condition['say_type'] = $say_type;
+            $salarys = $this->dia_salary_dao->query_by_condition($condition);
             
             foreach ($salarys as $salary) {
                 $this->dia_salary_stores_dao->delete_by_say_num($salary->say_num);
