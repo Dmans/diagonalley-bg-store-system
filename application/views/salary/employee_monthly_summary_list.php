@@ -34,9 +34,7 @@
 			<table class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
 					<th>名稱</th>
-				<?php foreach ($stores as $store) :?>
-					<th><?php echo $store->sto_name?>工時</th>
-				<?php endforeach;?>
+					<th>各店工時</th>
 					<th>本月合計工時</th>
 					<th>前期累計積假</th>
 					<th>本月積假結算</th>
@@ -48,13 +46,13 @@
 				<?php foreach ($query_result as $salary) :?>
 				<tr>
 					<td><?php echo $salary->usr_name ?></td>
-					<?php foreach ($stores as $store) :?>
-						<?php if(empty($salary->stores[$store->sto_num])):?>
-							<td>0</td>
-						<?php else :?>
-							<td><?php echo $salary->stores[$store->sto_num]->dss_hours?></td>
-						<?php endif; ?>
-					<?php endforeach; ?>
+					<td>
+						<?php foreach ($stores as $store) :?>
+    						<?php if(!empty($salary->stores[$store->sto_num])):?>
+    							<div><?php echo $store->sto_name?>:<?php echo $salary->stores[$store->sto_num]->dss_hours?>hr</div>
+    						<?php endif; ?>
+    					<?php endforeach; ?>
+					</td>
 					<td><?php echo $salary->total_confirm_hours?></td>
 					<td><?php echo $salary->previous_say_leave_balance ?></td>
 					<td><?php echo $salary->say_leave_balance ?></td>

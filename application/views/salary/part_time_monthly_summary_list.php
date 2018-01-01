@@ -34,10 +34,7 @@
 			<table class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
 					<th>名稱</th>
-				<?php foreach ($stores as $store) :?>
-					<th><?php echo $store->sto_name?>工時</th>
-					<th><?php echo $store->sto_name?>薪資</th>
-				<?php endforeach;?>
+					<th>工時/薪資</th>
 					<th>加班工時</th>
 					<th>加班薪資</th>
 					<th>加給與獎金</th>
@@ -47,15 +44,14 @@
 				<?php foreach ($query_result as $salary) :?>
 				<tr>
 					<td><?php echo $salary->usr_name ?></td>
-					<?php foreach ($stores as $store) :?>
-						<?php if(empty($salary->stores[$store->sto_num])):?>
-							<td>0</td>
-							<td>$0</td>
-						<?php else :?>
-							<td><?php echo $salary->stores[$store->sto_num]->dss_hours?></td>
-							<td>$<?php echo $salary->stores[$store->sto_num]->dss_salary?></td>
-						<?php endif; ?>
-					<?php endforeach; ?>
+					<td>
+    					<?php foreach ($stores as $store) :?>
+    						<?php if(!empty($salary->stores[$store->sto_num])):?>
+    							<div><?php echo $store->sto_name?>:<?php echo $salary->stores[$store->sto_num]->dss_hours?>hr/$<?php echo $salary->stores[$store->sto_num]->dss_salary?></div>
+    						<?php endif; ?>
+    					<?php endforeach; ?>
+					</td>
+					
 					<td><?php echo $salary->say_extra_hours?></td>
 					<td>$<?php echo $salary->say_extra_salary?></td>
 					<td>
