@@ -56,15 +56,15 @@
 					<td>$<?php echo $salary->say_extra_salary?></td>
 					<td>
 						<?php foreach ($salary->options->positive as $option) : ?>
-							<div><?php echo $option->dso_desc ?>: +$<?php echo $option->dso_value ?></div>
+							<div><?php echo $option->dso_desc ?>: +<?php echo $option->dso_value ?></div>
 						<?php endforeach;?>
 					</td>
 					<td>
 						<?php foreach ($salary->options->negative as $option) : ?>
-							<div><?php echo $option->dso_desc ?>: -$<?php echo $option->dso_value ?></div>
+							<div><?php echo $option->dso_desc ?>: -<?php echo $option->dso_value ?></div>
 						<?php endforeach;?>
 					</td>
-					<td>$<?php echo $salary->summary?></td>
+					<td><?php echo $salary->summary?></td>
 				</tr>
 				<?php endforeach;?>
 			</table>
