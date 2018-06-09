@@ -105,8 +105,8 @@
 								<td></td>
 								<td>時薪:<?php echo $chk_user->usr_salary ?><input type="hidden" id="usrHourlySalary" value="<?php echo $chk_user->usr_salary ?>"/></td>
 								<td align="right">薪資計算</td>
-								<td>$<span id="totalBaseSalary_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $chk_user->base_salary?></span></td>
-								<td>$<span id="totalExtraSalary_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $chk_user->extra_salary?></span></td>
+								<td><span id="totalBaseSalary_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $chk_user->base_salary?></span></td>
+								<td><span id="totalExtraSalary_<?php echo $chk_user->usr_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $chk_user->extra_salary?></span></td>
 							</tr>
 						</table>
 						<div id="extraOptions_<?php echo $chk_user->usr_num ?>" class="list-group">
