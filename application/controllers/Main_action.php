@@ -29,18 +29,20 @@ class Main_action extends MY_Controller{
 
  		$this->load->view("main_list", $data);
 		$this->load->view("logout");
+		
+		$this->load->view("menu/employ_module", $data);
+		
 		if($user->usr_role==0 or $user->usr_role==1){
 			// $this->load->view("menu/game_module");
 			// $this->load->view("menu/activity_module");
 			$this->load->view("menu/user_module", $data);
 			$this->load->view("menu/manage_module",$data);
 		}
+		
 		if($user->usr_role==0){
 		    $this->load->view("menu/salary_module");
 		}
 		// $this->load->view("menu/report_module");
-		
-		$this->load->view("menu/employ_module", $data);
 
 	}
 
