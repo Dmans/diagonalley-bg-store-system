@@ -92,7 +92,7 @@
 			    <span id="__current_datetime__"></span>
     			<div role="tabpanel" class="tab-pane fade in active" id="tab_<?php echo $rows->sto_num?>">
     				<div class="text-danger">僅顯示查詢日後兩週的定位資料! 時間越接近的越上面</div>
-    				<? if(isset($bookings) && count($bookings)>0): ?>
+    				<?php if(isset($bookings) && count($bookings)>0): ?>
     				<table class="table table-hover table-bordered table-condensed">
     					<tr>
     <!-- 				店舖 定位時間 定位人數 稱謂 電話 備註 -->
@@ -106,7 +106,7 @@
     						<th text-center width="30%">定位資訊</th>
     						<th width="5%">取消</th>
     					</tr>
-    					<? foreach ($bookings as $key=>$row) : ?> 
+    					<?php foreach ($bookings as $key=>$row) : ?> 
     					<?php if($rows->sto_num==$row->sto_num):?>
     					<tr>
     						<td id="checkInBooking_<?=$row->dbk_num ?>">
@@ -128,11 +128,11 @@
     						</td>
     					</tr>
     					<?php endif ;?>
-    					<? endforeach  ?>
+    					<?php endforeach  ?>
     				</table>
-    				<? endif ?>
+    				<?php endif ?>
     			</div>
-			<? endforeach  ?>
+			<?php endforeach  ?>
 
 		</div>
 		</div>

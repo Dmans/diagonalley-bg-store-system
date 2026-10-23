@@ -79,7 +79,7 @@
 		}
 
 		public function save_pos_fast_button($input){
-			$fast_pos=NULL;
+			$fast_pos=new stdClass();
 			$fast_pos->pod_svalue=$input['pod_svalue'];
 			$fast_pos->pod_desc=$input['pod_desc'];
 			$fast_pos->tag_num=$input['tag_num'];
@@ -126,7 +126,7 @@
 		}
 
 		public function update_pos_fast_button($input){
-			$pfs=NULL;
+			$pfs=new stdClass();
 			$pfs->pfs_num=$input['pfs_num'];
 
 			$value_conditions=array("pod_svalue","pod_desc","pod_status","pfs_order","pfs_visible");
@@ -156,6 +156,7 @@
 
 				// step2.針對銷售類型作加總營收
 				if(count($tag_sub_svalue)<=0 || !array_key_exists($pos->tag->tag_num, $tag_sub_svalue)){
+					$tag_sub_svalue[$pos->tag->tag_num]=new stdClass();
 					$tag_sub_svalue[$pos->tag->tag_num]->tag_name=$pos->tag->tag_name;
 					$tag_sub_svalue[$pos->tag->tag_num]->sub_svalue=0;
 				}

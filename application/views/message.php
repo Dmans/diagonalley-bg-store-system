@@ -11,13 +11,13 @@
 	<body>
 		<h1>處理結果</h1>
 		<div class="text-success"><h3><?=$message  ?></h3></div>
-		<? if(isset($extend_url)): ?>
+		<?php if(isset($extend_url)): ?>
 		<div>
-			<? foreach ($extend_url as $key => $url_data) : ?>
+			<?php foreach ($extend_url as $key => $url_data) : ?>
 				<div><a href="<?=$url_data->url ?>" class="btn btn-default" ><?=$url_data->title ?></a></div>
-			<? endforeach ?>
+			<?php endforeach ?>
 		</div>
-		<? endif ?>
+		<?php endif ?>
 	</body>
 </html>
 

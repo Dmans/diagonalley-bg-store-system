@@ -66,7 +66,7 @@
 		}
 
 		protected function __generate_url_data($title,$target_url,$param=NULL){
-			$url_data=NULL;
+			$url_data=new stdClass();
 			$url_data->title=$title;
 
 			if($param!=NULL){
@@ -88,6 +88,7 @@
             parent::__construct();
             
             if(!$this->__user_login_validate()){
+                $data = new stdClass();
                 $data->redirect=TRUE;
                 echo json_encode($data);
                 return;

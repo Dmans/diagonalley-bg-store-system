@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>活動資料</h1>
-		<? echo form_open('activity/activity_action/save'); ?>
+		<?php echo form_open('activity/activity_action/save'); ?>
 			<div>活動名稱:<?=$act_name ?></div>
 			<div>活動類型:<?=$act_type_desc ?></div>
 			<div>活動說明:<?=$act_desc ?></div>

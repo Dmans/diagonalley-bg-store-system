@@ -74,18 +74,18 @@
 		
 		<div>
 			
-			<? echo form_open('report/report_action/pos_record_page_table_list'); ?>
+			<?php echo form_open('report/report_action/pos_record_page_table_list'); ?>
 			<div>查詢月份：
 				<select id="current_select_date" name="current_select_date">
-					<? $prev_year_count=2 ?>
-					<? for ($i=0; $i<=$prev_year_count ; $i++) : ?> 
-						<? for ($j=1; $j <=12 ; $j++) : ?>
-							<? $option=sprintf("%d-%02d", ($now_year-$prev_year_count+$i), $j) ?> 
+					<?php $prev_year_count=2 ?>
+					<?php for ($i=0; $i<=$prev_year_count ; $i++) : ?> 
+						<?php for ($j=1; $j <=12 ; $j++) : ?>
+							<?php $option=sprintf("%d-%02d", ($now_year-$prev_year_count+$i), $j) ?> 
 							<option value="<?=$option ?>" <?=($option==$current_select)?"selected='selected'":""; ?>>
 								<?=$option ?>
 							</option>
-						<? endfor ?>
-					<? endfor ?>	
+						<?php endfor ?>
+					<?php endfor ?>	
 				</select>
 			</div>
 			<?=validation_errors('<div class="text-danger">','</div>') ?>
@@ -95,20 +95,20 @@
 		<table class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
 				<th>日期</th>
-				<? foreach ($tags as $tag) : ?>
+				<?php foreach ($tags as $tag) : ?>
 					<th><?=$tag->tag_name ?></th>
-				<? endforeach ?>
+				<?php endforeach ?>
 			</tr>
-			<? foreach ($pos_list as $pos_data) : ?>
+			<?php foreach ($pos_list as $pos_data) : ?>
 			
 				<tr>
 					<td><?=$pos_data['pos_date'] ?>
 					</td>
-					<? foreach ($tags as $tag) : ?>
+					<?php foreach ($tags as $tag) : ?>
 						<td><?=$pos_data[$tag->tag_num]->total_svalue ?></td>
-					<? endforeach ?>
+					<?php endforeach ?>
 				</tr>
-			<? endforeach  ?>
+			<?php endforeach  ?>
 		</table>
 		<div id="tableGraph"></div>
 	</body>

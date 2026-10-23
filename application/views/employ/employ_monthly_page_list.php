@@ -20,7 +20,7 @@
 	<body class="container-fluid">
 		<h3>員工打卡紀錄查詢</h3>
 		<div>
-			<? echo form_open('employ/employ_action/employ_monthly_list'); ?>
+			<?php echo form_open('employ/employ_action/employ_monthly_list'); ?>
 				<div>查詢月份:
 					<select name="year_month">
 						<?php foreach ($month_options as $option): ?>
@@ -32,8 +32,8 @@
 			</form>
 		</div>
 		<div class="row">
-			<? if(isset($query_result)):  ?>
-				<? foreach($query_result as $chk_user): ?>
+			<?php if(isset($query_result)):  ?>
+				<?php foreach($query_result as $chk_user): ?>
 					<div class="col-md-10">
 						<table class="table table-striped table-hover table-bordered table-condensed">
 							<tr>
@@ -48,11 +48,11 @@
 								<th>工作時數(審核時數)</th>
 
 							</tr>
-							<? foreach($chk_user->stores as $store): ?>
+							<?php foreach($chk_user->stores as $store): ?>
 							    <tr>
 							       <td colspan="6"><?=$store->store_data->sto_name ?></td>
 							    </tr>
-						        <? foreach($store->chks as $chk): ?>
+						        <?php foreach($store->chks as $chk): ?>
 
 								<tr>
 									<td><?=$chk->chk_in_time ?></td>
@@ -62,7 +62,7 @@
 									<td><?=$chk->interval ?></td>
 									<td><?=$chk->confirm_hours ?></td>
 								</tr>
-								<? endforeach ?>
+								<?php endforeach ?>
 								<tr>
 								    <td></td>
 								    <td></td>
@@ -71,7 +71,7 @@
                                     <td><?=$store->summary->total_hours  ?></td>
                                     <td><?=$store->summary->total_confirm_hours  ?></td>
                                 </tr>
-							<? endforeach ?>
+							<?php endforeach ?>
 							<tr>
 								<td></td>
 								<td></td>
@@ -82,8 +82,8 @@
 							</tr>
 						</table>
 					</div>
-				<? endforeach ?>
-			<? endif ?>
+				<?php endforeach ?>
+			<?php endif ?>
 		</div>
 	</body>
 </html>

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h3>新增公告</h3>
-		<? echo form_open('manage/manage_action/daily_save'); ?>
+		<?php echo form_open('manage/manage_action/daily_save'); ?>
 			<div>公告內容:<br/>
 				<textarea name="ddr_content" cols="50" rows="10"></textarea>
 			</div>

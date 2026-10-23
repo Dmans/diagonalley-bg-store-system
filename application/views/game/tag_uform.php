@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<h2>維護遊戲類型</h2>
-		<? echo form_open('game/game_tag_action/tag_update'); ?>
+		<?php echo form_open('game/game_tag_action/tag_update'); ?>
 			<input type="hidden" name="tag_num" value="<?=$tag_num ?>" />
 			<div>遊戲類型名稱:<input type="text" name="tag_name" maxlength="32" value="<?=set_value("tag_name",$tag_name) ?>" /></div>
 			<div>遊戲類型說明:<input type="text" name="tag_desc" maxlength="128" value="<?=set_value("tag_desc",$tag_desc) ?>" /></div>

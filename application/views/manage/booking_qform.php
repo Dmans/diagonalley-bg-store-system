@@ -9,13 +9,13 @@
 	</head>
 	<body>
 		<h1>查詢訂位資料</h1>
-		<? echo form_open('manage/booking_action/lists'); ?>
+		<?php echo form_open('manage/booking_action/lists'); ?>
 			<div>客戶名稱:<input type="text" name="dbk_name" maxlength="32" /></div>
 			<div>店鋪名稱:
 				<select name="sto_num">
-                    <? foreach ($stores as $store): ?>
+                    <?php foreach ($stores as $store): ?>
                         <option value="<?php echo $store->sto_num ?>" title="<?php echo $store->sto_name ?>" ><?php echo $store->sto_name ?></option>
-                    <? endforeach ?>
+                    <?php endforeach ?>
                 </select>
             </div>
 			<div>客戶手機:<input type="text" name="dbk_phone" maxlength="32" /></div>
@@ -36,7 +36,7 @@
 			<div><input type="submit" value="查詢" class="btn btn-primary" /></div>
 		</form>	
 		<div>
-			<? if(!empty($query_result)):  ?>
+			<?php if(!empty($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
@@ -47,7 +47,7 @@
 						<th>電話</th>
 						<th>客戶人數</th>
 					</tr>
-					<? foreach ($query_result as $row) : ?>
+					<?php foreach ($query_result as $row) : ?>
 						<tr>
 						
 							<td>
@@ -60,11 +60,11 @@
 							<td><?php echo $row->dbk_phone ?></td>
 							<td><?php echo $row->dbk_count ?></td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 	</body>
 </html>

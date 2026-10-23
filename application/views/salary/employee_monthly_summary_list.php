@@ -18,7 +18,7 @@
 	<body class="container-fluid">
 		<h3>每月正職人員薪資總表</h3>
 		<div>
-			<? echo form_open('salary/salary_action/employee_monthly_summary_list'); ?>
+			<?php echo form_open('salary/salary_action/employee_monthly_summary_list'); ?>
 				<div>審核月份:
 					<select name="year_month">
 						<?php foreach ($month_options as $option): ?>
@@ -76,14 +76,14 @@
 			<table border="0">
 				<tr>
 					<td>
-						<? echo form_open('salary/salary_action/employee_sendmail'); ?>
+						<?php echo form_open('salary/salary_action/employee_sendmail'); ?>
             				<input type="hidden" value="<?php echo $year_month?>" name="year_month"/>
             				<input type="hidden" value="true" name="is_send"/>
             				<input type="submit" value="寄送所有正職人員薪資單" class="btn btn-primary" />
             			</form>
 					</td>
 					<td>
-						<? echo form_open('salary/salary_action/employee_sendmail'); ?>
+						<?php echo form_open('salary/salary_action/employee_sendmail'); ?>
             				<input type="hidden" value="<?php echo $year_month?>" name="year_month"/>
             				<input type="hidden" value="false" name="is_send"/>
             				<input type="submit" value="預覽所有正職人員薪資單" class="btn btn-primary" />

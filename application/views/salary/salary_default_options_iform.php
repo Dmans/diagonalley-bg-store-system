@@ -31,7 +31,7 @@
 	</head>
 	<body class="container-fluid">
 		<h1>新增常用薪資附加項目</h1>
-		<? echo form_open('salary/salary_default_options_action/save'); ?>
+		<?php echo form_open('salary/salary_default_options_action/save'); ?>
 			<div>項目類型:
 				<select id="dsdoType" name="dsdo_type">
 					<option value="0" <?php echo set_select('dsdo_type', '0'); ?>><?php echo $form_constants->transfer_dso_type(0)?></option>

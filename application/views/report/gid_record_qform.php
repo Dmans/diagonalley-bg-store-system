@@ -33,7 +33,7 @@
 	</head>
 	<body>
 		<h1>遊戲使用報表</h1>
-		<? echo form_open('report/report_action/gid_record_list'); ?>
+		<?php echo form_open('report/report_action/gid_record_list'); ?>
 		
 			<div>查詢區間:
 				<input type="text" id="dateFrom" name="date_from" />~
@@ -44,7 +44,7 @@
 		</form>
 		
 		<div>
-			<? if(isset($query_result)):  ?>
+			<?php if(isset($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table>
 					<tr>
@@ -58,13 +58,13 @@
 						<td>上次修改日期</td>
 						
 					</tr>
-					<? foreach ($query_result as $row) : ?> 
+					<?php foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
 								<a href="<?=site_url("user/user_action/page_detail/".$row->usr_num) ?>">查詢</a>
-							<? if($usr_role==0 OR $usr_role==1): ?>
+							<?php if($usr_role==0 OR $usr_role==1): ?>
 								/<a href="<?=site_url("user/user_action/update_form/".$row->usr_num) ?>">維護</a>
-							<? endif ?>
+							<?php endif ?>
 							</td>
 							<td><?=$row->usr_num ?></td>
 							<td><?=$row->usr_id ?></td>
@@ -74,11 +74,11 @@
 							<td><?=$row->register_date ?></td>
 							<td><?=$row->modify_date ?></td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 	</body>
 </html>

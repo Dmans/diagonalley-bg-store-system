@@ -114,7 +114,7 @@
 	</head>
 	<body>
 		<h3>新增定位資料</h3>
-		<? echo form_open('manage/booking_action/save'); ?>
+		<?php echo form_open('manage/booking_action/save'); ?>
 			<div>訂位店鋪:<?php echo $stores->sto_name?><input type="hidden" id="stoNum" name="sto_num" value="<?php echo $stores->sto_num ?>" /></div>
 			<div>訂位日期:<input type="text" id="dbkDate" name="dbk_date" /></div>
 			<div>訂位時間:<select id="dbkTime" name="dbk_time">

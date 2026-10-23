@@ -34,7 +34,7 @@
 	</head>
 	<body>
 		<h1>查詢遊戲入庫資料</h1>
-		<? echo form_open('game/game_import_action/game_import_list'); ?>
+		<?php echo form_open('game/game_import_action/game_import_list'); ?>
 			<div>查詢區間:
 				從<input type="text" id="dateFrom" name="start_gim_date"/>
 				到<input type="text" id="dateTo" name="end_gim_date"/>
@@ -45,22 +45,22 @@
 				<input type="reset" value="重填" class="btn" />
 			</div>
 		</form>
-		<? if(isset($query_result)):  ?>
+		<?php if(isset($query_result)):  ?>
 			<table id="gameListTable" class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
 					<th>遊戲入庫單流水號</th>
 					<th>入庫日期</th>
 					<th>新增人員</th>
 				</tr>
-				<? foreach ($query_result as $row) : ?> 
+				<?php foreach ($query_result as $row) : ?> 
 						<td>
 							<a href="<?=site_url("game/game_import_action/game_import_page_detail/".$row->gim_num) ?>"><?=$row->gim_num ?></a>
 						</td>
 						<td><?=$row->gim_date ?></td>
 						<td><?=$row->usr_num ?></td>
 					</tr>
-				<? endforeach  ?>
+				<?php endforeach  ?>
 			</table>
-		<? endif ?>
+		<?php endif ?>
 	</body>
 </html>

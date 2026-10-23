@@ -54,6 +54,7 @@
 		
 		private function __assemble_save_activity($input){
 				
+			$act = new stdClass();
 			$act->act_name=$input['act_name'];
 			$act->act_type=$input['act_type'];
 			$act->act_desc=$input['act_desc'];
@@ -66,6 +67,7 @@
 		
 		private function __assemble_update_activity($input){
 				
+			$act = new stdClass();
 			$act->act_num=$input['act_num'];	
 			$act->act_name=$input['act_name'];
 			$act->act_type=$input['act_type'];
@@ -91,7 +93,7 @@
 		
 		private function __assemble_activity_query_result($row){
 				
-			$result=NULL;
+			$result=new stdClass();
 			$result->act_num=$row->act_num;
 			$result->act_name=$row->act_name;
 			$result->act_desc=$row->act_desc;
@@ -106,6 +108,7 @@
 		}
 		
 		private function __assemble_view_gid($gid,$game){
+			$result = new stdClass();
 			$result->gam_num=$game->gam_num;
 			$result->gam_cname=$game->gam_cname;
 			$result->gam_ename=$game->gam_ename;

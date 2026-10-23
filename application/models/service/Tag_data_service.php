@@ -30,6 +30,7 @@
 		}
 
 		private function __assemble_save_tag($input){
+			$tag = new stdClass();
 			$tag->tag_name=$input['tag_name'];
 			$tag->tag_type=$input['tag_type'];
 			$tag->tag_desc=$input['tag_desc'];
@@ -50,6 +51,7 @@
 
 		private function __assemble_update_tag($input){
 
+			$tag = new stdClass();
 			$tag->tag_num=$input['tag_num'];
 
 			if(isset($input['tag_name'])){

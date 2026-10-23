@@ -17,7 +17,7 @@
     </head>
     <body class="container-fluid">
         <h3>維護店舖資料</h3>
-        <? echo form_open('manage/store_ajax_action/update', 'id="updateForm"'); ?>
+        <?php echo form_open('manage/store_ajax_action/update', 'id="updateForm"'); ?>
         	<div><input type="hidden" name="sto_num" value="<?php echo $store->sto_num ?>" /></div>
             <div>店舖名稱:<input type="text" name="sto_name"  value="<?php echo set_value('sto_name', $store->sto_name); ?>"/></div>
             <div>店舖類型:

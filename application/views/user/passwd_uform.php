@@ -10,7 +10,7 @@
 	</head>
 	<body class="container-fluid">
 		<h1>維護使用者密碼</h1>
-		<? echo form_open('user/user_action/change_passwd'); ?>
+		<?php echo form_open('user/user_action/change_passwd'); ?>
 			<div>舊密碼:<input type="password" name="old_usr_passwd" maxlength="32" /></div>
 			<div>新密碼:<input type="password" name="usr_passwd" maxlength="32" /></div>
 			<div>確認密碼:<input type="password" name="confirm_usr_passwd" maxlength="32" /></div>

@@ -53,7 +53,7 @@
 	<body>
 		<h1>遊戲對應條碼</h1>
 		<div>遊戲中文名稱:<?=$game->gam_cname?></div>
-		<? echo form_open('game/game_action/game_barcode_update'); ?>
+		<?php echo form_open('game/game_action/game_barcode_update'); ?>
 			<input type="hidden" id="gamNum" name="bar_value" value="<?=$game->gam_num ?>" />
 			<div>條碼值:<input type="text" id="barCode" name="bar_code" value="<?=set_value("bar_code", $bar_code) ?>" /></div>
 			<?=validation_errors('<div class="text-danger">','</div>') ?>

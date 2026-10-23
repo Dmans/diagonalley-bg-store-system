@@ -23,6 +23,7 @@ class Manage_ajax_action extends MY_AjaxController {
 		$grd_num = $this->manage_service->update_gid_status($input,$user->usr_num);
 		
 		
+		$result = new stdClass();
 		$result->isSuccess=TRUE;
 		$result->grd_num=$grd_num;
 		

@@ -167,6 +167,14 @@
                         $checked_users[$chk->usr_num]=$this->dia_user_dao->query_by_pk($chk->usr_num);
                     }
 
+                    if(!isset($checked_users[$chk->usr_num]->stores)){
+                        $checked_users[$chk->usr_num]->stores=array();
+                    }
+                    if(!isset($checked_users[$chk->usr_num]->stores[$chk->sto_num])){
+                        $checked_users[$chk->usr_num]->stores[$chk->sto_num]=new stdClass();
+                        $checked_users[$chk->usr_num]->stores[$chk->sto_num]->chks=array();
+                    }
+
                     $checked_users[$chk->usr_num]->stores[$chk->sto_num]->chks[]=$chk;
                     $checked_users[$chk->usr_num]->stores[$chk->sto_num]->store_data=$stores[$chk->sto_num];
                 }

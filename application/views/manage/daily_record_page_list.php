@@ -23,7 +23,7 @@
 				<th>公告狀態</th>
 				<th>刪除</th>
 			</tr>
-			<? foreach ($dailys as $key=>$row) : ?> 
+			<?php foreach ($dailys as $key=>$row) : ?> 
 				<tr>
 					<td valign="top"><?=$row->register_date ?></td>
 					<td>
@@ -34,7 +34,7 @@
 					<td><?=$row->ddr_status_desc ?></td>
 					<td><a href="<?=site_url("manage/manage_action/daily_remove/".$row->ddr_num) ?>">刪除</a></td>
 				</tr>
-			<? endforeach  ?>
+			<?php endforeach  ?>
 		</table>
 	</body>
 </html>

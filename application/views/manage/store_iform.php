@@ -15,7 +15,7 @@
     </head>
     <body class="container-fluid">
         <h3>新增店舖資料</h3>
-        <? echo form_open('manage/store_action/save'); ?>
+        <?php echo form_open('manage/store_action/save'); ?>
             <div>店舖名稱:<input type="text" name="sto_name"  value="<?php echo set_value('sto_name', ''); ?>"/></div>
             <div>店舖類型:
                 <input type="radio" name="sto_type" value="0" <?=set_radio("sto_type","0", TRUE) ?> /><?php echo $form_constants->transfer_sto_type(0)?>

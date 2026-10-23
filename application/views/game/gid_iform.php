@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>新增上架遊戲</h1>
-		<? echo form_open('game/game_action/gid_save'); ?>
+		<?php echo form_open('game/game_action/gid_save'); ?>
 			<input type="hidden" name="gam_num" value="<?=$gam_num ?>" />
 			<div>遊戲中文名稱:<?=$gam_cname ?></div>
 			<div>遊戲英文名稱:<?=$gam_ename ?></div>

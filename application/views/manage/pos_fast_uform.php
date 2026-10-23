@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<h3>維護快速銷售按鈕</h3>
-		<? echo form_open('manage/pos_action/pos_fast_button_update'); ?>
+		<?php echo form_open('manage/pos_action/pos_fast_button_update'); ?>
 			<input type="hidden" name="pfs_num" value="<?=$pfs_num ?>" />
 			<div>銷售類型:<?=$tag->tag_name ?></div>
 			<div>銷售說明:<input type="text" name="pod_desc" maxlength="256" size="64" value="<?=set_value('pod_desc', $pod_desc); ?>" /></div>

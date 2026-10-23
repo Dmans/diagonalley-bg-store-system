@@ -129,7 +129,7 @@
 	</head>
 	<body>
 		<h1>新增訂單</h1>
-		<? echo form_open('order/order_action/save', array("id"=>"saveForm")); ?>
+		<?php echo form_open('order/order_action/save', array("id"=>"saveForm")); ?>
 			<div>
 				訂購會員帳號:<input type="text" id="buyUsrId" name="usr_id" value="<?=set_value("usr_id","") ?>" maxlength="64" size="50" />
 				<input type="hidden" name="usr_num" id="usrNum" value="<?=set_value("usr_num",$default_usr_num) ?>" />

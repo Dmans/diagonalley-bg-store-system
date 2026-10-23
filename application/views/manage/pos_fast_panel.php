@@ -102,7 +102,7 @@
 	<body>
 		<h3>新增銷售快速介面</h3>
 		<div id="fastButtonArea">
-			<? foreach ($query_result as $fastpos ) : ?>
+			<?php foreach ($query_result as $fastpos ) : ?>
 				<button id="fastButton_<?=$fastpos->pfs_num ?>" 
 						class="fastButton btn btn-default btn-lg" 
 					    type="button" 
@@ -112,7 +112,7 @@
 					    tagName="<?=$fastpos->tag->tag_name ?>">
 					<?=$fastpos->tag->tag_name ?><?=$fastpos->pod_desc ?> $<?=$fastpos->pod_svalue ?>
 				</button>
-			<? endforeach ?>
+			<?php endforeach ?>
 		</div>
 		<div id="fastCartArea">
 			<form id="currentPosForm">

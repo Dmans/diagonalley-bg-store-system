@@ -12,7 +12,7 @@
 	</head>
 	<body  class="container-fluid">
 		<h1>查詢維護行事曆</h1>
-		<? echo form_open('manage/calendar_action/lists'); ?>
+		<?php echo form_open('manage/calendar_action/lists'); ?>
 			<div>日期類型:
 				<select id="calType" name="cal_type">
 				<option value="-1" <?php echo set_select('cal_type', -1)?>>全部</option>
@@ -25,7 +25,7 @@
 		</form>
 		
 		<div>
-			<? if(isset($query_result) AND !empty($query_result)):  ?>
+			<?php if(isset($query_result) AND !empty($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
@@ -35,7 +35,7 @@
 						<th>日期說明</th>
 						<th>刪除</th>
 					</tr>
-					<? foreach ($query_result as $row) : ?> 
+					<?php foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
 								<a href="<?=site_url("manage/calendar_action/update_form/".$row->cal_num) ?>" class="btn btn-warning btn-xs">維護</a>
@@ -47,11 +47,11 @@
 								<a href="<?=site_url("manage/calendar_action/remove/".$row->cal_num) ?>" class="btn btn-danger btn-xs">刪除</a>
 							</td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 	</body>
 </html>

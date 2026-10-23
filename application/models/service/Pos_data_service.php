@@ -68,6 +68,7 @@
 		
 		private function __assemble_save_pod($input,$usr_num){
 			
+			$pod = new stdClass();
 			$pod->pod_date=$input['pod_date'];	
 			$pod->pod_svalue=$input['pod_svalue'];
 			$pod->tag_num=$input['tag_num'];
@@ -84,6 +85,7 @@
 		
 		private function __assemble_update_pod($input,$usr_num){
 			
+			$pod = new stdClass();
 			$pod->pod_num=$input['pod_num'];	
 			
 			$value_conditions=array("pod_date","pod_svalue","pod_desc","pod_status");
@@ -116,7 +118,7 @@
 		
 		private function __assemble_view_pos($row,$tags){
 				
-			$result=NULL;
+			$result=new stdClass();
 			$result->pod_num=$row->pod_num;
 			$result->pod_svalue=$row->pod_svalue;
 			$result->tag=$tags[$row->tag_num];

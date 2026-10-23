@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 class Game_tag_action extends MY_Controller {

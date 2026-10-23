@@ -34,7 +34,7 @@
 	</head>
 	<body>
 		<h1>查詢訂單資料</h1>
-		<? echo form_open('order/order_action/order_list'); ?>
+		<?php echo form_open('order/order_action/order_list'); ?>
 			<div>訂單流水號:<input type="text" name="ord_num" maxlength="32" size="24" /></div>
 <!-- 			<div>遊戲流水號:<input type="text" name="gam_num" maxlength="32" size="24" /></div> -->
 			<div>訂單成立時間:
@@ -52,7 +52,7 @@
 		</form>
 		
 		<div>
-			<? if(isset($query_result)):  ?>
+			<?php if(isset($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
@@ -67,13 +67,13 @@
 						<th>訂單成立者</th>
 						<th>取消訂單</th>
 					</tr>
-					<? foreach ($query_result as $row) : ?> 
+					<?php foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
 								<a href="<?=site_url("order/order_action/page_detail/".$row->ord_num) ?>" class="btn btn-info btn-xs">查詢</a>
-							<? if($usr_role==0 OR $usr_role==1): ?>
+							<?php if($usr_role==0 OR $usr_role==1): ?>
 <!-- 								<a href="<?=site_url("order/order_action/update_form/".$row->ord_num) ?>">維護</a> -->
-							<? endif ?>
+							<?php endif ?>
 							</td>
 							<td><?=$row->ord_num ?></td>
 							<td><?=$row->usr_id ?></td>
@@ -85,11 +85,11 @@
 							<td><?=$row->ord_usr_name ?></td>
 							<td><a href="<?=site_url("order/order_action/cancel/".$row->ord_num) ?>" class="btn btn-danger btn-xs" >取消</a></td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 	</body>
 </html>

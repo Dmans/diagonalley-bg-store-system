@@ -17,7 +17,7 @@
 				<th>按鈕排序</th>
 				<th>刪除銷售按鈕</th>
 			</tr>
-			<? foreach($pfs_list as $pfs): ?>
+			<?php foreach($pfs_list as $pfs): ?>
 				<tr>
 					<td><a href="<?=site_url("manage/pos_action/pos_fast_button_update_form/".$pfs->pfs_num) ?>" class="btn btn-warning btn-xs" >維護</a></td>
 					<td><?=$pfs->tag->tag_name ?></td>
@@ -26,7 +26,7 @@
 					<td><?=$pfs->pfs_order ?></td>
 					<td><a href="<?=site_url("manage/pos_action/pos_fast_button_remove/".$pfs->pfs_num) ?>" class="btn btn-danger btn-xs" >刪除</a></td>
 				</tr>
-			<? endforeach ?>
+			<?php endforeach ?>
 		</table>
 		
 	</div>

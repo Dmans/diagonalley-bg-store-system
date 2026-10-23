@@ -35,7 +35,7 @@
 		public function save_import_game($input, $user){
 				
 			//step1. 組入庫單
-			$import_form = NULL;
+			$import_form = new stdClass();
 			$import_form->gim_date = date('Y-m-d H:i:s');
 			$import_form->usr_num = $user->usr_num;
 			$import_form->gim_status = 1; //啟用
@@ -48,7 +48,7 @@
 				$game = $this->game_data_service->find_game($value["gam_num"]);
 					
 				
-				$gii = NULL;	
+				$gii = new stdClass();	
 				$gii->gim_num=$gim_num;
 				$gii->gam_num=$value["gam_num"];
 				$gii->gii_ivalue=$value["gii_ivalue"];

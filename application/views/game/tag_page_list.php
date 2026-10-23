@@ -14,7 +14,7 @@
 	<body>
 		<h2>遊戲類型列表</h2>
 		<div class="row">
-			<? if(isset($tags)):  ?>
+			<?php if(isset($tags)):  ?>
 				<div class="col-md-9">
 					<table class="table table-striped table-hover table-bordered table-condensed">
 						<tr>
@@ -23,7 +23,7 @@
 							<th>遊戲類型說明</th>
 							<th>刪除</th>
 						</tr>
-						<? foreach($tags as $tag): ?>
+						<?php foreach($tags as $tag): ?>
 							<tr>
 								<td>
 									<a target="content" href="<?=site_url("game/game_tag_action/tag_update_form/".$tag->tag_num) ?>" class="btn btn-warning btn-xs">
@@ -38,10 +38,10 @@
 									</a>
 								</td>
 							</tr>
-						<? endforeach ?>
+						<?php endforeach ?>
 					</table>
 				</div>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 	</body>
 	

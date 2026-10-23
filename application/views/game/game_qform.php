@@ -13,17 +13,17 @@
 		<table>
 			<tr>
 				<td>
-					<? echo form_open('game/game_action/game_list'); ?>
+					<?php echo form_open('game/game_action/game_list'); ?>
 						<div>遊戲中文名稱:<input type="text" name="gam_cname" maxlength="32" value="<?=set_value("gam_cname","") ?>" /></div>
 						<div>遊戲英文名稱:<input type="text" name="gam_ename" maxlength="32" value="<?=set_value("gam_ename","") ?>" /></div>
 						<div>遊戲分類:
 							<select name="tag_num">
 								<option value="-1">請選擇</option>
-								<? if(count($tags)>0): ?>
-									<? foreach ($tags as $key => $tag): ?>
+								<?php if(count($tags)>0): ?>
+									<?php foreach ($tags as $key => $tag): ?>
 										<option value="<?=$tag->tag_num ?>"><?=$tag->tag_name ?></option>
-									<? endforeach ?>
-								<? endif ?>
+									<?php endforeach ?>
+								<?php endif ?>
 							</select>
 						</div>
 						<div>遊戲庫存量:
@@ -49,7 +49,7 @@
 				</td>
 				<td>或</td>
 				<td>
-					<? echo form_open('game/game_action/game_list'); ?>
+					<?php echo form_open('game/game_action/game_list'); ?>
 						<div>遊戲條碼:<input type="text" name="bar_code" value="<?=set_value("bar_code","") ?>" /></div>
 						<div>
 							<input type="submit" value="查詢遊戲"  class="btn btn-primary" />
@@ -59,13 +59,13 @@
 				</td>
 			</tr>
 		</table>
-		<? if(isset($query_result)):  ?>
+		<?php if(isset($query_result)):  ?>
 			<table id="gameListTable" class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
-					<? if($usr_role==0 OR $usr_role==1): ?>	
+					<?php if($usr_role==0 OR $usr_role==1): ?>	
 						<th style="width: 100px">查詢/維護</th>
 						
-					<? endif ?>
+					<?php endif ?>
 					<th style="width: 80px">特殊維護</th>
 					<th>遊戲流水號</th>
 					<th>遊戲中文名稱</th>
@@ -76,19 +76,19 @@
 					<th>遊戲牌數量</th>
 					<th>遊戲售價</th>
 					<th>遊戲備註</th>
-					<? if($usr_role==0 OR $usr_role==1): ?>
+					<?php if($usr_role==0 OR $usr_role==1): ?>
 						<th style="width: 80px">刪除</th>	
 						<!-- <th>上架遊戲</th> -->
-					<? endif ?>
+					<?php endif ?>
 				</tr>
-				<? foreach ($query_result as $row) : ?> 
+				<?php foreach ($query_result as $row) : ?> 
 					<tr id="gameTr_<?=$row->gam_num ?>">
-						<? if($usr_role==0 OR $usr_role==1): ?>	
+						<?php if($usr_role==0 OR $usr_role==1): ?>	
 							<td>
 								<a href="<?=site_url("game/game_action/game_page_detail/".$row->gam_num) ?>" class="btn btn-info btn-xs">查詢</a>
 								<a href="<?=site_url("game/game_action/game_update_form/".$row->gam_num) ?>" class="btn btn-warning btn-xs">維護</a>
 							</td>
-						<? endif ?>
+						<?php endif ?>
 						<td>
 							<a href="<?=site_url("game/game_action/game_tag_update_form/".$row->gam_num) ?>"class="btn btn-success btn-xs">維護分類</a>
 							<a href="<?=site_url("game/game_action/game_barcode_update_form/".$row->gam_num) ?>"class="btn btn-primary btn-xs">維護條碼</a>
@@ -102,14 +102,14 @@
 						<td><?=$row->gam_cardcount ?></td>
 						<td><?=$row->gam_svalue ?></td>
 						<td><?=(isset($row->gam_memo))?nl2br($row->gam_memo):"" ?></td>
-						<? if($usr_role==0 OR $usr_role==1): ?>	
+						<?php if($usr_role==0 OR $usr_role==1): ?>	
 							<td><a href="<?=site_url("game/game_action/game_remove/".$row->gam_num) ?>" class="btn btn-danger btn-xs">刪除</a></td>
 							<!-- <td><a href="<?=site_url("game/game_action/gid_save_form/".$row->gam_num) ?>">新增上架遊戲</a></td> -->
-						<? endif ?>
+						<?php endif ?>
 					</tr>
-				<? endforeach  ?>
+				<?php endforeach  ?>
 			</table>
-		<? endif ?>
+		<?php endif ?>
 	</body>
 	
 </html>

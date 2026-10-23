@@ -29,19 +29,19 @@
 	</head>
 	<body class="container-fluid">
 		<h1>查詢使用者</h1>
-		<? echo form_open('user/user_action/lists', 'id="listForm"'); ?>
+		<?php echo form_open('user/user_action/lists', 'id="listForm"'); ?>
 			<div>帳號:<input type="text" name="usr_id" maxlength="32" value="<?php echo set_value("usr_id", "")?>"/></div>
 			<div>名稱:<input type="text" name="usr_name" maxlength="32" value="<?php echo set_value("usr_name", "")?>" /></div>
 			<div>信箱:<input type="text" name="usr_mail" maxlength="32" value="<?php echo set_value("usr_mail", "")?>" /></div>
 			<div>帳號類型:
-				<? if($user_usr_role==USR_ROLE_ROOT):  ?>
+				<?php if($user_usr_role==USR_ROLE_ROOT):  ?>
 				    <input type="radio" name="usr_role"  value="0" <?=set_radio("usr_role","0")?>/>Root
 				    <input type="radio" name="usr_role"  value="1" <?=set_radio("usr_role","1")?>/>店長
-			    <? endif ?>
-				<? if($user_usr_role==USR_ROLE_ROOT OR $user_usr_role==USR_ROLE_MANAGER):  ?>
+			    <?php endif ?>
+				<?php if($user_usr_role==USR_ROLE_ROOT OR $user_usr_role==USR_ROLE_MANAGER):  ?>
 					<input type="radio" name="usr_role" value="2" <?=set_radio("usr_role","2")?>/>員工
 					<input type="radio" name="usr_role" value="4" <?=set_radio("usr_role","4", TRUE)?>/>工讀生
-				<? endif ?>
+				<?php endif ?>
 				<input type="radio" name="usr_role" value="3" <?=set_radio("usr_role","3")?> />會員
 			</div>
 			<div>啟用狀態:
@@ -54,7 +54,7 @@
 		</form>
 
 		<div>
-			<? if(!empty($query_result)):  ?>
+			<?php if(!empty($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
@@ -65,19 +65,19 @@
 						<th>帳號類型</th>
 						<th>啟用狀態</th>
 						<th>上次修改日期</th>
-						<? if($user_usr_role == USR_ROLE_ROOT): ?>
+						<?php if($user_usr_role == USR_ROLE_ROOT): ?>
 							<th>薪資</th>
 							<th>登入失敗次數</th>
-						<? endif ?>
+						<?php endif ?>
 
 					</tr>
-					<? foreach ($query_result as $row) : ?>
+					<?php foreach ($query_result as $row) : ?>
 						<tr>
 							<td>
 								<button class="btn btn-info btn-xs detailButton" usr_num=<?php echo $row->usr_num?>>查詢</button>
-							<? if($user_usr_role==USR_ROLE_ROOT OR $user_usr_role==USR_ROLE_MANAGER): ?>
+							<?php if($user_usr_role==USR_ROLE_ROOT OR $user_usr_role==USR_ROLE_MANAGER): ?>
 								<button class="btn btn-warning btn-xs editButton" usr_num=<?php echo $row->usr_num?>>維護</button>
-							<? endif ?>
+							<?php endif ?>
 							
 							</td>
 							<td><?=$row->usr_id ?></td>
@@ -86,7 +86,7 @@
 							<td><?=$row->usr_role_desc ?></td>
 							<td><?=$row->usr_status_desc ?></td>
 							<td><?=$row->modify_date ?></td>
-							<? if($user_usr_role == USR_ROLE_ROOT): ?>
+							<?php if($user_usr_role == USR_ROLE_ROOT): ?>
 								<td>
 									<?php if($row->usr_role == USR_ROLE_PART_TIME): ?>
 										時薪:<?=$row->usr_salary?>
@@ -98,13 +98,13 @@
 									
 								</td>
 								<td><?=$row->usr_error_login ?></td>
-							<? endif ?>
+							<?php endif ?>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">

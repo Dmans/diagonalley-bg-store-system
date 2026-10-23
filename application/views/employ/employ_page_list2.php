@@ -84,39 +84,39 @@
 						<th>管理員審核時間</th>
 						<th>審核時數</th>
 					</tr>
-					<? if(isset($current_check) and $current_check!=NULL): ?>
-						<? foreach ($current_check as $key=>$row) : ?>
+					<?php if(isset($current_check) and $current_check!=NULL): ?>
+						<?php foreach ($current_check as $key=>$row) : ?>
 							<tr id="chkeckTr_<?=$row->chk_num ?>">
 								<td><?=$key+1 ?></td>
 								<td><?=$row->chk_in_time ?></td>
 								<td style="font-weight: bold;">
-									<? if(isset($row->chk_out_time)): ?>
+									<?php if(isset($row->chk_out_time)): ?>
 										<?=$row->chk_out_time ?>
-									<? endif ?>
+									<?php endif ?>
 
-									<? if(!isset($row->chk_out_time)): ?>
+									<?php if(!isset($row->chk_out_time)): ?>
 
 										<input type="button" id="checkoutButton" value="下班打卡" class="btn btn-success"/>
 										<input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
-									<? endif ?>
+									<?php endif ?>
 								</td>
 								<td>
-                                    <? if(isset($row->chk_out_time)): ?>
+                                    <?php if(isset($row->chk_out_time)): ?>
                                         <?=nl2br($row->chk_note) ?>
-                                    <? endif ?>
+                                    <?php endif ?>
 
-                                    <? if(!isset($row->chk_out_time)): ?>
+                                    <?php if(!isset($row->chk_out_time)): ?>
                                         <div>
                                             <textarea id="chkNote" name="chk_note" class="form-control" rows="3" placeholder="工作備註"></textarea>
                                         </div>
-                                    <? endif ?>
+                                    <?php endif ?>
                                 </td>
 								<td><?=(isset($row->confirm_usr_num))?"已審核":"未審核" ?></td>
 								<td><?=(isset($row->confirm_date))?$row->confirm_date:"" ?></td>
 								<td><?=(isset($row->confirm_hours))?$row->confirm_hours:"" ?></td>
 							</tr>
-						<? endforeach  ?>
-					<? endif ?>
+						<?php endforeach  ?>
+					<?php endif ?>
 				</table>
 			</div>
 			<div class="col-md-9">上月打卡紀錄
@@ -130,38 +130,38 @@
 						<th>管理員審核時間</th>
 						<th>審核時數</th>
 					</tr>
-					<? if(isset($previous_check) and $previous_check!=NULL): ?>
-						<? foreach ($previous_check as $key=>$row) : ?>
+					<?php if(isset($previous_check) and $previous_check!=NULL): ?>
+						<?php foreach ($previous_check as $key=>$row) : ?>
 							<tr>
 								<td><?=$key+1 ?></td>
 								<td><?=$row->chk_in_time ?></td>
 								<td style="font-weight: bold;">
-                                    <? if(isset($row->chk_out_time)): ?>
+                                    <?php if(isset($row->chk_out_time)): ?>
                                         <?=$row->chk_out_time ?>
-                                    <? endif ?>
+                                    <?php endif ?>
 
-                                    <? if(!isset($row->chk_out_time)): ?>
+                                    <?php if(!isset($row->chk_out_time)): ?>
                                         <input type="button" id="checkoutButton" value="下班打卡" class="btn btn-success"/>
                                         <input type="hidden" id="chkNum" value="<?=$row->chk_num ?>" />
-                                    <? endif ?>
+                                    <?php endif ?>
                                 </td>
                                 <td>
-                                    <? if(isset($row->chk_out_time)): ?>
+                                    <?php if(isset($row->chk_out_time)): ?>
                                         <?=nl2br($row->chk_note) ?>
-                                    <? endif ?>
+                                    <?php endif ?>
 
-                                    <? if(!isset($row->chk_out_time)): ?>
+                                    <?php if(!isset($row->chk_out_time)): ?>
                                         <div>
                                             <textarea id="chkNote" name="chk_note" class="form-control" rows="3" placeholder="工作備註"></textarea>
                                         </div>
-                                    <? endif ?>
+                                    <?php endif ?>
                                 </td>
 								<td><?=(isset($row->confirm_usr_num))?"已審核":"未審核" ?></td>
 								<td><?=(isset($row->confirm_date))?$row->confirm_date:"" ?></td>
 								<td><?=(isset($row->confirm_hours))?$row->confirm_hours:"" ?></td>
 							</tr>
-						<? endforeach  ?>
-					<? endif ?>
+						<?php endforeach  ?>
+					<?php endif ?>
 				</table>
 			</div>
 		</div>

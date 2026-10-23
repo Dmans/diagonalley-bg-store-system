@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<h2>新增銷售類型</h2>
-		<? echo form_open('manage/pos_tag_action/save'); ?>
+		<?php echo form_open('manage/pos_tag_action/save'); ?>
 			<div>銷售類型名稱:
 				<input type="text" name="tag_name" maxlength="32" value="<?=set_value("tag_name","") ?>" />
 				(顯示於銷售資料的銷售類型下拉選單)

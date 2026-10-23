@@ -69,7 +69,7 @@
 						<th>管理員審核</th>
 						<th>管理員審核時間</th>
 					</tr>
-					<? foreach ($chks as $key=>$row) : ?>
+					<?php foreach ($chks as $key=>$row) : ?>
 						<tr id="chkeckTr_<?=$row->chk_num ?>">
 							<td><?=$key+1 ?></td>
 							<td><?=$row->usr_name ?></td>
@@ -80,10 +80,10 @@
 						    </td>
 							<td>
 							    <div>打卡時數: <?=$row->interval ?></div>
-							    <? if (!empty($row->chk_note)): ?>
+							    <?php if (!empty($row->chk_note)): ?>
 						            <div>工作備註:</div>
 						            <div><?=nl2br($row->chk_note) ?></div>
-							    <? endif ?>
+							    <?php endif ?>
 						    </td>
 							<td id="confirmButtonArea_<?=$row->chk_num ?>">
 								<input style="width:50px;" type="text" id="confirmHours_<?=$row->chk_num ?>" value="<?=$row->interval ?>" maxlength="5" size="5" />hr(s)
@@ -95,7 +95,7 @@
 							</td>
 							<td id="confirmDateArea_<?=$row->chk_num ?>"></td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
 			</div>
 		</div>

@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h1>維護遊戲分類</h1>
-		<? echo form_open('game/game_action/game_tag_update'); ?>
+		<?php echo form_open('game/game_action/game_tag_update'); ?>
 			<div>遊戲流水號:<?=$game->gam_num ?><input type="hidden" name="gam_num" value="<?=set_value("gam_num",$game->gam_num) ?>" /></div>
 			<div>遊戲中文名稱:<?=$game->gam_cname ?></div>
 			<div>遊戲英文名稱:<?=$game->gam_ename ?></div>
@@ -17,22 +17,22 @@
 				<div class="col-md-1">遊戲分類:</div>
 				<div class="col-md-4">
 					<table class="table table-striped table-hover table-bordered table-condensed">
-						<? $index=1; ?>
-						<? foreach ($tags as $key => $tag) : ?>
-							<? if($index %5==1): ?>
+						<?php $index=1; ?>
+						<?php foreach ($tags as $key => $tag) : ?>
+							<?php if($index %5==1): ?>
 							<tr>	
-							<? endif ?>
+							<?php endif ?>
 								<td>
 									<input type="checkbox" id="game_tag_<?=$key ?>" 
 											name="game_tags[]" value="<?=$tag->tag_num ?>" 
 											<?=(isset($game->game_tags[$tag->tag_num]))?"checked='checked'":"";  ?> />
 									<label title="<?=$tag->tag_desc ?>" for="game_tag_<?=$key ?>" ><?=$tag->tag_name ?></label>
 								</td>
-							<? if($index %5==0): ?>
+							<?php if($index %5==0): ?>
 							</tr>	
-							<? endif ?>
-							<? $index++; ?>
-						<? endforeach ?>
+							<?php endif ?>
+							<?php $index++; ?>
+						<?php endforeach ?>
 					</table>	
 				</div>
 			</div>
