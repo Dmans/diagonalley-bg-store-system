@@ -15,6 +15,7 @@
 			$input=$this->input->get();
 			
 			if(!$this->__user_login_validate()){
+				$data = new stdClass();
 				$data->redirect=TRUE;
 				echo $input['callback']."(".json_encode($data).");";
 				return;
@@ -39,6 +40,7 @@
 			$input=$this->input->get();
 			
 			if(!$this->__user_login_validate()){
+				$data = new stdClass();
 				$data->redirect=TRUE;
 				echo $input['callback']."(".json_encode($data).");";
 				return;
@@ -61,6 +63,7 @@
 		public function update(){
 			
 			if(!$this->__user_login_validate()){
+				$data = new stdClass();
 				$data->redirect=TRUE;
 				echo json_encode($data);
 				return;
@@ -92,6 +95,7 @@
 		public function update_confirm(){
 			
 			if(!$this->__user_login_validate()){
+				$data = new stdClass();
 				$data->redirect=TRUE;
 				echo json_encode($data);
 				return;

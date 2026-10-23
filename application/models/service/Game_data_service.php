@@ -79,6 +79,7 @@
 
 		private function __assemble_save_game($input){
 
+			$game = new stdClass();
 			$game->gam_cname=$input['gam_cname'];
 			$game->gam_ename=$input['gam_ename'];
 			$game->gam_storage=$input['gam_storage'];
@@ -96,7 +97,7 @@
 		}
 
 		private function __assemble_update_game($input){
-			$game=NULL;
+			$game=new stdClass();
 			$game->gam_num=$input['gam_num'];
 
 			$value_conditions=array("gam_cname","gam_ename","gam_storage","gam_locate","gam_cardsize",
@@ -111,6 +112,7 @@
 
 		private function __assemble_save_game_id($input){
 
+			$game_id = new stdClass();
 			$game_id->gam_num=$input['gam_num'];
 			$game_id->gid_enabled=1; //預設給上架
 			$game_id->gid_status=0; //預設給店內(未使用)
@@ -121,7 +123,7 @@
 		}
 
 		private function __assemble_update_game_id($input){
-			$game_id=NULL;
+			$game_id=new stdClass();
 			$game_id->gid_num=$input['gid_num'];
 
 			if(isset($input['gid_enabled'])){

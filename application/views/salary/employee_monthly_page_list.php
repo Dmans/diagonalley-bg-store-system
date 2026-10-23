@@ -21,7 +21,7 @@
 	<body class="container-fluid">
 		<h3>每月正職人員薪資審核</h3>
 		<div>
-			<? echo form_open('salary/salary_action/employee_monthly_list'); ?>
+			<?php echo form_open('salary/salary_action/employee_monthly_list'); ?>
 				<div>審核月份:
 					<select name="year_month">
 						<?php foreach ($month_options as $option): ?>
@@ -33,11 +33,11 @@
 			</form>
 		</div>
 		<div>
-			<? if(isset($query_result)):  ?>
-				<? echo form_open('salary/salary_action/employee_salary_confirm', 'id="mainForm"'); ?>
+			<?php if(isset($query_result)):  ?>
+				<?php echo form_open('salary/salary_action/employee_salary_confirm', 'id="mainForm"'); ?>
 				<div>
 					<h3><?php echo $year_month?> 正職人員薪資審核</h3>
-				<? foreach($query_result as $chk_user): ?>
+				<?php foreach($query_result as $chk_user): ?>
 					<div>
 						<table id="table_<?php echo $chk_user->usr_num ?>" class="table table-striped table-hover table-bordered table-condensed">
 							<tr>
@@ -54,11 +54,11 @@
 								<th>審核時數</th>
 
 							</tr>
-							<? foreach($chk_user->stores as $store): ?>
+							<?php foreach($chk_user->stores as $store): ?>
 							    <tr>
 							       <td colspan="8"><?php echo $store->store_data->sto_name ?></td>
 							    </tr>
-						        <? foreach($store->chks as $chk): ?>
+						        <?php foreach($store->chks as $chk): ?>
 
 								<tr>
 									<td><?php echo date('Y-m-d H:i', strtotime($chk->chk_in_time)); ?></td>
@@ -70,7 +70,7 @@
 										<input id="confirm_<?php echo $chk->chk_num ?>" chknum="<?php echo $chk->chk_num ?>" stonum="<?php echo $store->store_data->sto_num ?>" usrnum="<?php echo $chk_user->usr_num ?>" name="confirm_hours[<?php echo $chk->chk_num ?>]" value="<?php echo $chk->confirm_hours ?>"/>
 									</td>
 								</tr>
-								<? endforeach ?>
+								<?php endforeach ?>
 								<tr>
 								    <td></td>
 								    <td></td>
@@ -79,7 +79,7 @@
                                     <td><?php echo $store->summary->total_hours ?></td>
                                     <td><span id="confirmHourSummary" stonum="<?php echo $store->store_data->sto_num ?>" usrnum="<?php echo $chk_user->usr_num ?>"><?php echo $store->summary->total_confirm_hours?></span></td>
                                 </tr>
-							<? endforeach ?>
+							<?php endforeach ?>
 							<tr>
 								<td></td>
 								<td></td>
@@ -143,7 +143,7 @@
 						</div>
 					</div>
 					<hr />
-				<? endforeach ?>
+				<?php endforeach ?>
 					<div>
 						<input type="hidden"  name="year_month" value="<?php echo $year_month?>" />
 						<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -152,7 +152,7 @@
 					</div>
 				</div>
 				</form>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 		
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

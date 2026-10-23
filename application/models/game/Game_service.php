@@ -125,7 +125,7 @@
 
 			if($old_barcode == NULL){
 				//新增
-				$submit_barcode=NULL;
+				$submit_barcode=new stdClass();
 				$submit_barcode->bar_code=$barcode;
 				$submit_barcode->bar_type=0;
 				$submit_barcode->bar_value=$gam_num;
@@ -140,7 +140,7 @@
 
 		public function check_bar_code_duplicate($bar_code, $gam_num){
 
-			$result=NULL;
+			$result=new stdClass();
 
 			//檢查barcode已存在且並非此遊戲流水號
 			$condition['bar_type']=0;

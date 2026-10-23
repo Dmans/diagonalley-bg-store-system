@@ -21,7 +21,7 @@
 	</head>
 	<body class="container-fluid">
 		<h1>新增行事曆</h1>
-		<? echo form_open('manage/calendar_action/save'); ?>
+		<?php echo form_open('manage/calendar_action/save'); ?>
 			<div>日期:<input id="calDate" name="cal_date" type="text" value="<?php echo set_value('cal_date', ''); ?>"></div>
 			<div>日期類型:
 				<select id="calType" name="cal_type">

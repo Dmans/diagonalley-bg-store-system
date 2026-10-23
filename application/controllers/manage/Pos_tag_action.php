@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 class Pos_tag_action extends MY_Controller {

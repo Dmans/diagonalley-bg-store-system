@@ -145,6 +145,7 @@
 
 		private function __assemble_update_game_id($input){
 
+			$game_id = new stdClass();
 			$game_id->gid_num=$input['gid_num'];
 			$game_id->gid_status=$input['gid_status'];
 			$game_id->grd_num=$input['grd_num'];
@@ -154,6 +155,7 @@
 		}
 
 		private function __assemble_save_daily_record($input,$usr_num){
+			$ddr = new stdClass();
 			$ddr->usr_num=$usr_num;
 			$ddr->ddr_content=$input['ddr_content'];
 			$ddr->ddr_status=$input['ddr_status'];
@@ -165,6 +167,7 @@
 
 		private function __assemble_update_daily_record($input){
 
+			$ddr = new stdClass();
 			$ddr->ddr_num=$input['ddr_num'];
 
 			if(isset($input['ddr_content'])){
@@ -209,6 +212,7 @@
 
 		private function __assemble_save_game_id_record($input,$usr_num){
 
+			$result = new stdClass();
 			$result->gid_num=$input['gid_num'];
 			$result->grd_type=$input['gid_status'];
 			$result->grd_susr_num=$usr_num;
@@ -229,6 +233,7 @@
 
 		private function __assemble_update_game_id_record($grd_num,$usr_num,$grd_memo=NULL){
 
+			$result = new stdClass();
 			$result->grd_num=$grd_num;
 
 			$result->grd_eusr_num=$usr_num;

@@ -91,7 +91,7 @@
 	</head>
 	<body>
 		<h3>維護定位資料</h3>
-		<? echo form_open('manage/booking_action/update'); ?>
+		<?php echo form_open('manage/booking_action/update'); ?>
 			<div>訂位店鋪:<?php echo $dbk->sto_name?><input type="hidden" id="stoNum" name="sto_num" value="<?php echo $dbk->sto_num ?>" /></div>
 			<input type="hidden" name="dbk_num" value="<?=$dbk->dbk_num ?>" />
 			<div>定位日期:<input type="text" id="dbkDate" name="dbk_date" value="<?=set_value('dbk_date', $dbk->dbk_date); ?>" /></div>
@@ -109,11 +109,11 @@
             </div>
             <div>訂位人數:<input type="text" name="dbk_count" value="<?=$dbk->dbk_count?>"/></div>
             <div>可訂位桌號:<br><span id="dtbNumspan" >
-            	<? foreach ($dtb_nums as $key => $row) : ?>
+            	<?php foreach ($dtb_nums as $key => $row) : ?>
             		<input type="checkbox" id="store_<?php echo $key ?>"
                     name="dtb_nums[]" value="<?php echo $row->dtb_num?>"
                     <?php echo (in_array($row->dtb_num, $dbk->dtb_num))?'checked="checked"':'' ?> />桌子名稱:<?php echo $row->dtb_name ?> 可容納人數:<?php echo $row->dtb_max_cap ?></br>
-            	<? endforeach ?>
+            	<?php endforeach ?>
             
             </span></div>
             <div>訂位大名:<input type="text" name="dbk_name" value="<?=$dbk->dbk_name ?>"/></div>

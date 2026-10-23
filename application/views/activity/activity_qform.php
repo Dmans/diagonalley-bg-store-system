@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>查詢活動</h1>
-		<? echo form_open('activity/activity_action/act_list'); ?>
+		<?php echo form_open('activity/activity_action/act_list'); ?>
 			<div>活動流水號:<input type="text" name="act_num" maxlength="32" /></div>
 			<div>活動名稱:<input type="text" name="act_name" maxlength="128" /></div>
 			<div>活動類型:
@@ -28,7 +28,7 @@
 		</form>
 		
 		<div>
-			<? if(isset($query_result)):  ?>
+			<?php if(isset($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table>
 					<tr>
@@ -39,13 +39,13 @@
 						<td>活動啟用狀態</td>
 						<td>註冊日期</td>
 					</tr>
-					<? foreach ($query_result as $row) : ?> 
+					<?php foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
 								<a href="<?=site_url("activity/activity_action/page_detail/".$row->act_num) ?>">查詢</a>
-								<? if($row->act_status==0): ?>
+								<?php if($row->act_status==0): ?>
 									/<a href="<?=site_url("activity/activity_action/update_form/".$row->act_num) ?>">維護</a>
-								<? endif ?>
+								<?php endif ?>
 							</td>
 							<td><?=$row->act_num ?></td>
 							<td><?=$row->act_name ?></td>
@@ -53,11 +53,11 @@
 							<td><?=$row->act_status_desc ?></td>
 							<td><?=$row->register_date ?></td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 	</body>
 </html>

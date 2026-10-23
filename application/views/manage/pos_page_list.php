@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="<?=base_url(); ?>scripts/jquery.min.js"></script>
 	<script type="text/javascript" src="<?=base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 </head>
-<? if(isset($query_result)):  ?>
+<?php if(isset($query_result)):  ?>
 	<div class="col-md-10">
 		<table class="table table-striped table-hover table-bordered table-condensed">
 			<tr>
@@ -17,7 +17,7 @@
 				<th>銷售金額</th>
 				<th>刪除銷售紀錄</th>
 			</tr>
-			<? foreach($query_result->pos_list as $pos): ?>
+			<?php foreach($query_result->pos_list as $pos): ?>
 				<tr>
 					<td><a href="<?=site_url("manage/pos_action/update_form/".$pos->pod_num) ?>" class="btn btn-warning btn-xs" >維護</a></td>
 					<td><?=$pos->pod_date ?></td>
@@ -26,17 +26,17 @@
 					<td><?=$pos->pod_svalue ?></td>
 					<td><a href="<?=site_url("manage/pos_action/remove/".$pos->pod_num) ?>" class="btn btn-danger btn-xs" >刪除</a></td>
 				</tr>
-			<? endforeach ?>
+			<?php endforeach ?>
 			<tr>
 				<th colspan="4">分項小計</th>
 				<td colspan="2"></td>
 			</tr>
-			<? foreach($query_result->cal_result->tag_sub_svalue as $tag_sub_svalue): ?>
+			<?php foreach($query_result->cal_result->tag_sub_svalue as $tag_sub_svalue): ?>
 				<tr>
 					<td colspan="4"><?=$tag_sub_svalue->tag_name ?></td>
 					<td colspan="2"><?=$tag_sub_svalue->sub_svalue ?></td>
 				</tr>
-			<? endforeach ?>
+			<?php endforeach ?>
 			<tr class="success">
 				<th colspan="4">總計</th>
 				<td colspan="2"><?=$query_result->cal_result->total_svalue ?></td>
@@ -44,5 +44,5 @@
 		</table>
 		
 	</div>
-<? endif ?>
+<?php endif ?>
 

@@ -8,34 +8,34 @@
 	</head>
 	<body>
 		<h1>維護活動</h1>
-		<? echo form_open('activity/activity_action/update'); ?>
+		<?php echo form_open('activity/activity_action/update'); ?>
 			<input type="hidden" name="act_num" value="<?=$act_num ?>" />
 			<div>活動名稱:<input type="text" name="act_name" maxlength="32" value="<?=set_value("act_name", $act_name) ?>" /></div>
 			<div>活動類型:
-				<? if($act_status==0): ?>
+				<?php if($act_status==0): ?>
 					<select name="act_type">
 						<option value="0" <?= set_select('act_type', '0', ($act_type=='0')); ?>>加點</option>
 						<option value="1" <?= set_select('act_type', '1', ($act_type=='1')); ?>>扣點</option>
 						<option value="2" <?= set_select('act_type', '2', ($act_type=='2')); ?>>消費</option>
 					</select>
-				<? endif ?>
-				<? if($act_status!=0): ?>
+				<?php endif ?>
+				<?php if($act_status!=0): ?>
 					<?=$act_type_desc ?>
-				<? endif ?>
+				<?php endif ?>
 			</div>
 			<div>活動說明:<input type="text" name="act_desc" maxlength="128" size="50" value="<?=set_value("act_desc",$act_desc) ?>" /></div>
 			<div>活動數值:
-				<? if($act_status==0): ?>
+				<?php if($act_status==0): ?>
 					<input type="text" name="act_value" maxlength="5" size="5" value="<?=set_value("act_value",$act_value) ?>" />
-				<? endif ?>
-				<? if($act_status!=0): ?>
+				<?php endif ?>
+				<?php if($act_status!=0): ?>
 					<?=$act_value ?>
-				<? endif ?>
+				<?php endif ?>
 			</div>
 			<div>活動是否啟用:
-				<? if($act_status==0): ?>
+				<?php if($act_status==0): ?>
 					<input type="radio" name="act_status"  value="0" <?=set_radio("act_status", "0", ($act_status=='0')) ?> />暫存
-				<? endif ?>
+				<?php endif ?>
 				<input type="radio" name="act_status"  value="1" <?=set_radio("act_status", "1", ($act_status=='1')) ?> />啟用
 				<input type="radio" name="act_status"  value="2" <?=set_radio("act_status", "2", ($act_status=='2')) ?> />停用
 			</div>

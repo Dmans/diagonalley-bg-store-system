@@ -32,7 +32,7 @@
 				<th>入庫後成本</th>
 				<th>進貨來源</th>
 			</tr>
-			<? foreach ($gim_detail->gii_list as $key => $gii) : ?>
+			<?php foreach ($gim_detail->gii_list as $key => $gii) : ?>
 			<tr>
 				<td><?=$gii->game->gam_num." ".$gii->game->gam_cname ?></td>
 				<td><?=$gii->gii_ivalue ?></td>
@@ -41,7 +41,7 @@
 				<td><?=$gii->gii_new_cvalue ?></td>
 				<td><?=$gii->gii_source ?></td>
 			</tr>	
-			<? endforeach ?>
+			<?php endforeach ?>
 		</table>
 	</body>
 </html>

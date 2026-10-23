@@ -36,7 +36,7 @@
 	<body>
 		<h3>銷售紀錄查詢</h3>
 		<div>
-			<? echo form_open('manage/pos_action/pos_list'); ?>
+			<?php echo form_open('manage/pos_action/pos_list'); ?>
 				<div>查詢日期:<input type="text" id="podDate" name="pod_date" value="<?=date("Y-m-d") ?>"/>
 				</div>
 				<?=validation_errors('<div class="text-danger">','</div>') ?>

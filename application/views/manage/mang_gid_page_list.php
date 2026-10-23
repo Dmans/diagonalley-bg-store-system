@@ -107,7 +107,7 @@
 				<th>遊戲目前狀態</th>
 				<th>修改遊戲狀態</th>
 			</tr>
-			<? foreach ($gids as $key=>$row) : ?> 
+			<?php foreach ($gids as $key=>$row) : ?> 
 				<tr id="gameTr_<?=$row->gid_num ?>" class="gid_status_style_<?=$row->gid_status ?>">
 					<td><?=$row->gid_num ?></td>
 					<td class="gamNameTarget"><?=$row->gam_cname ?></td>
@@ -118,12 +118,12 @@
 						<input type="hidden" name="grd_num[<?=$key ?>]" id="grdNum_<?=$row->gid_num ?>" value="<?=(isset($row->grd_num))?$row->grd_num:'' ?>" />
 						<input type="button" id="usedButton_<?=$row->gid_num ?>" value="店內使用+1次" <?=($row->gid_status==1 or $row->gid_status==2)?'style="display:none"':'' ?>/>
 						<input type="button" id="unuseButton_<?=$row->gid_num ?>" value="店內(未使用)" <?=($row->gid_status==0)?'style="display:none"':'' ?> />
-						<? if($row->gid_rentable!=0): ?>
+						<?php if($row->gid_rentable!=0): ?>
 							<input type="button" id="rentButton_<?=$row->gid_num ?>" value="出租中" <?=($row->gid_status==2 or $row->gid_status==1)?'style="display:none"':'' ?>/>
-						<? endif ?>	
+						<?php endif ?>	
 					</td>
 				</tr>
-			<? endforeach  ?>
+			<?php endforeach  ?>
 		</table>
 	</body>
 </html>

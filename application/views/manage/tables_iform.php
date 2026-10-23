@@ -16,20 +16,20 @@
     </head>
     <body>
         <h3>新增遊戲桌資料</h3>
-        <? echo form_open('manage/tables_action/save'); ?>
+        <?php echo form_open('manage/tables_action/save'); ?>
             <div>所屬店舖:
                 <select name="sto_num">
-                    <? foreach ($stores as $store): ?>
+                    <?php foreach ($stores as $store): ?>
                         <option value="<?=$store->sto_num ?>" title="<?=$store->sto_name ?>" ><?=$store->sto_name ?></option>
-                    <? endforeach ?>
+                    <?php endforeach ?>
                 </select>
             </div>
             <div>遊戲桌名稱:<input type="text" name="dtb_name" /></div>
             <div>最大可容納人數:
                 <select name="dtb_max_cap">
-                    <? for ($i=1; $i <= 10; $i++): ?>
+                    <?php for ($i=1; $i <= 10; $i++): ?>
                         <option value="<?=$i ?>" title="<?=$i ?>" ><?=$i ?></option>
-                    <? endfor ?>
+                    <?php endfor ?>
                 </select>
             </div>
             <div>遊戲桌狀態:

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>新增活動</h1>
-		<? echo form_open('activity/activity_action/save'); ?>
+		<?php echo form_open('activity/activity_action/save'); ?>
 			<div>活動名稱:<input type="text" name="act_name" maxlength="32" value="<?=set_value("act_name","") ?>" /></div>
 			<div>活動類型:
 				<select name="act_type">

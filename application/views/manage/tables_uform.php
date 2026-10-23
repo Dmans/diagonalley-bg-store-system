@@ -16,15 +16,15 @@
     </head>
     <body>
         <h3>維護遊戲桌資料</h3>
-        <? echo form_open('manage/tables_action/update'); ?>
+        <?php echo form_open('manage/tables_action/update'); ?>
             <input type="hidden" name="dtb_num" value="<?php echo $dtb_num ?>" />
             <div>所屬店舖: <?php echo $store->sto_name ?></div>
             <div>遊戲桌名稱:<input type="text" name="dtb_name" value="<?php echo $dtb_name ?>" /></div>
             <div>最大可容納人數:
                 <select name="dtb_max_cap">
-                    <? for ($i=1; $i <= 10; $i++): ?>
+                    <?php for ($i=1; $i <= 10; $i++): ?>
                         <option value="<?php echo $i ?>" title="<?php echo $i ?>" <?php echo set_select('dtb_max_cap', $i , ($dtb_max_cap==$i)); ?>><?php echo $i ?></option>
-                    <? endfor ?>
+                    <?php endfor ?>
                 </select>
             </div>
             <div>遊戲桌狀態:

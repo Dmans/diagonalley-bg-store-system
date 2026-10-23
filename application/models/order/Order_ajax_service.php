@@ -78,7 +78,7 @@
 		}
 		
 		private function __assemble_users_for_autocomplete($user){
-			$result=NULL;
+			$result=new stdClass();
 			$result->label=$user->usr_id."(".$user->usr_num." ".$user->usr_name.")";
 			$result->value=$user->usr_id."(".$user->usr_num." ".$user->usr_name.")";
 			$result->usr_num=$user->usr_num;
@@ -87,7 +87,7 @@
 		}
 		
 		private function __assemble_games_for_autocomplete($gam){
-			$result=NULL;
+			$result=new stdClass();
 			$result->label=$gam->gam_cname."(".$gam->gam_ename.")";
 			$result->value=$gam->gam_cname."(".$gam->gam_ename.")";
 			$result->gam_num=$gam->gam_num;

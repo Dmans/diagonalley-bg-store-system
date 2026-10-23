@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<h1>維護遊戲</h1>
-		<? echo form_open('game/game_action/game_update'); ?>
+		<?php echo form_open('game/game_action/game_update'); ?>
 			<div>遊戲流水號:<?=$gam_num ?><input type="hidden" name="gam_num" value="<?=set_value("gam_num",$gam_num) ?>" /></div>
 			<div>遊戲中文名稱:<input type="text" name="gam_cname" maxlength="32" value="<?=set_value("gam_cname",$gam_cname) ?>" /></div>
 			<div>遊戲英文名稱:<input type="text" name="gam_ename" maxlength="32" value="<?=set_value("gam_ename",$gam_ename) ?>" /></div>
@@ -21,11 +21,11 @@
 			<div>遊戲售價:<input type="text" name="gam_svalue" maxlength="5" value="<?=set_value("gam_svalue",$gam_svalue) ?>"/></div>
 			<div>遊戲成本價:<?=$gam_cvalue ?></div>
 			<div>遊戲條碼:
-				<? if($barcode != NULL) : ?>
+				<?php if($barcode != NULL) : ?>
 					<a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>" ><?=$barcode->bar_code ?></a>
-				<? else : ?>
+				<?php else : ?>
 					尚未連結對應條碼 <a href="<?=site_url("game/game_action/game_barcode_update_form/".$gam_num) ?>"class="btn btn-primary btn-xs">新增條碼</a>
-				<? endif ?>
+				<?php endif ?>
 			</div>
 			<div>遊戲是否為庫存商品(可出售):
 				<input type="radio" name="gam_sale"  value="0" <?=set_radio("gam_sale","0",($gam_sale==0)?TRUE:FALSE) ?> />否
@@ -39,7 +39,7 @@
 		</form>
 		<!-- <div>
 			<h1>異動遊戲庫存</h1>
-			<? echo form_open('game/game_action/game_storage_update'); ?>
+			<?php echo form_open('game/game_action/game_storage_update'); ?>
 				<input type="hidden" name="gam_num" value="<?=set_value("gam_num",$gam_num) ?>" />
 				<div>異動庫存:
 					<input type="radio" name="modify_option"  value="Y" checked="checked" />增加

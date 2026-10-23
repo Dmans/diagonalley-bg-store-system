@@ -35,13 +35,13 @@
 	<body>
 		<div class="well">
 		<h3>新增銷售資料</h3>
-		<? echo form_open('manage/pos_action/save'); ?>
+		<?php echo form_open('manage/pos_action/save'); ?>
 			<div>銷售時間:<input type="text" id="podDate" name="pod_date" value="<?=set_value('pod_date', $pod_date); ?>" /></div>
 			<div>銷售類型:
 				<select name="tag_num">
-					<? foreach ($tags as $tag): ?>
+					<?php foreach ($tags as $tag): ?>
 						<option value="<?=$tag->tag_num ?>" title="<?=$tag->tag_desc ?>" <?=set_select('tag_num', $tag->tag_num); ?>><?=$tag->tag_name ?></option>
-					<? endforeach ?>
+					<?php endforeach ?>
 				</select>
 			</div>
 			<div>銷售說明:<input type="text" name="pod_desc" maxlength="256" size="30" value="<?=set_value('pod_desc', ''); ?>" /></div>
@@ -58,7 +58,7 @@
 		</form>
 		</div>
 		<h3>新增多筆銷售資料</h3>
-		<? echo form_open('manage/pos_action/multiple_save'); ?>
+		<?php echo form_open('manage/pos_action/multiple_save'); ?>
 			<table class="table table-striped table-hover table-bordered table-condensed">
 				<tr>
 					<th>序號</th>
@@ -68,7 +68,7 @@
 					<th>銷售金額</th>
 					<th>銷售狀態</th>
 				</tr>
-			<? for ($i=0; $i < 20; $i++) : ?>
+			<?php for ($i=0; $i < 20; $i++) : ?>
 				<tr>
 					<td><?=$i+1 ?>
 						<input type="checkbox" name="pos_enabled[]" value="<?=$i ?>" />
@@ -76,9 +76,9 @@
 					<td><input type="text" id="podDate_<?=$i ?>" name="pod_date[]" value="<?=set_value('pod_date', $pod_date); ?>" /></td>
 					<td>
 						<select name="tag_num[]">
-							<? foreach ($tags as $tag): ?>
+							<?php foreach ($tags as $tag): ?>
 								<option value="<?=$tag->tag_num ?>" title="<?=$tag->tag_desc ?>" ><?=$tag->tag_name ?></option>
-							<? endforeach ?>
+							<?php endforeach ?>
 						</select>
 					</td>
 					<td><input type="text" name="pod_desc[]" maxlength="256" size="30"  /></td>
@@ -89,7 +89,7 @@
 						<input type="hidden" name="pod_status[]" value="1" />成立 
 					</td>
 				</tr>
-			<? endfor ?>
+			<?php endfor ?>
 			</table>
 			<?=validation_errors('<div class="text-danger">','</div>') ?>
 			<div>

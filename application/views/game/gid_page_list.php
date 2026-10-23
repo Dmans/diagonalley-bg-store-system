@@ -19,13 +19,13 @@
 				<th>遊戲是否可出租</th>
 				
 			</tr>
-			<? foreach ($gids as $row) : ?> 
+			<?php foreach ($gids as $row) : ?> 
 				<tr>
 					<td>
 						<a href="<?=site_url("game/game_action/gid_page_detail/".$row->gid_num) ?>">查詢</a>
-					<? if($usr_role==0 OR $usr_role==1): ?>
+					<?php if($usr_role==0 OR $usr_role==1): ?>
 						/<a href="<?=site_url("game/game_action/gid_update_form/".$row->gid_num) ?>">維護</a>
-					<? endif ?>
+					<?php endif ?>
 					</td>
 					<td><?=$row->gid_num ?></td>
 					<td><?=$row->gam_cname ?></td>
@@ -35,7 +35,7 @@
 					<td><?=$row->gid_rentable_desc ?></td>
 					
 				</tr>
-			<? endforeach  ?>
+			<?php endforeach  ?>
 		</table>
 	</body>
 </html>

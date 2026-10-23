@@ -18,12 +18,12 @@
 	</head>
 	<body>
 		<h3>新增快速銷售按鈕</h3>
-		<? echo form_open('manage/pos_action/pos_fast_button_save'); ?>
+		<?php echo form_open('manage/pos_action/pos_fast_button_save'); ?>
 			<div>銷售類型:
 				<select name="tag_num">
-					<? foreach ($tags as $tag): ?>
+					<?php foreach ($tags as $tag): ?>
 						<option value="<?=$tag->tag_num ?>" title="<?=$tag->tag_desc ?>" <?=set_select('tag_num', $tag->tag_num); ?>><?=$tag->tag_name ?></option>
-					<? endforeach ?>
+					<?php endforeach ?>
 				</select>
 			</div>
 			<div>銷售說明:<input type="text" name="pod_desc" maxlength="256" size="30" value="<?=set_value('pod_desc', ''); ?>" /></div>

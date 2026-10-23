@@ -15,6 +15,7 @@
 			$input=$this->input->get();
 			
 			if(!$this->__user_login_validate()){
+				$data = new stdClass();
 				$data->redirect=TRUE;
 				echo json_encode($data);
 				return;

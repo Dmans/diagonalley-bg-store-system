@@ -3,15 +3,15 @@
 	<div><a target="content" href="<?php echo site_url("user/user_action/update_form/".$usr_num) ?>">維護個人資料</a></div>
 	<div><a target="content" href="<?php echo site_url("user/user_action/page_detail/".$usr_num) ?>">檢視個人資料</a></div>
 	<div><a target="content" href="<?=site_url("user/user_action/change_passwd_form") ?>">維護密碼</a></div>
-	<? foreach ($stores as $key => $store) : ?>
+	<?php foreach ($stores as $key => $store) : ?>
 	   <div><a target="content" href="<?=site_url("employ/employ_action/list_form2/".$store->sto_num."/") ?>">上下班打卡(<?=$store->sto_name ?>)</a></div>
-    <? endforeach ?>
+    <?php endforeach ?>
     <!-- <div><a target="content" href="<?=site_url("employ/employ_action/list_form3/1/") ?>">上下班打卡(測試)</a></div> -->
 	<!-- <div><a target="content" href="<?=site_url("employ/employ_action/list_form") ?>">上下班打卡old</a></div> -->
-	<? if($usr_role==0 OR $usr_role==1): ?>
+	<?php if($usr_role==0 OR $usr_role==1): ?>
 		<div><a target="content" href="<?=site_url("employ/employ_action/confirm_list_form") ?>">審核打卡資料</a></div>
 		<div><a target="content" href="<?=site_url("employ/employ_action/employ_monthly_list_form") ?>">打卡紀錄查詢</a></div>
-	<? endif ?>
+	<?php endif ?>
 </div>
 <hr/>
 

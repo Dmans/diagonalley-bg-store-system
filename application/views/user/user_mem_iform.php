@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h1>新增會員</h1>
-		<? echo form_open('user/user_action/member_save'); ?>
+		<?php echo form_open('user/user_action/member_save'); ?>
 			<div>會員e-mail:<input type="text" name="usr_id" maxlength="128" value="<?=set_value('usr_id', ""); ?>" /></div>
 			<div>會員名稱:<input type="text" name="usr_name" maxlength="32" value="<?=set_value('usr_name', ""); ?>" /></div>
 			<div>會員備註:<br/>

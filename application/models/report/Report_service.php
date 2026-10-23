@@ -59,7 +59,7 @@
 				if(!array_key_exists($date_key, $pos_date_list)){
 					$day_pos=array();
 					foreach ($tags as $key2 => $tag) {
-						$pos_data = NULL;
+						$pos_data = new stdClass();
 						$pos_data->tag=$tag;
 						$pos_data->total_svalue=0;
 						$pos_data->pod_date=$date_key." 00:00:".$tag->tag_num;
@@ -105,7 +105,7 @@
 				$target_date= sprintf("%4d-%02d-%02d", $query_year, $query_month, $day);
 				$data['pos_date']=$target_date;
 				foreach ($tags as $tag) {
-					$tag_data=NULL;
+					$tag_data=new stdClass();
 					if(isset($pos_list[$target_date][$tag->tag_num])){
 						$tag_data->total_svalue=$pos_list[$target_date][$tag->tag_num]->total_svalue;
 					}else{
@@ -133,7 +133,7 @@
 			
 			$series=array();
 			foreach ($tags as $tag) {
-				$cate_series=NULL;
+				$cate_series=new stdClass();
 				for ($day=1; $day <= $end_day ; $day++) {
 						
 					$target_date= sprintf("%4d-%02d-%02d", $query_year, $query_month, $day);
@@ -156,6 +156,7 @@
 				$categories[]=$day;
 			}
 			
+			$data = new stdClass();
 			$data->categories=$categories;
 			$data->series=$series;
 			
@@ -191,7 +192,7 @@
 		}
 		
 		private function __assemble_view_grd_for_calendar($gid,$game,$grd){
-			$result=NULL;
+			$result=new stdClass();
 			$result->id=$grd->grd_num;
 			
 			$grd_type_desc=$this->form_constants->transfer_grd_type($grd->grd_type);
@@ -220,6 +221,7 @@
 			$grouped_pos=array();
 			foreach ($query_pos_list as $key => $pos) {
 				if(!array_key_exists($pos->tag->tag_num, $grouped_pos)){
+					$grouped_pos[$pos->tag->tag_num]=new stdClass();
 					$grouped_pos[$pos->tag->tag_num]->total_svalue=0;
 					$grouped_pos[$pos->tag->tag_num]->pos_list=array();
 				}
@@ -240,7 +242,7 @@
 		}
 		
 		private function __assemble_view_pos_for_calendar($pos_data){
-			$result=NULL;
+			$result=new stdClass();
 			// $result->id=$pos_data->tag->tag_num;
 			
 			// $grd_type_desc=$this->form_constants->transfer_grd_type($grd->grd_type);
@@ -263,7 +265,7 @@
 			
 			$end_day =days_in_month($query_month, $query_year);
 			
-			$month_data=NULL;
+			$month_data=new stdClass();
 			$month_data->year=$query_year;
 			$month_data->month=$query_month;
 			$month_data->start_date=$query_year.'-'.$query_month.'-01';

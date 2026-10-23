@@ -32,7 +32,7 @@
 	<body>
 		<h1>維護常用薪資附加項目</h1>
 		
-		<? echo form_open('salary/salary_default_options_action/update'); ?>
+		<?php echo form_open('salary/salary_default_options_action/update'); ?>
 			<input type="hidden" name="dsdo_num" value="<?php echo $dsdo_num?>" />
 			<div>項目類型:
 				<select id="dsdoType" name="dsdo_type">

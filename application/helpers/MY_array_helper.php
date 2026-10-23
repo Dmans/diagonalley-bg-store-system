@@ -2,7 +2,12 @@
 
 function object_sorter($data,$key_name) {
 	
+	// PHP 8: array_multisort() throws TypeError if first argument is not an array
+	if (empty($data) || !is_array($data)) {
+		return $data;
+	}
 	
+	$key_names = array();
 	foreach ($data as $key => $row) {
 	    $key_names[$key]  = $row->$key_name;
 	    // $edition[$key] = $row['edition'];

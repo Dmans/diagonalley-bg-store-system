@@ -24,7 +24,7 @@
 	</head>
 	<body  class="container-fluid">
 		<h1>查詢維護店舖</h1>
-		<? echo form_open('manage/store_action/lists', 'id="listForm"'); ?>
+		<?php echo form_open('manage/store_action/lists', 'id="listForm"'); ?>
 			<div>店舖類型:
 				<select id="stoType" name="sto_type">
 				<option value="-1" <?php echo set_select('sto_type', -1)?>>全部</option>
@@ -37,7 +37,7 @@
 		</form>
 		
 		<div>
-			<? if(isset($query_result) AND !empty($query_result)):  ?>
+			<?php if(isset($query_result) AND !empty($query_result)):  ?>
 				<h3>查詢結果</h3>
 				<table class="table table-striped table-hover table-bordered table-condensed">
 					<tr>
@@ -45,7 +45,7 @@
 						<th>店鋪名稱</th>
 						<th>店舖類型</th>
 					</tr>
-					<? foreach ($query_result as $row) : ?> 
+					<?php foreach ($query_result as $row) : ?> 
 						<tr>
 							<td>
 								<button class="btn btn-warning btn-xs editButton" sto_num=<?php echo $row->sto_num?>>維護</button>
@@ -53,11 +53,11 @@
 							<td><?php echo $row->sto_name ?></td>
 							<td><?php echo $form_constants->transfer_sto_type($row->sto_type)?></td>
 						</tr>
-					<? endforeach  ?>
+					<?php endforeach  ?>
 				</table>
-			<? else : ?>
+			<?php else : ?>
 				<h3>尚未進行查詢或查無資料</h3>
-			<? endif ?>
+			<?php endif ?>
 		</div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">

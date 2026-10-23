@@ -21,7 +21,7 @@
 	</head>
 	<body class="container-fluid">
 		<h1>維護行事曆</h1>
-		<? echo form_open('manage/calendar_action/update'); ?>
+		<?php echo form_open('manage/calendar_action/update'); ?>
 			<input type="hidden" name="cal_num" value="<?php echo $cal_num?>" />
 			<div>日期:<input id="calDate" name="cal_date" type="text" value="<?php echo set_value('cal_date', $cal_date); ?>"></div>
 			<div>日期類型:

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h3>維護公告</h3>
-		<? echo form_open('manage/manage_action/daily_update'); ?>
+		<?php echo form_open('manage/manage_action/daily_update'); ?>
 			<input type="hidden" name="ddr_num" value="<?=$ddr_num ?>" />
 			<div>公告內容:<br/>
 				<textarea name="ddr_content" cols="50" rows="10"><?=set_value('ddr_content', $ddr_content); ?></textarea>

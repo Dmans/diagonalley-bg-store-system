@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<h1>新增遊戲</h1>
-		<? echo form_open('game/game_action/game_save'); ?>
+		<?php echo form_open('game/game_action/game_save'); ?>
 			<div>遊戲中文名稱:<input type="text" name="gam_cname" maxlength="32" value="<?=set_value("gam_cname","") ?>" /></div>
 			<div>遊戲英文名稱:<input type="text" name="gam_ename" maxlength="32" value="<?=set_value("gam_ename","") ?>" /></div>
 			<!-- <div>遊戲庫存:<input type="text" name="gam_storage" maxlength="5" value="<?=set_value("gam_storage","") ?>" /></div> -->

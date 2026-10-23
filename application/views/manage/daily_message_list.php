@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<h1>店內公告欄</h1>
-		<? if(isset($top_dailys) && count($top_dailys)>0): ?>
+		<?php if(isset($top_dailys) && count($top_dailys)>0): ?>
 			<h3>置頂公告</h3>
 			<table class="list_table">
 				<tr>
@@ -17,7 +17,7 @@
 					<th width="50%">公告內容</th>
 					<th>公告者</th>
 				</tr>
-				<? foreach ($top_dailys as $key=>$row) : ?> 
+				<?php foreach ($top_dailys as $key=>$row) : ?> 
 					<tr>
 						<td><?=$row->register_date ?></td>
 						<td>
@@ -25,10 +25,10 @@
 						</td>
 						<td><?=$row->usr_name ?></td>
 					</tr>
-				<? endforeach  ?>
+				<?php endforeach  ?>
 			</table>
-		<? endif ?>
-		<? if(isset($dailys) && count($dailys)>0): ?>
+		<?php endif ?>
+		<?php if(isset($dailys) && count($dailys)>0): ?>
 			<h3>一般公告</h3>
 			<table class="list_table">
 				<tr>
@@ -36,7 +36,7 @@
 					<th width="50%">公告內容</th>
 					<th>公告者</th>
 				</tr>
-				<? foreach ($dailys as $key=>$row) : ?> 
+				<?php foreach ($dailys as $key=>$row) : ?> 
 					<tr>
 						<td><?=$row->register_date ?></td>
 						<td>
@@ -44,9 +44,9 @@
 						</td>
 						<td><?=$row->usr_name ?></td>
 					</tr>
-				<? endforeach  ?>
+				<?php endforeach  ?>
 			</table>
-		<? endif ?>
+		<?php endif ?>
 	</body>
 </html>
 

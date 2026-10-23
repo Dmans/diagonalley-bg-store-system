@@ -56,16 +56,16 @@
 	</head>
 	<body>
 		<h1>新增使用者</h1>
-		<? echo form_open('user/user_action/save'); ?>
+		<?php echo form_open('user/user_action/save'); ?>
 			<div>使用者帳號:<input type="text" name="usr_id" maxlength="32" /></div>
 			<div>使用者名稱:<input type="text" name="usr_name" maxlength="32" /></div>
 			<div>使用者密碼:<input type="password" name="usr_passwd" maxlength="32" /></div>
 			<div>確認使用者密碼:<input type="password" name="confirm_usr_passwd" maxlength="32" /></div>
 			<div>使用者信箱:<input type="text" name="usr_mail" maxlength="32" /></div>
 			<div>使用者帳號類型:
-				<? if($usr_role==0):  ?>
+				<?php if($usr_role==0):  ?>
 					<input type="radio" name="usr_role"  value="1" />店長
-				<? endif ?>
+				<?php endif ?>
 				<input type="radio" name="usr_role"  value="2" />員工
 				<input type="radio" name="usr_role"  value="4"  checked="checked" />工讀生
 <!-- 				<input type="radio" name="usr_role"  value="3"/>會員 -->
@@ -77,14 +77,14 @@
 			<!-- Only Employee need base hours -->
 			<div id="divBaseHours">使用者每月基本工時:<input type="text" name="usr_base_hours" maxlength="4" />小時</div>
 			
-			<? if($usr_role==0):  ?>
+			<?php if($usr_role==0):  ?>
 			<div id="storePermission">店舖權限:
-                <? foreach ($stores as $key=>$store): ?>
+                <?php foreach ($stores as $key=>$store): ?>
                     <input type="checkbox" id="store_<?=$key ?>"
                             name="sto_nums[]" value="<?=$store->sto_num ?>" /><?php echo $store->sto_name ?>
-                <? endforeach ?>
+                <?php endforeach ?>
             </div>
-			<? endif ?>
+			<?php endif ?>
 			<div>使用者啟用狀態:啟用</div>
 			<div>使用者備註:<br/>
 				<textarea name="usr_memo" cols="50" rows="10"></textarea>

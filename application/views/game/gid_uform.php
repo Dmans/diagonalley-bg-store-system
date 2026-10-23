@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>維護上架遊戲</h1>
-		<? echo form_open('game/game_action/gid_update'); ?>
+		<?php echo form_open('game/game_action/gid_update'); ?>
 			<input type="hidden" name="gid_num" value="<?=$gid_num ?>" />
 			<div>上架遊戲序號:<?=$gid_num ?></div>
 			<div>遊戲中文名稱:<?=$gam_cname ?></div>

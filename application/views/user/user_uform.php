@@ -79,22 +79,22 @@
 				<?php endif; ?>
     			    
 			</div>
-			<? if($usr_role==0):  ?>
+			<?php if($usr_role==0):  ?>
             <div id="storePermission">店舖權限:
-                <? foreach ($stores as $key => $store) : ?>
+                <?php foreach ($stores as $key => $store) : ?>
                     <input type="checkbox" id="store_<?php echo $key ?>"
                             name="sto_nums[]" value="<?php echo $store->sto_num ?>"
                             <?php echo (in_array($store->sto_num, $update_user->user_store_permission))?'checked="checked"':'' ?> /><?php echo $store->sto_name ?>
-                <? endforeach ?>
+                <?php endforeach ?>
             </div>
-            <? endif ?>
-            <? if($usr_role!=0):  ?>
+            <?php endif ?>
+            <?php if($usr_role!=0):  ?>
             <div id="storePermission">店舖權限:
-                <? foreach ($update_user->user_store_permission as $key => $sto_num) : ?>
+                <?php foreach ($update_user->user_store_permission as $key => $sto_num) : ?>
                     <div><?php echo $stores[$sto_num]->sto_name ?></div>
-                <? endforeach ?>
+                <?php endforeach ?>
             </div>
-            <? endif ?>
+            <?php endif ?>
 			<div>啟用狀態:
 			<?php if($usr_role<=1):  ?>
 				<input type="radio" name="usr_status"  value="0" <?php echo ($update_user->usr_status==0)?'checked="checked"':'' ?> />停用
